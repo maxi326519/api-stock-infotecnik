@@ -1,1 +1,1 @@
-# control-de-stock
+# Sistema para el control de stock
