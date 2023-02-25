@@ -1,0 +1,4 @@
+.supplier{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 100px 100px;
+}

@@ -1,0 +1,40 @@
+.container{
+  position: fixed;
+  z-index: 500;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.window{
+  margin: auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px #0006;
+}
+
+.table{
+  margin-top: 20px;
+}
+
+.firstRow{
+  color: white;
+  background-color: grey;
+}
+
+.firstRow:hover{
+  background-color: grey;
+}
+
+.row{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid grey;
+}
+
+.row:hover{
+  background-color: #0003;
+}

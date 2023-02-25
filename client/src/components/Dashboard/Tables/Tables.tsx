@@ -1,0 +1,27 @@
+import Inventory from "./InventoryTable/InventoryTable";
+import Products from "./ProductsTable/ProductsTable";
+import Supplier from "./SupplierTable/SupplierTable";
+import Invoice from "./InvoiceTable/InvoiceTable";
+
+import styles from "../Dashboard.module.css";
+
+interface Props{
+  table: number
+}
+
+export default function Tables({ table }: Props) {
+  console.log(table);
+  return (
+    <div className={styles.table}>
+      {
+        table === 1
+        ?<Inventory/>
+        :table === 2
+        ?<Products/>
+        :table === 3
+        ?<Supplier/>
+        :<Invoice/>
+      }
+    </div>
+  );
+}

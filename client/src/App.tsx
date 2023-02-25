@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import LogIn from './components/LogIn/LogIn';
 import Dashboad from './components/Dashboard/Dashboard';
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
 function App() {

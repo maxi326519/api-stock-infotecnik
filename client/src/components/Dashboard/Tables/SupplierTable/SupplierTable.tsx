@@ -1,0 +1,65 @@
+import { useEffect, useState } from "react";
+import { State, Supplier } from "../../../../interfaces";
+
+import SupplierRows from "./SupplierRows/SupplierRows";
+import Form from "./Form/Form";
+
+import styles from "../../Dashboard.module.css";
+import style from "./SupplierTable.module.css";
+import { useSelector } from "react-redux";
+
+/* interface Rows {
+  suppliers: Array<[Supplier]>
+} */
+
+export default function SupplierTable() {
+  const supplier = useSelector((state:State) => state.suppliers);
+  const [rows, setRows] = useState<any>([]);
+  const [form, setForm] = useState(false);
+
+  useEffect(() => {
+    setRows(supplier);
+  },[supplier])
+
+  function handleForm(): void {
+    console.log(form);
+    setForm(!form);
+  }
+
+  return (
+    <div className={styles.dashboardList}>
+      {form ? <Form handleForm={handleForm} /> : null}
+      <h3>Listado de proveedores</h3>
+      <div className={styles.dashboardList__searchBar}>
+        <input className="form-control" placeholder="Buscar proveedor" />
+        <button className="btn btn-success" onClick={handleForm}>
+          <span>Agregar proveedor</span>
+        </button>
+      </div>
+      <div className={styles.dashboardList__grid}>
+        <div className={`${style.card} ${styles.firstrow}`}>
+          <span>Codigo</span>
+          <span>Nombre</span>
+          <span>Direccion</span>
+          <span>CP y Poblacion</span>
+          <span>CIF / NIF</span>
+          <span>Editar</span>
+          <span>Eliminar</span>
+        </div>
+        <div className={styles.contentCard}>
+          {rows.length <= 0 ? (
+            <div className={styles.listEmpty}>
+              <span>No hay Proveedores</span>
+              <span>¿Quieres agregar uno?</span>
+              <button className="btn btn-success" onClick={handleForm}>
+                <span>Agregar proveedor</span>
+              </button>
+            </div>
+          ) : (
+            rows?.map((s: Supplier) => <SupplierRows supplier={s}/>)
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
