@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { postInventory } from "../../../../../redux/actions";
-import {
-  Inventory,
-  tipoImpositivo,
-  BarCode
-} from "../../../../../interfaces";
+import { Inventory, tipoImpositivo, BarCode } from "../../../../../interfaces";
 
 import AddProduct from "./AddProduct/AddProduct";
 import AddSupplier from "./AddSupplier/AddSupplier";
@@ -33,13 +29,15 @@ export default function Form({ handleForm }: Props) {
   };
 
   const [inventory, setInventory] = useState<Inventory>(initialState);
-  const [addProducts, setProducts] = useState<boolean>(false);
-  const [addSupplier, setSuppliers] = useState<boolean>(false);
+  const [addProducts, setFormProducts] = useState<boolean>(false);
+  const [addSupplier, setFormSuppliers] = useState<boolean>(false);
+  const [productsSelected, setProduct] = useState<string[]>([]);
+  const [supplierSelected, setSupplier] = useState<number>(0);
   const dispatch = useDispatch();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>){
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-/*     try{
+    /*     try{
       dispatch(postInventory(inventory))
       handleClose();
       swal("Guardado", "Su inventario se guardo correctamente", "success");
@@ -63,21 +61,35 @@ export default function Form({ handleForm }: Props) {
     setInventory({ ...inventory, [event.target.name]: event.target.value });
   }
 
-  function handleAddProduct(){
-    setProducts(!addProducts);
+  function handleFormProduct(): void {
+    setFormProducts(!addProducts);
   }
 
-  function handleAddSuppliers(){
-    setSuppliers(!addSupplier);
+  function handleFormSuppliers(): void {
+    setFormSuppliers(!addSupplier);
   }
 
   return (
     <div className={style.container}>
-      { addProducts ? <AddProduct handleAddProduct={handleAddProduct}/> : null }
-      { addSupplier ? <AddSupplier handleAddSuppliers={handleAddSuppliers}/> : null }
+      {addProducts ? (
+        <AddProduct
+          productsSelected={productsSelected}
+          setProduct={setProduct}
+          handleClose={handleFormProduct}
+        />
+      ) : null}
+      {addSupplier ? (
+        <AddSupplier
+          supplierSelected={supplierSelected}
+          setSupplier={setSupplier}
+          handleClose={handleFormSuppliers}
+        />
+      ) : null}
       <form className={style.form} onSubmit={handleSubmit}>
         <div>
-          <button className="btn btn-" onClick={handleClose}>X</button>
+          <button className="btn btn-" onClick={handleClose}>
+            X
+          </button>
         </div>
         <div className={style.inputs}>
           <h4>Agregar inventario</h4>
@@ -111,9 +123,15 @@ export default function Form({ handleForm }: Props) {
             </div>
           </div>
 
-          <button className="btn btn-success" onClick={handleAddProduct}>Agregar productos</button>
-          <button className="btn btn-success" onClick={handleAddSuppliers}>Agregar proveedor</button>
-          <button type="submit" className="btn btn-success">Agregar</button>
+          <button className="btn btn-success" onClick={handleFormProduct}>
+            Agregar productos
+          </button>
+          <button className="btn btn-success" onClick={handleFormSuppliers}>
+            Agregar proveedor
+          </button>
+          <button type="submit" className="btn btn-success">
+            Agregar
+          </button>
         </div>
       </form>
     </div>

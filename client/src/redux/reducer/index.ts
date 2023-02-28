@@ -40,7 +40,7 @@ const initialState = {
     cifNif: "1234",
     phone: "1199999999",
   },{
-    code: 123132,
+    code: 432165,
     name: "Proveedor2",
     address: "Direccion 4321",
     poblation: "4321",

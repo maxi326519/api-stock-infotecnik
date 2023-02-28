@@ -1,4 +1,4 @@
-.container{
+.container {
   position: fixed;
   z-index: 500;
   top: 0;
@@ -8,7 +8,7 @@
   height: 100vh;
 }
 
-.window{
+.window {
   margin: auto;
   padding: 30px;
   background-color: white;
@@ -16,25 +16,33 @@
   box-shadow: 0 0 10px 5px #0006;
 }
 
-.table{
+.table {
   margin-top: 20px;
 }
 
-.firstRow{
+.firstRow {
   color: white;
   background-color: grey;
 }
 
-.firstRow:hover{
-  background-color: grey;
-}
-
-.row{
+.row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid grey;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid #0006;
 }
 
-.row:hover{
+.selected {
+  background-color: red;
+}
+
+.row:hover {
   background-color: #0003;
+}
+
+.selected:hover{
+  background-color: #ff0000aa;
+}
+
+.firstRow:hover {
+  background-color: grey;
 }

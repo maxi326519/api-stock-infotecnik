@@ -5,16 +5,33 @@ import { Supplier, State } from "../../../../../../interfaces";
 import style from "./AddSupplier.module.css";
 
 interface Props {
-  handleAddSuppliers: () => void;
+  supplierSelected: number;
+  setSupplier: (selected: number) => void;
+  handleClose: () => void;
 }
 
-export default function AddSupplier({ handleAddSuppliers }: Props) {
+export default function AddSupplier({
+  supplierSelected,
+  setSupplier,
+  handleClose,
+}: Props) {
   const suppliers: Supplier[] = useSelector((state: State) => state.suppliers);
-  const [rows, setRows] = useState<Supplier[]>();
+  const [rows, setRows] = useState<Supplier[]>([]);
+  const [selected, setSelected] = useState<number>(0);
+
+  useEffect(() => {
+    setSelected(supplierSelected);
+  }, []);
 
   useEffect(() => {
     setRows(suppliers);
   }, [suppliers]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    setSupplier(selected);
+    handleClose();
+  }
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -22,34 +39,47 @@ export default function AddSupplier({ handleAddSuppliers }: Props) {
     setRows(
       suppliers.filter((p: Supplier) => {
         if (value === "") return true;
-        if (value === p.code.toString()) return true;
-        if (value.toLocaleLowerCase() === p.name.toLocaleLowerCase())
+        if (p.code.toString() === value) return true;
+        if (p.name.toLowerCase().includes(value.toLowerCase())) return true;
+        if (p.address.toLowerCase().includes(value.toLowerCase())) return true;
+        if (p.poblation.toLowerCase().includes(value.toLowerCase()))
           return true;
-        if (value.toLocaleLowerCase() === p.address.toLocaleLowerCase())
-          return true;
-        if (value.toLocaleLowerCase() === p.poblation.toLocaleLowerCase())
-          return true;
-        if (value.toLocaleLowerCase() === p.cifNif.toLocaleLowerCase())
-          return true;
-        if (value.toLocaleLowerCase() === p.phone.toLocaleLowerCase())
-          return true;
+        if (p.cifNif.toLowerCase().includes(value.toLowerCase())) return true;
+        if (p.phone.toLowerCase().includes(value.toLowerCase())) return true;
         return false;
       })
     );
   }
 
+  function handleSelect(
+    event: React.MouseEvent<HTMLDivElement>,
+    code: number
+  ): void {
+    // Verificamos si ya existe el producto en la lista
+    if (selected !== code) {
+      setSelected(code);
+    } else {
+      // Si existe lo eliminamos
+      setSelected(0);
+    }
+  }
+
   return (
     <div className={style.container}>
-      <div className={style.window}>
+      <form className={style.window} onSubmit={handleSubmit}>
         <div className={style.searchBar}>
           <div>
-            <button className="btn btn-danger" onClick={handleAddSuppliers}>
+            <button className="btn btn-danger" onClick={handleClose}>
               X
             </button>
           </div>
           <div>
             <label htmlFor="search"></label>
-            <input id="search" placeholder="Buscar un proveedor" />
+            <input
+              id="search"
+              placeholder="Buscar un proveedor"
+              onChange={handleSearch}
+            />
           </div>
           <div className={style.table}>
             <div className={`${style.row} ${style.firstRow}`}>
@@ -60,19 +90,27 @@ export default function AddSupplier({ handleAddSuppliers }: Props) {
               <span>Telefono</span>
             </div>
             <div>
-              {rows?.map((p: Supplier) => (
-                <div className={style.row}>
-                  <span>{p.name}</span>
-                  <span>{p.address}</span>
-                  <span>{p.poblation}</span>
-                  <span>{p.cifNif}</span>
-                  <span>{p.phone}</span>
+              {rows?.map((supplier: Supplier) => (
+                <div
+                  className={`${style.row} ${
+                    selected === supplier.code ? style.selected : ""
+                  }`}
+                  onClick={(e) => handleSelect(e, supplier.code)}
+                >
+                  <span>{supplier.name}</span>
+                  <span>{supplier.address}</span>
+                  <span>{supplier.poblation}</span>
+                  <span>{supplier.cifNif}</span>
+                  <span>{supplier.phone}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </div>
+        <button className="btn btn-success" type="submit">
+          Agregar
+        </button>
+      </form>
     </div>
   );
 }

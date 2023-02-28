@@ -25,16 +25,24 @@
   background-color: grey;
 }
 
-.firstRow:hover{
-  background-color: grey;
-}
-
 .row{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border: 1px solid grey;
 }
 
-.row:hover{
+.selected {
+  background-color: red;
+}
+
+.row:hover {
   background-color: #0003;
+}
+
+.selected:hover{
+  background-color: #ff0000aa;
+}
+
+.firstRow:hover {
+  background-color: grey;
 }
