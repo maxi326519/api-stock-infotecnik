@@ -4,9 +4,9 @@
   grid-template-rows: 1fr;
   gap: 10px;
   padding: 10px;
-  outline: 1px solid #ccc;
+  outline: 1px solid var(--border);
 }
 
 .card span{
-  border-right: 1px solid #ccc;
+  border-right: 1px solid var(--border);
 }

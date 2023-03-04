@@ -42,12 +42,12 @@ export default function Details({ product, handleDetails }: Props) {
             <div className="form-floating">
               <input
                 className="form-control"
-                id="barCode"
+                id="id"
                 type="text"
-                value={product.barCode}
+                value={product.id}
                 disabled={isDisabled}
               />
-              <label htmlFor="barCode">Codigo de Barras</label>
+              <label htmlFor="id">ID</label>
             </div>
 
             <div className="form-floating">

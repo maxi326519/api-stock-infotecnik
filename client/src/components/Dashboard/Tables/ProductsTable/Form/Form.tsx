@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postProduct } from "../../../../../redux/actions";
 import { Product } from "../../../../../interfaces";
@@ -12,7 +12,7 @@ interface Props {
 
 export default function Form({ handleForm }: Props) {
   const initialState: Product = {
-    barCode: "",
+    id: "",
     modelo: "",
     marca: "",
     color: "",
@@ -59,13 +59,13 @@ export default function Form({ handleForm }: Props) {
         </div>
         <h4>Agregar productos</h4>
         <div className={style.inputs}>
-          <label htmlFor="barCode">Codigo de barras</label>
+          <label htmlFor="id">ID</label>
           <input
-            id="barCode"
-            name="barCode"
+            id="id"
+            name="id"
             className=""
             type="text"
-            value={product.barCode}
+            value={product.id}
             onChange={handleChange}
           />
 

@@ -1,16 +1,79 @@
-.sideBar{
+.sideBar {
   display: flex;
-  flex-direction: column ;
-  background-color: red;
+  flex-direction: column;
+  background-color: var(--panel);
+  color: white;
 }
 
-.user{
-  padding: 10px;
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-color: #0002;
 }
 
-.user img{
-  width: 50px;
-  height: 50px;
+.containerImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  background-color: blue;
+  border: 1px solid var(--background);
+  background-color: var(--panel);
+}
+
+.containerImg img {
+  width: 50%;
+  height: 50%;
+  filter: invert(50%);
+}
+
+.containerImg:hover {
+  cursor: pointer;
+  border-color: var(--primary-color);
+}
+
+.sideBar button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  border: none;
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 18px;
+  border-top: 1px solid var(--panel);
+  border-bottom: 1px solid var(--panel);
+  border-left: 5px solid var(--panel);
+  background-color: inherit;
+  color: gray;
+}
+
+.sideBar button img{
+  width: 20px;
+  margin-right: 10px;
+  filter: invert(50%)
+}
+
+
+.sideBar button:hover {
+  color: var(--primary-color);
+  filter: brightness(80%);
+}
+
+.sideBar button:hover img{
+  filter: invert(100%);
+}
+
+.sideBar .selected {
+  color: var(--primary-color);
+  filter: brightness(90%);
+  border-color: var(--background);
+  border-left: 5px solid var(--primary-color);
+}
+
+.sideBar .selected img{
+  filter: invert(100%);
 }

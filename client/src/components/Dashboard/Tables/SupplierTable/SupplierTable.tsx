@@ -29,10 +29,10 @@ export default function SupplierTable() {
   return (
     <div className={styles.dashboardList}>
       {form ? <Form handleForm={handleForm} /> : null}
-      <h3>Listado de proveedores</h3>
+      <h3>Proveedores</h3>
       <div className={styles.dashboardList__searchBar}>
-        <input className="form-control" placeholder="Buscar proveedor" />
-        <button className="btn btn-success" onClick={handleForm}>
+        <input className="form-control" type="search" placeholder="Buscar proveedor" />
+        <button className="btn btn-primary" type="button" onClick={handleForm}>
           <span>Agregar proveedor</span>
         </button>
       </div>
@@ -41,7 +41,9 @@ export default function SupplierTable() {
           <span>Codigo</span>
           <span>Nombre</span>
           <span>Direccion</span>
-          <span>CP y Poblacion</span>
+          <span>Telefono</span>
+          <span>CP</span>
+          <span>Poblacion</span>
           <span>CIF / NIF</span>
           <span>Editar</span>
           <span>Eliminar</span>
@@ -51,7 +53,7 @@ export default function SupplierTable() {
             <div className={styles.listEmpty}>
               <span>No hay Proveedores</span>
               <span>¿Quieres agregar uno?</span>
-              <button className="btn btn-success" onClick={handleForm}>
+              <button className="btn btn-primary" onClick={handleForm}>
                 <span>Agregar proveedor</span>
               </button>
             </div>

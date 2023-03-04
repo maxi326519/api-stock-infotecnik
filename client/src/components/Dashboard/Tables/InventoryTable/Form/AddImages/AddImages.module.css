@@ -1,0 +1,28 @@
+.container{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0004;
+}
+
+.close{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form{
+  min-width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.form h4{
+  margin-bottom: 30px;
+}

@@ -1,38 +1,65 @@
-.App {
-  text-align: center;
+:root {
+  --primary-color: #6433cc;
+  --primary-color--transp: #6433cc44;
+
+  --background: #0d1117;
+  --panel: #21262d;
+  --border: #445566;
+  --font: white;
+
+/*   --background: #ccc;
+  --panel: #fff;
+  --border: #aaa;
+  --font: black;
+  */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn-primary {
+  border-color: var(--border);
+  background-color: var(--primary-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.btn-primary:hover{
+  filter: brightness(85%);
+  background-color: var(--primary-color);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.btn-primary:active{
+  filter: brightness(70%);
+  background-color: var(--primary-color);
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary:focus{
+  background-color: var(--primary-color);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover{
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.btn-outline-primary:active{
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.btn-outline-primary:focus{
+  background-color: var(--primary-color);
+}
+
+input,
+input:focus,
+input:active,
+select,
+select:focus,
+select:active,
+.form-floating{
+  background-color: #0002;
+  color: var(--font);
 }

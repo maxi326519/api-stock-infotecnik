@@ -67,29 +67,35 @@ export default function AddSupplier({
   return (
     <div className={style.container}>
       <form className={style.window} onSubmit={handleSubmit}>
-        <div className={style.searchBar}>
+        <div className={style.close}>
+          <h4>Proveedor</h4>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={handleClose}
+          >
+            X
+          </button>
+        </div>
+        <div className={style.searchData}>
           <div>
-            <button className="btn btn-danger" onClick={handleClose}>
-              X
-            </button>
-          </div>
-          <div>
-            <label htmlFor="search"></label>
             <input
               id="search"
+              className="form-control"
+              type="search"
               placeholder="Buscar un proveedor"
               onChange={handleSearch}
             />
           </div>
           <div className={style.table}>
-            <div className={`${style.row} ${style.firstRow}`}>
+            <div className={style.firstRow}>
               <span>Nombre</span>
               <span>Direccion</span>
               <span>Poblacion</span>
               <span>CIF / NIF</span>
               <span>Telefono</span>
             </div>
-            <div>
+            <div className={style.data}>
               {rows?.map((supplier: Supplier) => (
                 <div
                   className={`${style.row} ${

@@ -1,4 +1,4 @@
-.container{
+.container {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -7,25 +7,95 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #0004;
+  background-color: #0006;
 }
 
-.form{
-  width: 500px;
+.container input,
+.container input:focus,
+.container input:active,
+.container select,
+.container select:focus,
+.container select:active,
+.form-floating{
+  background-color: #0002;
+  color: var(--font);
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.close h4 {
+  flex-grow: 1;
+  margin: none;
+}
+
+.form {
+  min-width: 600px;
   padding: 20px;
   border-radius: 10px;
-  background-color: white;
+  border: 1px solid var(--border);
+  color: var(--font);
+  background-color: var(--panel);
 }
 
-.inputs{
+.form .data {
   display: flex;
   flex-direction: column;
 }
 
-.barCodeData{
+.flex{
   display: flex;
 }
 
-.barCodeData input{
+.dataRight{
   display: flex;
+  flex-direction: column;
+}
+
+.form button[type="submit"] {
+  margin-top: 30px;
+}
+
+.barCodeData {
+  display: flex;
+}
+
+.barCodeData input {
+  display: flex;
+}
+
+.containerButton {
+  display: flex;
+  justify-content: center;
+}
+
+.containerButton img {
+  width: 50px;
+  margin-right: 20px;
+  filter: invert(19%) sepia(64%) saturate(4599%) hue-rotate(256deg)
+    brightness(84%) contrast(89%);
+}
+
+.containerButton button {
+  background-color: #0004;
+}
+
+.containerButton button:hover img {
+  filter: invert(100%);
+}
+
+.containerButton button {
+  padding: 20px;
+  font-size: 20px;
+}
+
+.containerButton button:first-child {
+  margin-right: 20px;
+}
+
+.container form-floating{
+  border: 1px solid var(--border);
 }

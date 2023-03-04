@@ -31,10 +31,10 @@ export default function ProductTable() {
     <div className={styles.dashboardList}>
       {form ? <Form handleForm={handleForm} /> : null}
       {details ? <Details product={products[0]} handleDetails={handleDetails} /> : null}
-      <h3>Listado de productos</h3>
+      <h3>Poductos</h3>
       <div className={styles.dashboardList__searchBar}>
-        <input className="form-control" placeholder="Buscar producto" />
-        <button className="btn btn-success" onClick={handleForm}>
+        <input className="form-control" type="search"  placeholder="Buscar producto" />
+        <button className="btn btn-primary" type="button" onClick={handleForm}>
           Agregar producto
         </button>
       </div>
@@ -52,7 +52,7 @@ export default function ProductTable() {
             <div className={styles.listEmpty}>
               <span>No hay productos</span>
               <span>¿Quieres agregar uno?</span>
-              <button className="btn btn-success" onClick={handleForm}>
+              <button className="btn btn-primary" onClick={handleForm}>
                 Agregar producto
               </button>
             </div>

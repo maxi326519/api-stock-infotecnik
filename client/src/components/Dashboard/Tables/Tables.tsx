@@ -10,7 +10,6 @@ interface Props{
 }
 
 export default function Tables({ table }: Props) {
-  console.log(table);
   return (
     <div className={styles.table}>
       {

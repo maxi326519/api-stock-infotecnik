@@ -1,14 +1,14 @@
-import { POST_PRODUCT, POST_SUPPLIER, POST_INVENTORY } from "../actions";
-import { State, User, Product, Supplier, Inventory, Invoices } from "../../interfaces";
+import { POST_PRODUCT, POST_SUPPLIER, POST_STOCK } from "../actions";
+import { State } from "../../interfaces";
 import { AnyAction } from "redux";
 
-const initialState = {
+const initialState: State = {
   user: {
     name: " Cargando"
   },
   products: [
     {
-      barCode: "C001",
+      id: "C001",
       marca: "Samsung",
       modelo: "Galaxy Z Fold4",
       color: "Graygreen",
@@ -20,9 +20,57 @@ const initialState = {
       familia: "celulares"
     },
     {
-      barCode: "B021",
+      id: "B021",
       marca: "Lenovo",
       modelo: "Lenovo 842p",
+      color: "Gris",
+      capacidad: "1tb",
+      descripcionLarga: "descripcion larga",
+      descripcionCorta: "descripcion corta",
+      estado: "",
+      imgGenerica: "",
+      familia: "compuadoras"
+    },
+    {
+      id: "N021",
+      marca: "Apple",
+      modelo: "Iphone 13",
+      color: "Gris",
+      capacidad: "1tb",
+      descripcionLarga: "descripcion larga",
+      descripcionCorta: "descripcion corta",
+      estado: "",
+      imgGenerica: "",
+      familia: "compuadoras"
+    },
+    {
+      id: "R021",
+      marca: "Asus",
+      modelo: "Rock",
+      color: "Gris",
+      capacidad: "1tb",
+      descripcionLarga: "descripcion larga",
+      descripcionCorta: "descripcion corta",
+      estado: "",
+      imgGenerica: "",
+      familia: "compuadoras"
+    },
+    {
+      id: "S021",
+      marca: "Razer",
+      modelo: "Viper Mini",
+      color: "Gris",
+      capacidad: "1tb",
+      descripcionLarga: "descripcion larga",
+      descripcionCorta: "descripcion corta",
+      estado: "",
+      imgGenerica: "",
+      familia: "compuadoras"
+    },
+    {
+      id: "L021",
+      marca: "Logitech",
+      modelo: "G346",
       color: "Gris",
       capacidad: "1tb",
       descripcionLarga: "descripcion larga",
@@ -47,7 +95,7 @@ const initialState = {
     cifNif: "4321",
     phone: "1199999999",
   }],
-  inventory: [],
+  stock: [],
   invoices: [],
 };
 
@@ -64,7 +112,7 @@ export function Reducer(state: State = initialState, action: AnyAction) {
         ...state,
         suppliers: [...state.suppliers, action.payload],
       };
-    case POST_INVENTORY:
+    case POST_STOCK:
       return {
         ...state,
         inventory: [...state.suppliers, action.payload],

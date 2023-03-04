@@ -1,30 +1,15 @@
-import { User, Product, Supplier, Inventory, Invoices } from "../../interfaces";
+import { Product, Supplier, Stock } from "../../interfaces";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000/";
 
 export const POST_PRODUCT = "POST_PRODUCT";
 export const POST_SUPPLIER = "POST_SUPPLIER";
-export const POST_INVENTORY = "POST_INVENTORY";
+export const POST_STOCK = "POST_STOCK";
 
-interface disAddInventory {
-  type: string;
-  payload: Inventory;
-}
-
-interface disAddProduct {
-  type: string;
-  payload: Product;
-}
-
-interface disAddSupplier {
-  type: string;
-  payload: Supplier;
-}
-
-export function postInventory(newInventory: Inventory) {
+export function postInventory(newInventory: Stock) {
   return {
-    type: POST_INVENTORY,
+    type: POST_STOCK,
     payload: newInventory,
   };
 }

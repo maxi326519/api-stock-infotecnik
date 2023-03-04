@@ -1,10 +1,20 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postInventory } from "../../../../../redux/actions";
-import { Inventory, tipoImpositivo, BarCode } from "../../../../../interfaces";
+import {
+  Stock,
+  tipoImpositivo,
+  State,
+  Invoices,
+} from "../../../../../interfaces";
 
 import AddProduct from "./AddProduct/AddProduct";
 import AddSupplier from "./AddSupplier/AddSupplier";
+import ProductData from "./ProductData/ProductData";
+import InvoiceData from "./InvoiceData/InvoiceData";
+import SupplierData from "./SupplierData/SupplierData";
+import products from "../../../../assets/svg/products.svg";
+import supplier from "../../../../assets/svg/supplier.svg";
 
 import style from "./Form.module.css";
 import swal from "sweetalert";
@@ -13,27 +23,51 @@ interface Props {
   handleForm: () => void;
 }
 
-export default function Form({ handleForm }: Props) {
-  const initialState: Inventory = {
-    barCode: "",
-    supplier: 0,
-    product: 0,
-    price: 0,
-    amount: 0,
-    invoiceNumber: 0,
-    invoiceFile: "",
-    tipoImpositivo: tipoImpositivo.IVA,
-    precioCompraIVA: 0,
-    precioCompraSIVA: 0,
-    precioVentaIVA: 0,
-  };
+const initialState: Invoices = {
+  product: 0,
+  supplier: 0,
+  equivalencia: 0,
+  tipoImpositivo: tipoImpositivo.IVA,
+  precioCompraIVA: 0,
+  precioCompraSIVA: 0,
+  precioVentaIVA: 0,
+  invoiceNumber: 0,
+  invoiceFile: "",
+};
 
-  const [inventory, setInventory] = useState<Inventory>(initialState);
-  const [addProducts, setFormProducts] = useState<boolean>(false);
-  const [addSupplier, setFormSuppliers] = useState<boolean>(false);
+const initialStock: Stock = {
+  typeBarCode: "",
+  barCode: 0,
+  supplier: 0,
+  invoice: 0,
+  product: "",
+  price: 0,
+  amount: 0,
+  type: "",
+  img: [],
+  status: 0,
+  nro: 0,
+};
+
+export default function Form({ handleForm }: Props) {
+  const invoices = useSelector((state: State) => state.invoices);
+
   const [productsSelected, setProduct] = useState<string[]>([]);
   const [supplierSelected, setSupplier] = useState<number>(0);
+  const [stock, setStock] = useState<Stock[]>([]); // Datos de los productos seleccionados
+  const [invoice, setInvoice] = useState<Invoices>(initialState); // Datos de la factura
+
+  const [addProducts, setFormProducts] = useState<boolean>(false); //
+  const [addSupplier, setFormSuppliers] = useState<boolean>(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setStock(
+      productsSelected.map((p) => {
+        return { ...initialStock, product: p };
+      })
+    );
+  }, [productsSelected]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -48,19 +82,13 @@ export default function Form({ handleForm }: Props) {
 
   function handleClose(): void {
     handleForm();
-    setInventory(initialState);
+    setProduct([]);
+    setSupplier(0);
+    setStock([]);
+    setInvoice(initialState);
   }
 
-  function handleIputChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setInventory({ ...inventory, [event.target.name]: event.target.value });
-  }
-
-  function handleSelectChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    setInventory({ ...inventory, [event.target.name]: event.target.value });
-  }
-
+  /* Formularios */
   function handleFormProduct(): void {
     setFormProducts(!addProducts);
   }
@@ -86,52 +114,49 @@ export default function Form({ handleForm }: Props) {
         />
       ) : null}
       <form className={style.form} onSubmit={handleSubmit}>
-        <div>
-          <button className="btn btn-" onClick={handleClose}>
+        <div className={style.close}>
+          <h4>Agregar inventario</h4>
+          <button className="btn btn-danger" onClick={handleClose}>
             X
           </button>
         </div>
-        <div className={style.inputs}>
-          <h4>Agregar inventario</h4>
-          <hr></hr>
-          <h5>Productos</h5>
-          <div className={style.barCodeData}>
-            <div className="form-floating mb-3">
-              <select
-                id="type"
-                className="form-select"
-                value=""
-                onChange={handleSelectChange}
-              >
-                <option value={BarCode.Coded128}>Coded128</option>
-                <option value={BarCode.Code39}>Code39</option>
-                <option value={BarCode.UPCA}>UPCA</option>
-                <option value={BarCode.UPCE}>UPCE</option>
-                <option value={BarCode.EAN8}>EAN8</option>
-                <option value={BarCode.EAN13}>EAN13</option>
-              </select>
-              <label htmlFor="type">Tipo</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                id="barCode"
-                className="form-control"
-                value=""
-                onChange={handleIputChange}
-              />
-              <label htmlFor="barCode">Codigo de barras</label>
-            </div>
-          </div>
+        <div className={style.data}>
+          <div className={style.flex}>
+            <div className={style.dataRight}>
+              <div className={style.containerButton}>
+                <button
+                  className="btn btn-outline-primary"
+                  type="button"
+                  onClick={handleFormProduct}
+                >
+                  <img src={products} alt="products" />
+                  <span>Productos</span>
+                </button>
+                <button
+                  className="btn btn-outline-primary"
+                  type="button"
+                  onClick={handleFormSuppliers}
+                >
+                  <img src={supplier} alt="supplier" />
+                  <span>Proveedor</span>
+                </button>
+              </div>
 
-          <button className="btn btn-success" onClick={handleFormProduct}>
-            Agregar productos
-          </button>
-          <button className="btn btn-success" onClick={handleFormSuppliers}>
-            Agregar proveedor
-          </button>
-          <button type="submit" className="btn btn-success">
-            Agregar
-          </button>
+              <InvoiceData />
+              {supplierSelected !== 0 ? <SupplierData /> : null}
+              <button type="submit" className="btn btn-success">
+                Agregar inventario
+              </button>
+            </div>
+            {/* Products */}
+            {productsSelected.length > 0 ? (
+              <ProductData
+                productsSelected={productsSelected}
+                stock={stock}
+                setStock={setStock}
+              />
+            ) : null}
+          </div>
         </div>
       </form>
     </div>

@@ -14,7 +14,7 @@ export default function Dashboad() {
 
   return (
     <div className={styles.dashboard}>
-      <SideBar changeTable={changeTable}/>
+      <SideBar table={table} changeTable={changeTable}/>
       <Tables table={table} />
     </div>
   );

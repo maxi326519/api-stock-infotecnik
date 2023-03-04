@@ -3,7 +3,7 @@ export interface User{
 }
 
 export interface Product {
-  barCode: string;
+  id: string;
   modelo: string;
   marca: string;
   color: string;
@@ -24,18 +24,30 @@ export interface Supplier {
   phone: string;
 }
 
-export interface Inventory {
-  barCode: string;
+export interface Stock{
+  typeBarCode: string;
+  barCode: number;
   supplier: number;
-  product: number;
+  invoice: number;
+  product: string;
   price: number;
   amount: number;
-  invoiceNumber: number;
-  invoiceFile: string;
+  type: string;/* enum[IMEI, nroSerie] */
+  img: Array<string>;
+  status: number;
+  nro: number;
+}
+
+export interface Invoices{
+  product: number;
+  supplier: number;
+  equivalencia: number;
   tipoImpositivo: tipoImpositivo;
   precioCompraIVA: number;
   precioCompraSIVA: number;
   precioVentaIVA: number;
+  invoiceNumber: number;
+  invoiceFile: string;
 }
 
 export enum tipoImpositivo {
@@ -54,14 +66,10 @@ export enum BarCode{
   EAN13
 }
 
-export interface Invoices {
-  name: string
-}
-
 export interface State {
   user: User;
   products: Array<Product>;
   suppliers: Array<Supplier>;
-  inventory: Array<Inventory>;
+  stock: Array<Stock>;
   invoices: Array<Invoices>;
 }

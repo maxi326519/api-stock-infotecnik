@@ -12,7 +12,9 @@ export default function SupplieRows({ supplier }: Props) {
       <span>{supplier.code}</span>
       <span>{supplier.name}</span>
       <span>{supplier.address}</span>
+      <span>{}</span>
       <span>{supplier.poblation}</span>
+      <span>{}</span>
       <span>{supplier.cifNif}</span>
       <button>Editar</button>
       <button>Eliminar</button>

@@ -2,7 +2,8 @@
   display: flex;
   width: 100%;
   height: 100vh;
-  background-color: grey
+  background-color: var(--background);
+  color: var(--font);
 }
 
 .table{
@@ -17,8 +18,7 @@
   flex-direction: column;
   padding: 20px;
   border-radius: 10px;
-  outline: 1px solid #ccc;
-  background: white;
+  background: var(--panel);
 }
 
 .dashboardList__searchBar {
@@ -26,8 +26,26 @@
   margin: 20px 0px;
 }
 
-.dashboardList__searchBar input {
+.dashboardList__searchBar input[type="search"] {
   max-width: 500px;
+}
+
+input[type="search"] {
+  border-color: var(--border);
+  background-color: #0004;
+  color: var(--font);
+}
+
+input[type="search"]:focus{
+  border-color: var(--border);
+  background-color: #0002;
+  color: var(--font);
+}
+
+input[type="search"]:active{
+  border-color: var(--border);
+  background-color: #0002;
+  color: var(--font);
 }
 
 .dashboardList__searchBar button {
@@ -44,7 +62,7 @@
 .dashboardList__grid {
   flex-grow: 1;
   border-radius: 10px;
-  outline: 1px solid #ccc;
+  outline: 1px solid var(--border);
   overflow: hidden;
 }
 

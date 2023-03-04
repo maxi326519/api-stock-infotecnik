@@ -21,8 +21,8 @@ export default function InventoryTable() {
       {form ? <Form handleForm={handleForm} /> : null}
       <h3>Inventario</h3>
       <div className={styles.dashboardList__searchBar}>
-        <input className="form-control" placeholder="Buscar inventario" />
-        <button className="btn btn-success" onClick={handleForm}>
+        <input className="form-control" type="search"  placeholder="Buscar inventario" />
+        <button className="btn btn-primary" type="button"  onClick={handleForm}>
           Agregar inventario
         </button>
       </div>
@@ -54,7 +54,7 @@ export default function InventoryTable() {
             <div className={styles.listEmpty}>
               <span>No hay inventario</span>
               <span>¿Quieres agregar uno?</span>
-              <button className="btn btn-success" onClick={handleForm}>
+              <button className="btn btn-primary" onClick={handleForm}>
                 Agregar Inventario
               </button>
             </div>

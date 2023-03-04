@@ -38,7 +38,7 @@ export default function AddProduct({
     setRows(
       products.filter((p: Product) => {
         if (value === "") return true;
-        if (p.barCode.toLowerCase().includes(value.toLowerCase())) return true;
+        if (p.id.toLowerCase().includes(value.toLowerCase())) return true;
         if (p.modelo.toLowerCase().includes(value.toLowerCase())) return true;
         if (p.marca.toLowerCase().includes(value.toLowerCase())) return true;
         if (p.color.toLowerCase().includes(value.toLowerCase())) return true;
@@ -51,61 +51,68 @@ export default function AddProduct({
     );
   }
 
-  function handleSelect(
-    event: React.MouseEvent<HTMLDivElement>,
-    barCode: string
-  ): void {
+  function handleSelect(id: string): void {
     // Verificamos si ya existe el producto en la lista
-    if (!selected.find((s) => s === barCode)) {
+    if (!selected.find((s) => s.toLowerCase() === id.toLowerCase())) {
       const newSelect = rows.find(
-        (r) => barCode.toLowerCase() === r.barCode.toLowerCase()
+        (r) => id.toLowerCase() === r.id.toLowerCase()
       );
 
       // Verificamos si no pudo encontrar nada
       if (newSelect !== undefined) {
-        setSelected([...selected, newSelect.barCode]);
+        setSelected([...selected, newSelect.id]);
       }
     } else {
       // Si existe lo eliminamos
-      setSelected(selected.filter((s) => s !== barCode));
+      setSelected(selected.filter((s) => s !== id));
     }
   }
 
   return (
     <div className={style.container}>
       <form className={style.window} onSubmit={handleSubmit}>
-        <div className={style.searchBar}>
-          <div>
-            <button className="btn btn-danger" onClick={handleClose}>
-              X
-            </button>
-          </div>
-          <div>
+        <div className={style.close}>
+          <h4>Productos</h4>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={handleClose}
+          >
+            X
+          </button>
+        </div>
+        <div className={style.searchData}>
+          <div className={style.search}>
             <label htmlFor="search"></label>
             <input
+              className="form-control"
               id="search"
+              type="search"
               placeholder="Buscar un producto"
               onChange={handleSearch}
             />
+            <button className="btn btn-success" type="button">
+              Temporal
+            </button>
           </div>
 
           <div className={style.table}>
-            <div className={`${style.row} ${style.firstRow}`}>
+            <div className={style.firstRow}>
               <span>Codigo</span>
               <span>Marca</span>
               <span>Modelo</span>
               <span>Color</span>
               <span>Capacidad</span>
             </div>
-            <div>
+            <div className={style.data}>
               {rows?.map((p: Product) => (
                 <div
                   className={`${style.row} ${
-                    selected.find((s) => s === p.barCode) ? style.selected : ""
+                    selected.find((s) => s === p.id) ? style.selected : ""
                   }`}
-                  onClick={(e) => handleSelect(e, p.barCode)}
+                  onClick={() => handleSelect(p.id)}
                 >
-                  <span>{p.barCode}</span>
+                  <span>{p.id}</span>
                   <span>{p.marca}</span>
                   <span>{p.modelo}</span>
                   <span>{p.color}</span>
@@ -115,11 +122,10 @@ export default function AddProduct({
               ))}
             </div>
           </div>
-
-          <button className="btn btn-success" type="submit">
-            Agregar
-          </button>
         </div>
+        <button className="btn btn-success" type="submit">
+          Agregar
+        </button>
       </form>
     </div>
   );

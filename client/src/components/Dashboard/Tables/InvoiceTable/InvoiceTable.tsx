@@ -9,11 +9,11 @@ export default function InvoiceTable() {
 
   return (
     <div className={styles.dashboardList}>
-      <h3>Listado de Facturas</h3>
+      <h3>Facturas</h3>
       <div className={styles.dashboardList__searchBar}>
-        <input className="form-control" placeholder="Buscar cliente" />
-        <button className="btn btn-success">
-          <span>Cliente</span>
+        <input className="form-control" type="search"  placeholder="Buscar cliente" />
+        <button className="btn btn-primary" type="button" >
+          <span>Facturas</span>
         </button>
       </div>
       <div className={styles.dashboardList__grid}>
