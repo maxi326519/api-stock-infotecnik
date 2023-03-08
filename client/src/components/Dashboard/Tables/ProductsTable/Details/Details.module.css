@@ -7,13 +7,13 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #0004;
+  background-color: #0006;
 }
 
 .details{
   padding: 30px;
   border-radius: 10px;
-  background-color: white;
+  background-color: var(--panel);
 }
 
 .btnClose{
@@ -54,4 +54,18 @@
 
 .btnContainer button:nth-child(2){
   margin: 0 20px;
+}
+
+.inputs input,
+.inputs input:focus,
+.inputs input:active,
+.inputs input:disabled,
+.inputs select,
+.inputs select:focus,
+.inputs select:active,
+.inputs select:disabled,
+.inputs .form-floating{
+  background-color: #0002;
+  border-color: var(--border);
+  color: var(--font);
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Product, State } from "../../../../../../interfaces";
 
+import Temporal from "../Temporal/Temporal";
+
 import style from "./AddProduct.module.css";
 
 interface Props {
@@ -18,6 +20,7 @@ export default function AddProduct({
   const products: Product[] = useSelector((state: State) => state.products);
   const [rows, setRows] = useState<Product[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
+  const [temporal, setTemporal] = useState<boolean>(false);
 
   useEffect(() => {
     setSelected(productsSelected);
@@ -68,8 +71,13 @@ export default function AddProduct({
     }
   }
 
+  function handleTemporal() {
+    setTemporal(!temporal);
+  }
+
   return (
     <div className={style.container}>
+      {temporal ? <Temporal handleClose={handleTemporal} /> : null}
       <form className={style.window} onSubmit={handleSubmit}>
         <div className={style.close}>
           <h4>Productos</h4>
@@ -91,7 +99,7 @@ export default function AddProduct({
               placeholder="Buscar un producto"
               onChange={handleSearch}
             />
-            <button className="btn btn-success" type="button">
+            <button className="btn btn-success" type="button" onClick={handleTemporal}>
               Temporal
             </button>
           </div>
@@ -117,7 +125,6 @@ export default function AddProduct({
                   <span>{p.modelo}</span>
                   <span>{p.color}</span>
                   <span>{p.capacidad}</span>
-                  <span>{p.estado}</span>
                 </div>
               ))}
             </div>

@@ -1,14 +1,18 @@
+.contentCard{
+  background-color: #fff1;
+}
+
 .row{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 100px;
+  grid-template-columns: 150px 1fr 200px 100px;
   grid-template-rows: 1fr;
   gap: 10px;
   padding: 10px;
+  margin-right: 18px;
   outline: 1px solid var(--border);
+  background-color: #fff1;
 }
 
 .row span{
   border-right: 1px solid var(--border);
 }
-
-/* Amanejar numeros de serie, y estado independiente por cada producto en el inventario*/

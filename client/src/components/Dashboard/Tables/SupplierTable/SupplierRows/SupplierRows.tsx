@@ -9,15 +9,15 @@ interface Props {
 export default function SupplieRows({ supplier }: Props) {
   return (
     <div className={style.supplier}>
-      <span>{supplier.code}</span>
-      <span>{supplier.name}</span>
-      <span>{supplier.address}</span>
-      <span>{}</span>
-      <span>{supplier.poblation}</span>
-      <span>{}</span>
-      <span>{supplier.cifNif}</span>
-      <button>Editar</button>
-      <button>Eliminar</button>
+      <input value={supplier.code} placeholder="Codigo"/>
+      <input value={supplier.nombre} placeholder="Nombre"/>
+      <input value={supplier.direccion} placeholder="Direccion"/>
+      <input value={supplier.telefono} placeholder="Telefono"/>
+      <input value={supplier.poblacion} placeholder="Poblacion"/>
+      <input value={supplier.postal} placeholder="Postal"/>
+      <input value={supplier.cifNif} placeholder="CIF NIF"/>
+      <button className="btn btn-success" type="button">Editar</button>
+      <button className="btn btn-success" type="button">Eliminar</button>
     </div>
   );
 }

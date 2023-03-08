@@ -15,9 +15,8 @@ const initialState: State = {
       capacidad: "256gb",
       descripcionLarga: "descripcion larga",
       descripcionCorta: "descripcion corta",
-      estado: "",
-      imgGenerica: "",
-      familia: "celulares"
+      imgGenerica: [],
+      categoria: "celulares"
     },
     {
       id: "B021",
@@ -27,9 +26,8 @@ const initialState: State = {
       capacidad: "1tb",
       descripcionLarga: "descripcion larga",
       descripcionCorta: "descripcion corta",
-      estado: "",
-      imgGenerica: "",
-      familia: "compuadoras"
+      imgGenerica: [],
+      categoria: "compuadoras"
     },
     {
       id: "N021",
@@ -39,9 +37,8 @@ const initialState: State = {
       capacidad: "1tb",
       descripcionLarga: "descripcion larga",
       descripcionCorta: "descripcion corta",
-      estado: "",
-      imgGenerica: "",
-      familia: "compuadoras"
+      imgGenerica: [],
+      categoria: "compuadoras"
     },
     {
       id: "R021",
@@ -51,9 +48,8 @@ const initialState: State = {
       capacidad: "1tb",
       descripcionLarga: "descripcion larga",
       descripcionCorta: "descripcion corta",
-      estado: "",
-      imgGenerica: "",
-      familia: "compuadoras"
+      imgGenerica: [],
+      categoria: "compuadoras"
     },
     {
       id: "S021",
@@ -63,9 +59,8 @@ const initialState: State = {
       capacidad: "1tb",
       descripcionLarga: "descripcion larga",
       descripcionCorta: "descripcion corta",
-      estado: "",
-      imgGenerica: "",
-      familia: "compuadoras"
+      imgGenerica: [],
+      categoria: "compuadoras"
     },
     {
       id: "L021",
@@ -75,25 +70,28 @@ const initialState: State = {
       capacidad: "1tb",
       descripcionLarga: "descripcion larga",
       descripcionCorta: "descripcion corta",
-      estado: "",
-      imgGenerica: "",
-      familia: "compuadoras"
+      imgGenerica: [],
+      categoria: "compuadoras"
     },
   ],
   suppliers: [{
+    id: "asdasd",
     code: 123132,
-    name: "Proveedor",
-    address: "Direccion 1234",
-    poblation: "1234",
+    nombre: "Proveedor",
+    direccion: "Direccion 1234",
+    poblacion: "1234",
+    postal: 123,
     cifNif: "1234",
-    phone: "1199999999",
+    telefono: "1199999999",
   },{
+    id: "fsds",
     code: 432165,
-    name: "Proveedor2",
-    address: "Direccion 4321",
-    poblation: "4321",
+    nombre: "Proveedor2",
+    direccion: "Direccion 4321",
+    poblacion: "4321",
+    postal: 4321,
     cifNif: "4321",
-    phone: "1199999999",
+    telefono: "1199999999",
   }],
   stock: [],
   invoices: [],

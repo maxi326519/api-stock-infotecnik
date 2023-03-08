@@ -10,44 +10,42 @@ export interface Product {
   capacidad: string;
   descripcionLarga: string;
   descripcionCorta: string;
-  familia: string;
-  imgGenerica: string;
-  estado: string;
-}
-
-export interface Supplier {
-  code: number
-  name: string;
-  address: string;
-  poblation: string;
-  cifNif: string;
-  phone: string;
+  imgGenerica: string[];
+  categoria: string;
 }
 
 export interface Stock{
-  typeBarCode: string;
-  barCode: number;
-  supplier: number;
-  invoice: number;
-  product: string;
-  price: number;
-  amount: number;
-  type: string;/* enum[IMEI, nroSerie] */
-  img: Array<string>;
+  id: string;
+  IMEISerie: string;/* enum[IMEI, nroSerie] */
   status: number;
-  nro: number;
+  TipoCodigoDeBarras: string;
+  codigoDeBarras: number;
+  precioSinIVA: number;
+  precioIVA: number;
+  precioIVAINC: number;
+  img: Array<File>;
+  product: string;
+  invoice: number;
+  supplier: number;
 }
 
+export interface Supplier {
+  id: string;
+  code: number;
+  nombre: string;
+  direccion: string;
+  poblacion: string;
+  postal: number;
+  cifNif: string;
+  telefono: string;
+}
 export interface Invoices{
-  product: number;
-  supplier: number;
-  equivalencia: number;
+  fecha: string;
+  numero: number;
+  archivo: string;
+  detalles: Stock[];
   tipoImpositivo: tipoImpositivo;
-  precioCompraIVA: number;
-  precioCompraSIVA: number;
-  precioVentaIVA: number;
-  invoiceNumber: number;
-  invoiceFile: string;
+  supplier: string;
 }
 
 export enum tipoImpositivo {

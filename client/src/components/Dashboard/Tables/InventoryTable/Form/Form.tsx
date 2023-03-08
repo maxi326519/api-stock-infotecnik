@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postInventory } from "../../../../../redux/actions";
+import { Supplier } from "../../../../../interfaces";
 import {
   Stock,
   tipoImpositivo,
@@ -24,40 +25,38 @@ interface Props {
 }
 
 const initialState: Invoices = {
-  product: 0,
-  supplier: 0,
-  equivalencia: 0,
+  fecha: "",
+  numero: 0,
+  archivo: "",
+  detalles: [],
   tipoImpositivo: tipoImpositivo.IVA,
-  precioCompraIVA: 0,
-  precioCompraSIVA: 0,
-  precioVentaIVA: 0,
-  invoiceNumber: 0,
-  invoiceFile: "",
+  supplier: "",
 };
 
 const initialStock: Stock = {
-  typeBarCode: "",
-  barCode: 0,
-  supplier: 0,
-  invoice: 0,
-  product: "",
-  price: 0,
-  amount: 0,
-  type: "",
-  img: [],
+  id: "",
+  IMEISerie: "",
   status: 0,
-  nro: 0,
+  TipoCodigoDeBarras: "",
+  codigoDeBarras: 0,
+  precioSinIVA: 0,
+  precioIVA: 0,
+  precioIVAINC: 0,
+  img: [],
+  product: "",
+  invoice: 0,
+  supplier: 0,
 };
 
 export default function Form({ handleForm }: Props) {
   const invoices = useSelector((state: State) => state.invoices);
 
   const [productsSelected, setProduct] = useState<string[]>([]);
-  const [supplierSelected, setSupplier] = useState<number>(0);
+  const [supplierSelected, setSupplier] = useState<Supplier|null>(null);
   const [stock, setStock] = useState<Stock[]>([]); // Datos de los productos seleccionados
   const [invoice, setInvoice] = useState<Invoices>(initialState); // Datos de la factura
 
-  const [addProducts, setFormProducts] = useState<boolean>(false); //
+  const [addProducts, setFormProducts] = useState<boolean>(false);
   const [addSupplier, setFormSuppliers] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -83,7 +82,7 @@ export default function Form({ handleForm }: Props) {
   function handleClose(): void {
     handleForm();
     setProduct([]);
-    setSupplier(0);
+    setSupplier(null);
     setStock([]);
     setInvoice(initialState);
   }
@@ -96,7 +95,7 @@ export default function Form({ handleForm }: Props) {
   function handleFormSuppliers(): void {
     setFormSuppliers(!addSupplier);
   }
-
+  
   return (
     <div className={style.container}>
       {addProducts ? (
@@ -143,7 +142,7 @@ export default function Form({ handleForm }: Props) {
               </div>
 
               <InvoiceData />
-              {supplierSelected !== 0 ? <SupplierData /> : null}
+              {supplierSelected ? <SupplierData supplier={supplierSelected} /> : null}
               <button type="submit" className="btn btn-success">
                 Agregar inventario
               </button>

@@ -18,7 +18,6 @@
 .container select:active,
 .form-floating{
   background-color: #0002;
-  border-color: var(--border);
   color: var(--font);
 }
 

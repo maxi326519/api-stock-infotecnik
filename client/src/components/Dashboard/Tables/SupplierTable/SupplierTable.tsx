@@ -22,7 +22,6 @@ export default function SupplierTable() {
   },[supplier])
 
   function handleForm(): void {
-    console.log(form);
     setForm(!form);
   }
 

@@ -5,8 +5,8 @@ import { Supplier, State } from "../../../../../../interfaces";
 import style from "./AddSupplier.module.css";
 
 interface Props {
-  supplierSelected: number;
-  setSupplier: (selected: number) => void;
+  supplierSelected: Supplier|null;
+  setSupplier: (selected: Supplier|null) => void;
   handleClose: () => void;
 }
 
@@ -17,7 +17,7 @@ export default function AddSupplier({
 }: Props) {
   const suppliers: Supplier[] = useSelector((state: State) => state.suppliers);
   const [rows, setRows] = useState<Supplier[]>([]);
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<Supplier|null>(null);
 
   useEffect(() => {
     setSelected(supplierSelected);
@@ -40,12 +40,12 @@ export default function AddSupplier({
       suppliers.filter((p: Supplier) => {
         if (value === "") return true;
         if (p.code.toString() === value) return true;
-        if (p.name.toLowerCase().includes(value.toLowerCase())) return true;
-        if (p.address.toLowerCase().includes(value.toLowerCase())) return true;
-        if (p.poblation.toLowerCase().includes(value.toLowerCase()))
+        if (p.nombre.toLowerCase().includes(value.toLowerCase())) return true;
+        if (p.direccion.toLowerCase().includes(value.toLowerCase())) return true;
+        if (p.poblacion.toLowerCase().includes(value.toLowerCase()))
           return true;
         if (p.cifNif.toLowerCase().includes(value.toLowerCase())) return true;
-        if (p.phone.toLowerCase().includes(value.toLowerCase())) return true;
+        if (p.telefono.toLowerCase().includes(value.toLowerCase())) return true;
         return false;
       })
     );
@@ -53,15 +53,16 @@ export default function AddSupplier({
 
   function handleSelect(
     event: React.MouseEvent<HTMLDivElement>,
-    code: number
+    supplier: Supplier
   ): void {
-    // Verificamos si ya existe el producto en la lista
-    if (selected !== code) {
-      setSelected(code);
+    // Verificamos si ya esta este proveedor
+    if (selected?.code !== supplier.code) {
+      setSelected(supplier);
     } else {
-      // Si existe lo eliminamos
-      setSelected(0);
+      // Si esta lo eliminamos
+      setSelected(null);
     }
+    console.log(selected);
   }
 
   return (
@@ -99,15 +100,15 @@ export default function AddSupplier({
               {rows?.map((supplier: Supplier) => (
                 <div
                   className={`${style.row} ${
-                    selected === supplier.code ? style.selected : ""
+                    selected?.code === supplier.code ? style.selected : ""
                   }`}
-                  onClick={(e) => handleSelect(e, supplier.code)}
+                  onClick={(e) => handleSelect(e, supplier)}
                 >
-                  <span>{supplier.name}</span>
-                  <span>{supplier.address}</span>
-                  <span>{supplier.poblation}</span>
+                  <span>{supplier.nombre}</span>
+                  <span>{supplier.direccion}</span>
+                  <span>{supplier.poblacion}</span>
                   <span>{supplier.cifNif}</span>
-                  <span>{supplier.phone}</span>
+                  <span>{supplier.telefono}</span>
                 </div>
               ))}
             </div>

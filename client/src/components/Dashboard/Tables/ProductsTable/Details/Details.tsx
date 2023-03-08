@@ -119,23 +119,12 @@ export default function Details({ product, handleDetails }: Props) {
             <div className="form-floating">
               <input
                 className="form-control"
-                id="estado"
+                id="categoria"
                 type="text"
-                value={product.estado}
+                value={product.categoria}
                 disabled={isDisabled}
               />
-              <label htmlFor="estado">Estado</label>
-            </div>
-
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="familia"
-                type="text"
-                value={product.familia}
-                disabled={isDisabled}
-              />
-              <label htmlFor="familia">Familia</label>
+              <label htmlFor="categoria">Familia</label>
             </div>
           </div>
           <div className={style.rightData}>

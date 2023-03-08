@@ -40,11 +40,9 @@ export default function ProductTable() {
       </div>
       <div className={styles.dashboardList__grid}>
         <div className={`${style.row} ${styles.firstrow}`}>
-          <span>Marca</span>
-          <span>Modelo</span>
-          <span>Color</span>
-          <span>Capacidad</span>
-          <span>Estado</span>
+          <span>Codigo</span>
+          <span>Descripcion</span>
+          <span>Cateogria</span>
           <span>detalle</span>
         </div>
         <div className={styles.contentCard}>

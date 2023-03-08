@@ -12,16 +12,18 @@ interface Props {
 
 export default function Form({ handleForm }: Props) {
   const initialState: Supplier = {
+    id: "",
     code: 0,
-    name: "",
-    address: "",
-    poblation: "",
+    nombre: "",
+    direccion: "",
+    poblacion: "",
+    postal: 0,
     cifNif: "",
-    phone: "",
+    telefono: "",
   };
-  
+
   const [supplier, setSupplier] = useState(initialState);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setSupplier({ ...supplier, [event.target.name]: event.target.value });
@@ -34,11 +36,11 @@ export default function Form({ handleForm }: Props) {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    try{
+    try {
       dispatch(postSupplier(supplier));
       handleClose();
       swal("Guardado", "Su proveedor se guardo correctamente", "success");
-    }catch(err){
+    } catch (err) {
       swal("Error", "Hubo un error al guardar el nuevo proveedor", "error");
     }
   }
@@ -51,33 +53,43 @@ export default function Form({ handleForm }: Props) {
         </div>
         <div className={style.inputs}>
           <h4>Agregar Proveedor</h4>
-          <label htmlFor="name">Nombre</label>
+          <label htmlFor="nombre">Nombre</label>
           <input
-            id="name"
-            name="name"
+            id="nombre"
+            name="nombre"
             type="text"
             className=""
-            value={supplier.name}
+            value={supplier.nombre}
             onChange={handleChange}
           />
 
-          <label htmlFor="address">Direccion</label>
+          <label htmlFor="direccion">Direccion</label>
           <input
-            id="address"
-            name="address"
+            id="direccion"
+            name="direccion"
             type="text"
             className=""
-            value={supplier.address}
+            value={supplier.direccion}
             onChange={handleChange}
           />
 
-          <label htmlFor="poblation">CP y Poblacion</label>
+          <label htmlFor="postal">Codigo Postal</label>
           <input
-            id="poblation"
-            name="poblation"
+            id="postal"
+            name="postal"
             type="text"
             className=""
-            value={supplier.poblation}
+            value={supplier.postal}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="poblacion">Poblacion</label>
+          <input
+            id="poblacion"
+            name="poblacion"
+            type="text"
+            className=""
+            value={supplier.poblacion}
             onChange={handleChange}
           />
 
@@ -91,13 +103,13 @@ export default function Form({ handleForm }: Props) {
             onChange={handleChange}
           />
 
-          <label htmlFor="phone">Telefono</label>
+          <label htmlFor="telefono">Telefono</label>
           <input
-            id="phone"
-            name="phone"
+            id="telefono"
+            name="telefono"
             type="text"
             className=""
-            value={supplier.phone}
+            value={supplier.telefono}
             onChange={handleChange}
           />
           <button type="submit">Agregar</button>

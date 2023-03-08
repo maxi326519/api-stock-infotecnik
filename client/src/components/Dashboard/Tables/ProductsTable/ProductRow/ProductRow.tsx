@@ -10,12 +10,10 @@ interface Props {
 export default function ProductCard({ product, handleDetails }: Props) {
   return (
     <div className={style.row}>
-      <span>{product.marca}</span>
-      <span>{product.modelo}</span>
-      <span>{product.color}</span>
-      <span>{product.capacidad}</span>
-      <span>{product.estado}</span>
-      <button onClick={handleDetails}>detalle</button>
+      <span>{product.id}</span>
+      <span>{`${product.marca} / ${product.modelo} / ${product.color} / ${product.capacidad}`}</span>
+      <span>{product.categoria}</span>
+      <button className="btn btn-success" type="button" onClick={handleDetails} >detalle</button>
       <span></span>
     </div>
   );
