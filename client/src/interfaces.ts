@@ -64,7 +64,7 @@ export enum BarCode{
   EAN13
 }
 
-export interface State {
+export interface RootState {
   user: User;
   products: Array<Product>;
   suppliers: Array<Supplier>;

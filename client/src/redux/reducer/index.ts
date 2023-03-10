@@ -1,104 +1,27 @@
-import { POST_PRODUCT, POST_SUPPLIER, POST_STOCK } from "../actions";
-import { State } from "../../interfaces";
+import { POST_PRODUCT, GET_PRODUCT, UPDATE_PRODUCT } from "../actions/products";
+import {
+  POST_SUPPLIER,
+  GET_SUPPLIER,
+  UPDATE_SUPPLIER,
+} from "../actions/suppliers";
+import { POST_INVOICE, GET_INVOICE, UPDATE_INVOICE } from "../actions/invoices";
+import { GET_STOCK, UPDATE_STOCK } from "../actions/inventory";
+import { RootState } from "../../interfaces";
 import { AnyAction } from "redux";
 
-const initialState: State = {
+const initialState: RootState = {
   user: {
-    name: " Cargando"
+    name: "Cargando",
   },
-  products: [
-    {
-      id: "C001",
-      marca: "Samsung",
-      modelo: "Galaxy Z Fold4",
-      color: "Graygreen",
-      capacidad: "256gb",
-      descripcionLarga: "descripcion larga",
-      descripcionCorta: "descripcion corta",
-      imgGenerica: [],
-      categoria: "celulares"
-    },
-    {
-      id: "B021",
-      marca: "Lenovo",
-      modelo: "Lenovo 842p",
-      color: "Gris",
-      capacidad: "1tb",
-      descripcionLarga: "descripcion larga",
-      descripcionCorta: "descripcion corta",
-      imgGenerica: [],
-      categoria: "compuadoras"
-    },
-    {
-      id: "N021",
-      marca: "Apple",
-      modelo: "Iphone 13",
-      color: "Gris",
-      capacidad: "1tb",
-      descripcionLarga: "descripcion larga",
-      descripcionCorta: "descripcion corta",
-      imgGenerica: [],
-      categoria: "compuadoras"
-    },
-    {
-      id: "R021",
-      marca: "Asus",
-      modelo: "Rock",
-      color: "Gris",
-      capacidad: "1tb",
-      descripcionLarga: "descripcion larga",
-      descripcionCorta: "descripcion corta",
-      imgGenerica: [],
-      categoria: "compuadoras"
-    },
-    {
-      id: "S021",
-      marca: "Razer",
-      modelo: "Viper Mini",
-      color: "Gris",
-      capacidad: "1tb",
-      descripcionLarga: "descripcion larga",
-      descripcionCorta: "descripcion corta",
-      imgGenerica: [],
-      categoria: "compuadoras"
-    },
-    {
-      id: "L021",
-      marca: "Logitech",
-      modelo: "G346",
-      color: "Gris",
-      capacidad: "1tb",
-      descripcionLarga: "descripcion larga",
-      descripcionCorta: "descripcion corta",
-      imgGenerica: [],
-      categoria: "compuadoras"
-    },
-  ],
-  suppliers: [{
-    id: "asdasd",
-    code: 123132,
-    nombre: "Proveedor",
-    direccion: "Direccion 1234",
-    poblacion: "1234",
-    postal: 123,
-    cifNif: "1234",
-    telefono: "1199999999",
-  },{
-    id: "fsds",
-    code: 432165,
-    nombre: "Proveedor2",
-    direccion: "Direccion 4321",
-    poblacion: "4321",
-    postal: 4321,
-    cifNif: "4321",
-    telefono: "1199999999",
-  }],
+  products: [],
+  suppliers: [],
   stock: [],
   invoices: [],
 };
 
-export function Reducer(state: State = initialState, action: AnyAction) {
+export function Reducer(state: RootState = initialState, action: AnyAction) {
   switch (action.type) {
+    /* POST METHOD*/
     case POST_PRODUCT:
       return {
         ...state,
@@ -110,11 +33,33 @@ export function Reducer(state: State = initialState, action: AnyAction) {
         ...state,
         suppliers: [...state.suppliers, action.payload],
       };
-    case POST_STOCK:
-      return {
-        ...state,
-        inventory: [...state.suppliers, action.payload],
-      };
+
+    case POST_INVOICE:
+      return {};
+
+    /* GET METHOD*/
+    case GET_PRODUCT:
+      return {};
+
+    case GET_SUPPLIER:
+      return {};
+
+    case GET_INVOICE:
+      return {};
+
+    case GET_STOCK:
+      return {};
+
+    /* UPDATE METHOD*/
+    case UPDATE_PRODUCT:
+      return {};
+
+    case UPDATE_INVOICE:
+      return {};
+
+    case UPDATE_STOCK:
+      return {};
+
     default:
       return state;
   }
