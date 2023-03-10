@@ -16,8 +16,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
             autoIncrement: true,
             unique: true
         },
-        archivoUrl: {
-            type: DataTypes.INTEGER,
+        archivo: {
+            type: DataTypes.STRING,
             allowNull: true
         },
         tipoImpositivo: {

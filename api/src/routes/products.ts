@@ -1,25 +1,49 @@
-const router = require("express").Router();
+const routerPro = require("express").Router();
 const {
   setProducts,
-  getproducts,
+  getProducts,
   updateProducts,
   disabledProduct,
 } = require("./controllers/products");
 
-router.get("/", (req: any, res: any) => {
+
+routerPro.post("/", async (req: any, res: any) => {
   try {
-    res.status(200).json({ msg: "/products/get" });
-  } catch (error) {
-    res.status(400).json({ error: error });
+    const product = req.body;
+    const query = await setProducts(product);
+    res.status(200).json(query);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 });
 
-router.post("/", (req: any, res: any) => {
+routerPro.get("/", async (req: any, res: any) => {
   try {
-    res.status(200).json({ msg: "/products/post" });
-  } catch (error) {
-    res.status(400).json({ error: error });
+    const query = await getProducts();
+    res.status(200).json(query);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 });
 
-module.exports = router;
+routerPro.patch("/", async (req: any, res: any) => {
+  try {
+    const product = req.body;
+    await updateProducts(product);
+    res.status(200).json({ message: "Producto actualizado correctamente" });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+/* routerPro.delete("/:id", (req: any, res: any) => {
+  try {
+    const { id } = req.params;
+    disabledProduct(id);
+    res.status(200).json({ message: `El producto ${id} se elimino correctamente` });
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+}); */
+
+module.exports = routerPro;

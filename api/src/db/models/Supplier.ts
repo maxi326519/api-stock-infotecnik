@@ -11,7 +11,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       allowNull: false,
     },
     direccion: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     cifNif: {

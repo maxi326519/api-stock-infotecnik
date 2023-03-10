@@ -36,6 +36,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Invoice, Product, Stock, Supplier, Images, Category } = sequelize.models;
 
+console.log(sequelize.models);
+
 Invoice.hasMany(Stock);
 Stock.belongsTo(Invoice);
 
@@ -51,8 +53,8 @@ Category.hasMany(Product);
 Stock.hasMany(Images);
 Images.belongsTo(Stock);
 
-Supplier.hasMany(Stock);
-Stock.belongsTo(Supplier);
+Supplier.hasMany(Invoice);
+Invoice.belongsTo(Supplier);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

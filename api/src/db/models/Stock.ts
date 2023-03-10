@@ -9,10 +9,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     status: {
       type: DataTypes.ENUM("Nuevo", "Casi nuevo", "Vendido"),
       allowNull: true,
-      unique: true,
     },
     IMEISerie: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
       unique: true,
     },
@@ -28,7 +27,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       allowNull: false,
     },
     codigoDeBarras: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
@@ -42,6 +41,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     precioIVAINC: {
       type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    imagen: {
+      type: DataTypes.STRING,
       allowNull: false,
     }
   });
