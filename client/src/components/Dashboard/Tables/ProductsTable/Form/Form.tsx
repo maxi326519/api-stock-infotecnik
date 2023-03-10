@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postProduct } from "../../../../../redux/actions";
+import { postProduct } from "../../../../../redux/actions/products";
 import { Product } from "../../../../../interfaces";
 import swal from "sweetalert";
 
@@ -17,8 +17,8 @@ export default function Form({ handleForm }: Props) {
     marca: "",
     color: "",
     capacidad: "",
-    descripcionLarga: "",
-    descripcionCorta: "",
+    descLarga: "",
+    descCorta: "",
     imgGenerica: [],
     categoria: "",
   };
@@ -29,7 +29,7 @@ export default function Form({ handleForm }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     try {
-      dispatch(postProduct(product));
+      dispatch<any>(postProduct(product));
       handleClose();
       swal("Guardado", "Su producto se guardo correctamente", "success");
     } catch (err) {
@@ -132,7 +132,7 @@ export default function Form({ handleForm }: Props) {
                 id="descripcionLarga"
                 name="descripcionLarga"
                 className="form-area"
-                value={product.descripcionLarga}
+                value={product.descLarga}
                 onChange={handleChangeTextArea}
               />
             </div>
@@ -143,7 +143,7 @@ export default function Form({ handleForm }: Props) {
                 name="descripcionCorta"
                 className="form-control"
                 type="text"
-                value={product.descripcionCorta}
+                value={product.descCorta}
                 onChange={handleChange}
               />
             </div>

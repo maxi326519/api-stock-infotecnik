@@ -19,7 +19,10 @@ const initialState: RootState = {
   invoices: [],
 };
 
-export function Reducer(state: RootState = initialState, action: AnyAction) {
+export default function Reducer(
+  state: RootState = initialState,
+  action: AnyAction
+) {
   switch (action.type) {
     /* POST METHOD*/
     case POST_PRODUCT:
@@ -35,30 +38,61 @@ export function Reducer(state: RootState = initialState, action: AnyAction) {
       };
 
     case POST_INVOICE:
-      return {};
+      return {
+        ...state,
+        stock: [...state.stock, action.payload.inventory],
+        invoices: [...state.invoices, action.payload.invoce],
+      };
 
     /* GET METHOD*/
     case GET_PRODUCT:
-      return {};
+      return {
+        ...state,
+        products: action.payload,
+      };
 
     case GET_SUPPLIER:
-      return {};
+      return {
+        ...state,
+        suppliers: action.payload,
+      };
 
     case GET_INVOICE:
-      return {};
+      return {
+        ...state,
+        invoices: [...state.invoices, action.payload],
+      };
 
     case GET_STOCK:
-      return {};
+      return {
+        ...state,
+        stock: action.payload,
+      };
 
     /* UPDATE METHOD*/
     case UPDATE_PRODUCT:
-      return {};
+      return {
+        ...state,
+        products: state.products.filter((p) =>
+          p.id === action.payload.id ? action.payload : p
+        ),
+      };
 
     case UPDATE_INVOICE:
-      return {};
+      return {
+        ...state,
+        invoices: state.invoices.filter((i) =>
+          i.id === action.payload.id ? action.payload : i
+        ),
+      };
 
     case UPDATE_STOCK:
-      return {};
+      return {
+        ...state,
+        stock: state.stock.filter((s) =>
+          s.id === action.payload.id ? action.payload : s
+        ),
+      };
 
     default:
       return state;

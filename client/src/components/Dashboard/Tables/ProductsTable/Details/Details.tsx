@@ -99,7 +99,7 @@ export default function Details({ product, handleDetails }: Props) {
                 className="form-control"
                 id="descripcionLarga"
                 type="text"
-                value={product.descripcionLarga}
+                value={product.descLarga}
                 disabled={isDisabled}
               />
               <label htmlFor="descripcionLarga">Descripcion larga</label>
@@ -110,7 +110,7 @@ export default function Details({ product, handleDetails }: Props) {
                 className="form-control"
                 id="descripcionCorta"
                 type="text"
-                value={product.descripcionCorta}
+                value={product.descCorta}
                 disabled={isDisabled}
               />
               <label htmlFor="descripcionCorta">Descripcion corta</label>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Product, State } from "../../../../../../interfaces";
+import { Product, RootState } from "../../../../../../interfaces";
 
 import Temporal from "../Temporal/Temporal";
 
@@ -17,7 +17,7 @@ export default function AddProduct({
   setProduct,
   handleClose,
 }: Props) {
-  const products: Product[] = useSelector((state: State) => state.products);
+  const products: Product[] = useSelector((state: RootState) => state.products);
   const [rows, setRows] = useState<Product[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [temporal, setTemporal] = useState<boolean>(false);
@@ -45,9 +45,9 @@ export default function AddProduct({
         if (p.modelo.toLowerCase().includes(value.toLowerCase())) return true;
         if (p.marca.toLowerCase().includes(value.toLowerCase())) return true;
         if (p.color.toLowerCase().includes(value.toLowerCase())) return true;
-        if (p.descripcionLarga.toLowerCase().includes(value.toLowerCase()))
+        if (p.descLarga.toLowerCase().includes(value.toLowerCase()))
           return true;
-        if (p.descripcionCorta.toLowerCase().includes(value.toLowerCase()))
+        if (p.descCorta.toLowerCase().includes(value.toLowerCase()))
           return true;
         return false;
       })

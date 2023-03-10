@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { State, Supplier } from "../../../../interfaces";
+import { RootState, Supplier } from "../../../../interfaces";
 
 import SupplierRows from "./SupplierRows/SupplierRows";
 import Form from "./Form/Form";
@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 } */
 
 export default function SupplierTable() {
-  const supplier = useSelector((state:State) => state.suppliers);
+  const supplier = useSelector((state: RootState) => state.suppliers);
   const [rows, setRows] = useState<any>([]);
   const [form, setForm] = useState(false);
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Stock, State } from "../../../../../../interfaces";
+import { Stock, RootState } from "../../../../../../interfaces";
 
 import Row from "./Row/Row";
 
@@ -16,7 +16,7 @@ export default function ProductData({
   stock,
   setStock,
 }: Props) {
-  const products = useSelector((state: State) => state.products);
+  const products = useSelector((state: RootState) => state.products);
   const [list, setList] = useState();
 
   return (

@@ -8,7 +8,7 @@ import Dashboad from './components/Dashboard/Dashboard';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
-axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.baseURL = "http://localhost:3001/";
 
 function App() {
   const redirect = useNavigate();

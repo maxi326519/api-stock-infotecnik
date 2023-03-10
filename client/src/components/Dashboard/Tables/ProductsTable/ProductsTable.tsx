@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { State, Product } from "../../../../interfaces";
+import { RootState, Product } from "../../../../interfaces";
 
 import Form from "./Form/Form";
 import Details from "./Details/Details";
@@ -10,7 +10,7 @@ import styles from "../../Dashboard.module.css";
 import style from "./ProductsTable.module.css";
 
 export default function ProductTable() {
-  const products: Product[] = useSelector((state: State) => state.products);
+  const products: Product[] = useSelector((state: RootState) => state.products);
   const [rows, setRows] = useState<any>([]);
   const [form, setForm] = useState(false);
   const [details, setDetails] = useState(false);

@@ -1,4 +1,4 @@
-import { Invoices, tipoImpositivo } from "../../../../../../interfaces";
+import { Invoices } from "../../../../../../interfaces";
 
 import styles from "./InvoiceData.module.css";
 
@@ -36,10 +36,10 @@ export default function InvoiceData(/* { supplier }: Props */) {
 
         <div className="form-floating">
           <select id="impositivo" className="form-control">
-            <option value={tipoImpositivo.IVA}>IVA</option>
-            <option value={tipoImpositivo.Recargo}>Recargo</option>
-            <option value={tipoImpositivo.Equivalencia}>Equivalencia</option>
-            <option value={tipoImpositivo.REBU}>REBU</option>
+            <option value="IVA">IVA</option>
+            <option value="Recargo">Recargo</option>
+            <option value="Equivalencia">Equivalencia</option>
+            <option value="REBU">REBU</option>
           </select>
           <label htmlFor="impositivo" className="form-label">
             Tipo Impositivo:

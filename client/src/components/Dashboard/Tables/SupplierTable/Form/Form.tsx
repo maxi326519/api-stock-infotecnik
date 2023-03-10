@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Supplier } from ".././../../../../interfaces";
-import { postSupplier } from "../../../../../redux/actions";
+import { postSupplier } from "../../../../../redux/actions/suppliers";
 import swal from "sweetalert";
 
 import style from "./Form.module.css";
@@ -37,7 +37,7 @@ export default function Form({ handleForm }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     try {
-      dispatch(postSupplier(supplier));
+      dispatch<any>(postSupplier(supplier));
       handleClose();
       swal("Guardado", "Su proveedor se guardo correctamente", "success");
     } catch (err) {

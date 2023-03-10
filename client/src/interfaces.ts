@@ -8,25 +8,10 @@ export interface Product {
   marca: string;
   color: string;
   capacidad: string;
-  descripcionLarga: string;
-  descripcionCorta: string;
+  descLarga: string;
+  descCorta: string;
   imgGenerica: string[];
   categoria: string;
-}
-
-export interface Stock{
-  id: string;
-  IMEISerie: string;/* enum[IMEI, nroSerie] */
-  status: number;
-  TipoCodigoDeBarras: string;
-  codigoDeBarras: number;
-  precioSinIVA: number;
-  precioIVA: number;
-  precioIVAINC: number;
-  img: Array<File>;
-  product: string;
-  invoice: number;
-  supplier: number;
 }
 
 export interface Supplier {
@@ -39,20 +24,28 @@ export interface Supplier {
   cifNif: string;
   telefono: string;
 }
+export interface Stock{
+  id: string;
+  status: string;
+  IMEISerie: string;/* enum[IMEI, nroSerie] */
+  TipoCodigoDeBarras: string;
+  codigoDeBarras: string;
+  precioSinIVA: number;
+  precioIVA: number;
+  precioIVAINC: number;
+  imagen: string;
+  ProductId: string;
+  InvoiceId: string;
+}
+
 export interface Invoices{
+  id: string
   fecha: string;
   numero: number;
   archivo: string;
   detalles: Stock[];
-  tipoImpositivo: tipoImpositivo;
+  tipoImpositivo: string;
   supplier: string;
-}
-
-export enum tipoImpositivo {
-  IVA,
-  Recargo,
-  Equivalencia,
-  REBU
 }
 
 export enum BarCode{

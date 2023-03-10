@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postInventory } from "../../../../../redux/actions";
+import { postInvoice } from "../../../../../redux/actions/invoices";
 import { Supplier } from "../../../../../interfaces";
-import {
-  Stock,
-  tipoImpositivo,
-  State,
-  Invoices,
-} from "../../../../../interfaces";
+import { Stock, RootState, Invoices } from "../../../../../interfaces";
 
 import AddProduct from "./AddProduct/AddProduct";
 import AddSupplier from "./AddSupplier/AddSupplier";
@@ -25,34 +20,34 @@ interface Props {
 }
 
 const initialState: Invoices = {
+  id: "",
   fecha: "",
   numero: 0,
   archivo: "",
   detalles: [],
-  tipoImpositivo: tipoImpositivo.IVA,
+  tipoImpositivo: "IVA",
   supplier: "",
 };
 
 const initialStock: Stock = {
   id: "",
   IMEISerie: "",
-  status: 0,
+  status: "Nuevo",
   TipoCodigoDeBarras: "",
-  codigoDeBarras: 0,
+  codigoDeBarras: "",
   precioSinIVA: 0,
   precioIVA: 0,
   precioIVAINC: 0,
-  img: [],
-  product: "",
-  invoice: 0,
-  supplier: 0,
+  imagen: "",
+  ProductId: "",
+  InvoiceId: "",
 };
 
 export default function Form({ handleForm }: Props) {
-  const invoices = useSelector((state: State) => state.invoices);
+  const invoices = useSelector((state: RootState) => state.invoices);
 
   const [productsSelected, setProduct] = useState<string[]>([]);
-  const [supplierSelected, setSupplier] = useState<Supplier|null>(null);
+  const [supplierSelected, setSupplier] = useState<Supplier | null>(null);
   const [stock, setStock] = useState<Stock[]>([]); // Datos de los productos seleccionados
   const [invoice, setInvoice] = useState<Invoices>(initialState); // Datos de la factura
 
@@ -95,7 +90,7 @@ export default function Form({ handleForm }: Props) {
   function handleFormSuppliers(): void {
     setFormSuppliers(!addSupplier);
   }
-  
+
   return (
     <div className={style.container}>
       {addProducts ? (
@@ -142,7 +137,9 @@ export default function Form({ handleForm }: Props) {
               </div>
 
               <InvoiceData />
-              {supplierSelected ? <SupplierData supplier={supplierSelected} /> : null}
+              {supplierSelected ? (
+                <SupplierData supplier={supplierSelected} />
+              ) : null}
               <button type="submit" className="btn btn-success">
                 Agregar inventario
               </button>

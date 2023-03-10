@@ -10,19 +10,18 @@ interface Props {
   product: string;
 }
 
-const initialStock = {
+const initialStock: Stock = {
   id: "",
+  status: "Nuevo",
   IMEISerie: "",
-  status: 0,
   TipoCodigoDeBarras: "",
-  codigoDeBarras: 0,
+  codigoDeBarras: "",
   precioSinIVA: 0,
   precioIVA: 0,
   precioIVAINC: 0,
-  img: [],
-  product: "",
-  invoice: 0,
-  supplier: 0,
+  imagen: "",
+  ProductId: "",
+  InvoiceId: "",
 };
 
 export default function Row({ product }: Props) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Supplier, State } from "../../../../../../interfaces";
+import { Supplier, RootState } from "../../../../../../interfaces";
 
 import style from "./AddSupplier.module.css";
 
@@ -15,7 +15,7 @@ export default function AddSupplier({
   setSupplier,
   handleClose,
 }: Props) {
-  const suppliers: Supplier[] = useSelector((state: State) => state.suppliers);
+  const suppliers: Supplier[] = useSelector((state: RootState) => state.suppliers);
   const [rows, setRows] = useState<Supplier[]>([]);
   const [selected, setSelected] = useState<Supplier|null>(null);
 
