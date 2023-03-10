@@ -68,7 +68,6 @@ export default function Form({ handleForm }: Props) {
         <div className={style.inputs}>
           <div className={style.left}>
             <div className="mb-3 form-floating">
-              <label htmlFor="id">ID</label>
               <input
                 id="id"
                 name="id"
@@ -77,10 +76,10 @@ export default function Form({ handleForm }: Props) {
                 value={product.id}
                 onChange={handleChange}
               />
+              <label htmlFor="id">ID</label>
             </div>
 
             <div className="mb-3 form-floating">
-              <label htmlFor="modelo">Modelo</label>
               <input
                 id="modelo"
                 name="modelo"
@@ -89,10 +88,10 @@ export default function Form({ handleForm }: Props) {
                 value={product.modelo}
                 onChange={handleChange}
               />
+              <label htmlFor="modelo">Modelo</label>
             </div>
 
             <div className="mb-3 form-floating">
-              <label htmlFor="marca">Marca</label>
               <input
                 id="marca"
                 name="marca"
@@ -101,9 +100,9 @@ export default function Form({ handleForm }: Props) {
                 value={product.marca}
                 onChange={handleChange}
               />
+              <label htmlFor="marca">Marca</label>
             </div>
             <div className="mb-3 form-floating">
-              <label htmlFor="color">Color</label>
               <input
                 id="color"
                 name="color"
@@ -112,9 +111,9 @@ export default function Form({ handleForm }: Props) {
                 value={product.color}
                 onChange={handleChange}
               />
+              <label htmlFor="color">Color</label>
             </div>
             <div className="mb-3 form-floating">
-              <label htmlFor="capacidad">Capacidad</label>
               <input
                 id="capacidad"
                 name="capacidad"
@@ -123,32 +122,32 @@ export default function Form({ handleForm }: Props) {
                 value={product.capacidad}
                 onChange={handleChange}
               />
+              <label htmlFor="capacidad">Capacidad</label>
             </div>
           </div>
           <div className={style.right}>
             <div className="mb-3 form-floating">
-              <label htmlFor="descripcionLarga">Desc Larga</label>
               <textarea
-                id="descripcionLarga"
-                name="descripcionLarga"
-                className="form-area"
+                id="descLarga"
+                name="descLarga"
+                className={`form-control ${style.textArea}`}
                 value={product.descLarga}
                 onChange={handleChangeTextArea}
               />
+              <label htmlFor="descLarga">Desc Larga</label>
             </div>
             <div className="mb-3 form-floating">
-              <label htmlFor="descripcionCorta">Desc Corta</label>
               <input
-                id="descripcionCorta"
-                name="descripcionCorta"
+                id="descCorta"
+                name="descCorta"
                 className="form-control"
                 type="text"
                 value={product.descCorta}
                 onChange={handleChange}
               />
+              <label htmlFor="descCorta">Desc Corta</label>
             </div>
             <div className="mb-3 form-floating">
-              <label htmlFor="familia">Familia</label>
               <input
                 id="familia"
                 name="familia"
@@ -157,6 +156,7 @@ export default function Form({ handleForm }: Props) {
                 value={product.categoria}
                 onChange={handleChange}
               />
+              <label htmlFor="familia">Familia</label>
             </div>
             <input
               id="imgGenerica"

@@ -64,10 +64,9 @@
   height: 130px;
 }
 
-.container textarea{
+.container .textArea{
   width: 100%;
-  height: 100%;
-  border-radius: 5px;
+  height: 100% !important;
 }
 
 .right input[type="file"]{

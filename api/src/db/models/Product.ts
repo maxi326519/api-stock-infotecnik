@@ -33,6 +33,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
     },
-    { updatedAt: false, timestamps: false }
+    { updatedAt: false, createAt: false }
   );
 };
