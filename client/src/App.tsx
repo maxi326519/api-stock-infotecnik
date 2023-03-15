@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import LogIn from './components/LogIn/LogIn';
+import Login from './components/Login/Login';
 import Dashboad from './components/Dashboard/Dashboard';
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,13 +14,13 @@ function App() {
   const redirect = useNavigate();
 
   useEffect(()=>{
-    redirect("/dashboard");
+    redirect("/login");
   },[]);
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<LogIn/>}/>
+        <Route path="/login" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboad/>}/>
       </Routes>
     </div>

@@ -4,7 +4,7 @@ import { Stock, BarCode } from "../../../../../../../interfaces";
 import AddImages from "../../AddImages/AddImages";
 
 import styles from "./Row.module.css";
-import img from "../../../../../../assets/svg/image.svg";
+import img from "../../../../../../../assets/svg/image.svg";
 
 interface Props {
   product: string;

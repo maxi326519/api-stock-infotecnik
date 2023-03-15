@@ -9,8 +9,8 @@ import AddSupplier from "./AddSupplier/AddSupplier";
 import ProductData from "./ProductData/ProductData";
 import InvoiceData from "./InvoiceData/InvoiceData";
 import SupplierData from "./SupplierData/SupplierData";
-import products from "../../../../assets/svg/products.svg";
-import supplier from "../../../../assets/svg/supplier.svg";
+import products from "../../../../../assets/svg/products.svg";
+import supplier from "../../../../../assets/svg/supplier.svg";
 
 import style from "./Form.module.css";
 import swal from "sweetalert";
