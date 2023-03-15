@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Stock } from "../../../../../../interfaces";
 
-import img from "../../../../../assets/svg/image.svg";
+import img from "../../../../../../assets/svg/image.svg";
 
 import styles from "./AddImages.module.css";
 

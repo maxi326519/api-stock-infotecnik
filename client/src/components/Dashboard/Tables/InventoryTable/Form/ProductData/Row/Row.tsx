@@ -7,7 +7,7 @@ import calcularIVA from "../../../../../../../functions/IVA";
 import AddImages from "../../AddImages/AddImages";
 
 import styles from "./Row.module.css";
-import img from "../../../../../../assets/svg/image.svg";
+import img from "../../../../../../../assets/svg/image.svg";
 
 interface Props {
   product: string;

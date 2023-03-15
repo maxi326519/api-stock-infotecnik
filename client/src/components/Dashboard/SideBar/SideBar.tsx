@@ -1,8 +1,8 @@
-import user from "../../assets/svg/user.svg";
-import inventory from "../../assets/svg/inventory.svg";
-import products from "../../assets/svg/products.svg";
-import supplier from "../../assets/svg/supplier.svg";
-import invoices from "../../assets/svg/invoices.svg";
+import user from "../../../assets/svg/user.svg";
+import inventory from "../../../assets/svg/inventory.svg";
+import products from "../../../assets/svg/products.svg";
+import supplier from "../../../assets/svg/supplier.svg";
+import invoices from "../../../assets/svg/invoices.svg";
 
 import styles from "./SideBar.module.css";
 
