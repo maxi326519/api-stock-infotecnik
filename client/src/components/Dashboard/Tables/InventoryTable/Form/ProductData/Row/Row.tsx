@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Stock, BarCode } from "../../../../../../../interfaces";
+import isBarCodeValid from "../../../../../../../functions/barCodes";
+import isValidIMEI from "../../../../../../../functions/IMEI";
+import calcularIVA from "../../../../../../../functions/IVA";
 
 import AddImages from "../../AddImages/AddImages";
 
@@ -8,6 +11,7 @@ import img from "../../../../../../assets/svg/image.svg";
 
 interface Props {
   product: string;
+  tipoImpositivo: string;
 }
 
 const initialStock: Stock = {
@@ -24,7 +28,7 @@ const initialStock: Stock = {
   InvoiceId: "",
 };
 
-export default function Row({ product }: Props) {
+export default function Row({ product, tipoImpositivo }: Props) {
   const [newStock, setStock] = useState<Stock>(initialStock);
   const [imagesForm, setImagesForm] = useState(false);
 
@@ -36,15 +40,19 @@ export default function Row({ product }: Props) {
     const name: string = event.target.name;
     const value: string = event.target.value;
 
-    if(name === "precioSinIVA"){
-      setStock({
-        ...newStock,
-        precioSinIVA: Number(value),
-        precioIVA: Number(value) * 1.21,
-        precioIVAINC: Number(value) * 1.21,
-      });
-    }else{
+    if (name === "precioSinIVA" || name === "precioIVA") {
+      setStock({ ...newStock, ...calcularIVA(tipoImpositivo, name, value) })
+    } else {
       setStock({ ...newStock, [name]: value });
+    }
+  }
+
+  function handleValidation(name: string, value: any) {
+    if (name === "codigoDeBarras") {
+      isBarCodeValid(newStock.TipoCodigoDeBarras, value);
+    }
+    if (name === "IMEISerie") {
+      isValidIMEI(value);
     }
   }
 

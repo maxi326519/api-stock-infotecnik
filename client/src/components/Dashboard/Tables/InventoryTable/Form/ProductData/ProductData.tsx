@@ -9,12 +9,14 @@ interface Props {
   productsSelected: string[];
   stock: Stock[];
   setStock: (stock: Stock[]) => void;
+  tipoImpositivo: string; 
 }
 
 export default function ProductData({
   productsSelected,
   stock,
   setStock,
+  tipoImpositivo
 }: Props) {
   const products = useSelector((state: RootState) => state.products);
   const [list, setList] = useState();
@@ -25,7 +27,7 @@ export default function ProductData({
       <div className={styles.list}>
         {productsSelected.map((p) => {
           return (
-            <Row product={p}/>
+            <Row product={p} tipoImpositivo={tipoImpositivo}/>
           );
         })}
       </div>

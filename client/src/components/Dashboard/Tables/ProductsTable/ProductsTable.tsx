@@ -50,7 +50,7 @@ export default function ProductTable() {
             <div className={styles.listEmpty}>
               <span>No hay productos</span>
               <span>¿Quieres agregar uno?</span>
-              <button className="btn btn-primary" onClick={handleForm}>
+              <button className="btn btn-primary" type="button" onClick={handleForm}>
                 Agregar producto
               </button>
             </div>

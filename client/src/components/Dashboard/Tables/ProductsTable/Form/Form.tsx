@@ -6,6 +6,8 @@ import swal from "sweetalert";
 
 import style from "./Form.module.css";
 
+const capacidades: string[] = ["256GB", "8GB", "16", "32", "64", "128", "256", "512", "1TB", "2TB"];
+
 interface Props {
   handleForm: () => void;
 }
@@ -41,6 +43,10 @@ export default function Form({ handleForm }: Props) {
     setProduct({ ...product, [event.target.name]: event.target.value });
   }
 
+  function handleChangeSelect(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setProduct({ ...product, capacidad: event.target.value });
+  }
+  
   function handleChangeTextArea(
     event: React.ChangeEvent<HTMLTextAreaElement>
   ): void {
@@ -114,14 +120,17 @@ export default function Form({ handleForm }: Props) {
               <label htmlFor="color">Color</label>
             </div>
             <div className="mb-3 form-floating">
-              <input
+              <select
                 id="capacidad"
                 name="capacidad"
-                className="form-control"
-                type="text"
+                className="form-select"
                 value={product.capacidad}
-                onChange={handleChange}
-              />
+                onChange={handleChangeSelect}
+              >
+                {
+                  capacidades.map((cap, i) => <option key={i} value={cap}>{cap}</option>)
+                }
+              </select>
               <label htmlFor="capacidad">Capacidad</label>
             </div>
           </div>

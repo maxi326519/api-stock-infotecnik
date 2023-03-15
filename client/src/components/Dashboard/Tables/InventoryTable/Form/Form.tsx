@@ -150,6 +150,7 @@ export default function Form({ handleForm }: Props) {
                 productsSelected={productsSelected}
                 stock={stock}
                 setStock={setStock}
+                tipoImpositivo={invoice.tipoImpositivo}
               />
             ) : null}
           </div>
