@@ -2,13 +2,18 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const routes = require('./routes/index.js');
-require('./db');
 
+// Import routes
+const products = require("./routes/products");
+const invoices = require("./routes/invoices");
+const inventory = require("./routes/inventory");
+const suppliers = require("./routes/suppliers");
+
+// Ceate server
 const server = express();
 
-server.name = 'API';
-
+// server config
+server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
@@ -21,7 +26,11 @@ server.use((req: any, res: any, next: any) => {
   next();
 });
 
-server.use('/', routes);
+// Add routes
+server.use("/products", products);
+server.use("/invoices", invoices);
+server.use("/inventory", inventory);
+server.use("/suppliers", suppliers);
 
 // Error catching endware.
 server.use((err: any, req: any, res: any, next: any) => { // eslint-disable-line no-unused-vars
