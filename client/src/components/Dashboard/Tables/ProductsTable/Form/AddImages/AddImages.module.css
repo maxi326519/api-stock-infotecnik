@@ -1,0 +1,58 @@
+.form {
+  width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--panel);
+}
+
+/* .form .icon {
+  filter: invert(50%);
+} */
+
+.form h4 {
+  margin-bottom: 30px;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.imageContainer img {
+  width: 100%;
+}
+
+.imgList {
+  display: flex;
+  height: 70px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--background);
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  overflow: hidden;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background-color: var(--panel);
+}
+
+.image:hover{
+  border-color: var(--primary);
+}
+
+.imgList .image img {
+  width: 100%;
+}
