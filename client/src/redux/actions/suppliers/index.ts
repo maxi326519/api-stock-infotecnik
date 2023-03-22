@@ -16,11 +16,11 @@ AnyAction
   return async(dispatch: Dispatch<AnyAction>) => {
     try{
 
-      const response = axios.post("/suppliers", newSupplier);
+      const response = await axios.post("/suppliers", newSupplier);
 
       dispatch({
         type: POST_SUPPLIER,
-        payload: response,
+        payload: response.data,
       })
     }catch(error: any){
       throw new Error(error.message);
@@ -32,11 +32,11 @@ export function getSuppliers(): ThunkAction<Promise<void>, RootState, null, AnyA
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      const suppliers = axios.get("/suppliers");
+      const suppliers = await axios.get("/suppliers");
 
       dispatch({
         type: GET_SUPPLIER,
-        payload: suppliers,
+        payload: suppliers.data,
       });
     } catch (error: any) {
       throw new Error(error.message);

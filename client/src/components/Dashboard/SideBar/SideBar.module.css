@@ -52,9 +52,9 @@
 }
 
 .sideBar button img{
-  width: 20px;
+  width: 30px;
   margin-right: 10px;
-  filter: invert(50%)
+  filter: invert(10%)
 }
 
 
@@ -64,7 +64,7 @@
 }
 
 .sideBar button:hover img{
-  filter: invert(100%);
+  filter: invert(23%) sepia(88%) saturate(2376%) hue-rotate(250deg) brightness(80%) contrast(99%);
 }
 
 .sideBar .selected {
@@ -75,5 +75,5 @@
 }
 
 .sideBar .selected img{
-  filter: invert(100%);
+  filter: invert(23%) sepia(88%) saturate(2376%) hue-rotate(250deg) brightness(80%) contrast(99%);
 }

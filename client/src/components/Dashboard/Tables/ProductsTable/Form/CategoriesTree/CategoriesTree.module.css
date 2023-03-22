@@ -1,4 +1,4 @@
-.container{
+.container {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -11,10 +11,42 @@
   background-color: #0006;
 }
 
-.form{
+.form {
   padding: 20px;
+  width: 400px;
   background-color: var(--panel);
   border: 1px solid var(--border);
   border-radius: 10px;
   background-color: white;
+}
+
+.close {
+  display: flex;
+}
+
+.close h4 {
+  flex-grow: 1;
+}
+
+.chartContainer{
+  margin-top: 20px;
+  outline: 1px solid grey;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.inputs {
+  display: flex;
+  margin-top: 10px;
+}
+
+.inputs div {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

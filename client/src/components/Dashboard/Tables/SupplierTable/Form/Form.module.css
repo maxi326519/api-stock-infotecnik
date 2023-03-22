@@ -1,4 +1,4 @@
-.container{
+.container {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -10,12 +10,31 @@
   background-color: #0004;
 }
 
-.form{
+.form {
   padding: 20px;
+  border-radius: 10px;
   background-color: white;
 }
 
-.inputs{
+.close {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.close h4 {
+  flex-grow: 1;
+}
+
+.inputs {
   display: flex;
   flex-direction: column;
+}
+
+.inputs input {
+  width: 350px;
+}
+
+.inputs div {
+  margin-bottom: 10px;
 }

@@ -1,42 +1,74 @@
 import { useEffect, useState } from "react";
-import { Stock } from "../../../../../../interfaces";
 
 import img from "../../../../../../assets/svg/image.svg";
 
 import styles from "./AddImages.module.css";
 
 interface Props {
-  imagesList: string[];
-  handleSetImage: (url: string[]) => void;
+  imageUrls: string[];
+  handleSetImage: (files: File[], urls: string[]) => void;
 }
 
-export default function AddImages({
-  imagesList,
-  handleSetImage,
-}: Props) {
-  const [selectedImage, setSelectedImage] = useState<string>();
+export default function AddImages({ imageUrls, handleSetImage }: Props) {
+  const [localFiles, setLocalFiles] = useState<File[]>([]);
+  const [localImageUrls, setLocalImageUrls] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string>(img);
 
+  // Load images
   useEffect(() => {
-    if (imagesList.length === 0) {
+    setLocalImageUrls([...localImageUrls, ...imageUrls]);
+  }, [imageUrls]);
+
+  // Set selected image
+  useEffect(() => {
+    if (localImageUrls.length === 0) {
       setSelectedImage(img);
-    } else if (imagesList.length === 1) {
-      setSelectedImage(imagesList[0]);
+    } else {
+      setSelectedImage(localImageUrls[0]);
     }
-  }, [imagesList]);
+  }, [localImageUrls]);
 
-  useEffect(() => {
-    handleSetImage(imagesList);
-  }, []);
+  function handleSubmitFile() {
+    handleSetImage(localFiles, localImageUrls);
+  }
 
-  function handleImage(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
-    if (file) handleSetImage([...imagesList, URL.createObjectURL(file)]);
+    if (file) {
+      setLocalFiles([...localFiles, file]);
+      const url = URL.createObjectURL(file);
+
+      if (!localImageUrls.some((image) => image === url)) {
+        setLocalImageUrls([...localImageUrls, URL.createObjectURL(file)]);
+      } else {
+        setSelectedImage(url);
+      }
+    }
+  }
+
+  function handleSelect(url: string) {
+    setSelectedImage(url);
+  }
+
+  function handleRemove() {
+    setLocalImageUrls(
+      localImageUrls.filter((url: string) => url !== selectedImage)
+    );
   }
 
   return (
     <div className={styles.form}>
       <div>
         <div className={styles.imageContainer}>
+          {localImageUrls.length > 0 ? (
+            <button
+              className={`btn btn-outline-danger ${styles.delete}`}
+              type="button"
+              onClick={handleRemove}
+            >
+              X
+            </button>
+          ) : null}
           <img className={styles.icon} src={selectedImage} alt="img" />
         </div>
         <div className="mb-3 form-floating">
@@ -47,13 +79,17 @@ export default function AddImages({
             className="form-control"
             id="images"
             type="file"
-            onChange={handleImage}
+            onChange={handleChange}
           />
         </div>
       </div>
       <div className={styles.imgList}>
-        {imagesList.map((url) => (
-          <div className={styles.image} onClick={() => setSelectedImage(url)}>
+        {localImageUrls.map((url) => (
+          <div
+            key={url}
+            className={styles.image}
+            onClick={() => handleSelect(url)}
+          >
             <img src={url} alt="product" />
           </div>
         ))}

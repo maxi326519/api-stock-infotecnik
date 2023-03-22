@@ -1,3 +1,6 @@
+import { RootState } from "../../interfaces";
+import { AnyAction } from "redux";
+
 import { POST_PRODUCT, GET_PRODUCT, UPDATE_PRODUCT } from "../actions/products";
 import {
   POST_SUPPLIER,
@@ -6,46 +9,18 @@ import {
 } from "../actions/suppliers";
 import { POST_INVOICE, GET_INVOICE, UPDATE_INVOICE } from "../actions/invoices";
 import { GET_STOCK, UPDATE_STOCK } from "../actions/inventory";
-import { RootState } from "../../interfaces";
-import { AnyAction } from "redux";
+import { LOADING, CLOSE_LOADING } from "../actions/loading/loading";
+import { LOGIN, LOG_OUT } from "../actions/login/login";
 
 const initialState: RootState = {
   user: {
     name: "Cargando",
   },
-  products: [{
-    id: "u4378htirf834",
-    modelo: "S9",
-    marca: "Samsung",
-    color: "Gris",
-    capacidad: "128GB",
-    descLarga: "asdfsadfsadfadsf",
-    descCorta: "dfsdfs",
-    imgGenerica: [],
-    categoria: "",
-  }
-],
-  suppliers: [{
-    id: "fadsfh928fj",
-    code: 2783457,
-    nombre: "Proveedor 1",
-    direccion: "Direccion 2",
-    poblacion: "Poblacion 1",
-    postal: 1680,
-    cifNif: "8861564681235",
-    telefono: "99 9999 9999",
-  },{
-    id: "muc890ku290ft",
-    code: 4537573,
-    nombre: "Proveedor 2",
-    direccion: "Direccion 2",
-    poblacion: "Poblacion 2",
-    postal: 1893,
-    cifNif: "8168616546156",
-    telefono: "99 9999 9999",
-  }],
+  products: [],
+  suppliers: [],
   stock: [],
   invoices: [],
+  loading: false,
 };
 
 export default function Reducer(
@@ -53,6 +28,18 @@ export default function Reducer(
   action: AnyAction
 ) {
   switch (action.type) {
+    /* LOADING */
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case CLOSE_LOADING:
+      return {
+        ...state,
+        loading: false,
+      };
     /* POST METHOD*/
     case POST_PRODUCT:
       return {

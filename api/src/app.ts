@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
 const keys = require("./settings/keys");
+const { serialize } = require("cookie");
 
 // Import routes
 const products = require("./routes/products");
@@ -39,13 +40,18 @@ server.use("/inventory", inventory);
 server.use("/suppliers", suppliers);
 
 server.post("/login", (req: any, res: any) => {
-  const payload = {
-    check: true,
-  };
-  const token = jwt.sign(payload, server.get("key"), {
-    expiresIn: "7d",
-  });
-  res.json({ mensage: "Login successfully", token});
+  const {email, password} = req.body;
+
+  if(email === "maxi.326519@gmail.com" && password === "12345678"){
+    const token = jwt.sign({ check: true, email: "maxi.326519@gmail.com" }, server.get("key"), {
+      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 24,      
+    });
+
+    res.cookie("my-cookie", token);
+    res.status(200).json({ mensage: "Login successfully"});
+  }else{
+    res.status(400).json({ error: "invalid credentials"});
+  }
 });
 
 const verification = express.Router();
@@ -65,10 +71,6 @@ verification.use((req: any, res: any, next: any) => {
       }
     })
   }
-})
-
-server.get("/info", verification, (req: any, res: any) => {
-  res.json("Info");
 })
 
 // Implementar un protocolo de HTTPS de Security

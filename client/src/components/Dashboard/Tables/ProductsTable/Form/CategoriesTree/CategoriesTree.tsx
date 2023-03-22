@@ -17,11 +17,12 @@ const CategoriesTree = ({ data, handleClose }: Props) => {
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [newCategory, setNewCategory] = useState("");
   const [editingCategory, setEditingCategory] = useState(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
-  const handleNodeClick = (node: Node) => {
-    setSelectedNode(node);
-    setEditingCategory(false);
-  };
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const newCategory = event.target.value;
+    setNewCategory(newCategory);
+  }
 
   const handleAddCategory = () => {
     if (newCategory) {
@@ -36,6 +37,11 @@ const CategoriesTree = ({ data, handleClose }: Props) => {
       }
       setNewCategory("");
     }
+  };
+
+  const handleNodeClick = (node: Node) => {
+    setSelectedNode(node);
+    setEditingCategory(false);
   };
 
   const handleEditCategory = (node: Node) => {
@@ -55,7 +61,7 @@ const CategoriesTree = ({ data, handleClose }: Props) => {
   return (
     <div className={style.container}>
       <div className={style.form}>
-      <div className={style.close}>
+        <div className={style.close}>
           <h4>Categorias</h4>
           <button
             className="btn btn-danger"
@@ -65,53 +71,71 @@ const CategoriesTree = ({ data, handleClose }: Props) => {
             X
           </button>
         </div>
-        <Chart
-          width={"100%"}
-          height={"100%"}
-          chartType="WordTree"
-          loader={<div>Loading Chart</div>}
-          data={[["Phrases"], ...chartData.map((name) => [name])]}
-          options={{
-            wordtree: {
-              format: "implicit",
-              word: selectedNode?.name || "",
-            },
-          }}
-          chartEvents={[
-            {
-              eventName: "select",
-              callback: ({ chartWrapper }) => {
-                const chart = chartWrapper.getChart();
-                const [selectedItem] = chart.getSelection();
-                if (selectedItem) {
-                  const node = data[selectedItem.row + 1];
-                  handleNodeClick(node);
-                } else {
-                  setSelectedNode(null);
-                }
+        <div className={style.chartContainer}>
+          <Chart
+            width={"100%"}
+            height={"400px"}
+            chartType="WordTree"
+            loader={<div>Loading Chart</div>}
+            data={[["Phrases"], ...chartData.map((name) => [name])]}
+            options={{
+              wordtree: {
+                format: "implicit",
+                word: selectedNode?.name || "",
               },
-            },
-          ]}
-        />
-        <div>
-          <label>
-            New category:{" "}
-            <input
-              type="text"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-            />
-          </label>
-          <button onClick={handleAddCategory}>Add</button>
+            }}
+            chartEvents={[
+              {
+                eventName: "select",
+                callback: ({ chartWrapper }) => {
+                  const chart = chartWrapper.getChart();
+                  const [selectedItem] = chart.getSelection();
+                  if (selectedItem) {
+                    const node = data[selectedItem.row + 1];
+                    handleNodeClick(node);
+                  } else {
+                    setSelectedNode(null);
+                  }
+                },
+              },
+            ]}
+          />
         </div>
-        {selectedNode && (
-          <div>
-            <p>Selected category: {selectedNode.name}</p>
-            <button onClick={() => handleEditCategory(selectedNode)}>
-              Edit
+        {edit ? (
+          <div className={style.inputs}>
+            <div className="form-floating">
+              <input
+                id="category"
+                className="form-control"
+                type="text"
+                value={newCategory}
+                onChange={handleChange}
+              />
+              <label htmlFor="category" className="form-label">
+                New category:
+              </label>
+            </div>
+            <button
+              className="btn btn-primary"
+              onClick={handleAddCategory}
+              type="button"
+            >
+              Add
             </button>
           </div>
-        )}
+        ) : null}
+        <div className={style.buttons}>
+          <button className="btn btn-primary" type="button">
+            Seleccionar
+          </button>
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={() => setEdit(!edit)}
+          >
+            Editar
+          </button>
+        </div>
       </div>
     </div>
   );

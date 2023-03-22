@@ -3,10 +3,28 @@ import { useDispatch } from "react-redux";
 import { postProduct } from "../../../../../redux/actions/products";
 import { Product } from "../../../../../interfaces";
 import swal from "sweetalert";
+import {
+  closeLoading,
+  loading,
+} from "../../../../../redux/actions/loading/loading";
+
+import AddImages from "./AddImages/AddImages";
+import CategoriesTree from "./CategoriesTree/CategoriesTree";
 
 import style from "./Form.module.css";
 
-const capacidades: string[] = ["256GB", "8GB", "16", "32", "64", "128", "256", "512", "1TB", "2TB"];
+const capacidades: string[] = [
+  "256GB",
+  "8GB",
+  "16",
+  "32",
+  "64",
+  "128",
+  "256",
+  "512",
+  "1TB",
+  "2TB",
+];
 
 interface Props {
   handleForm: () => void;
@@ -24,16 +42,21 @@ export default function Form({ handleForm }: Props) {
     imgGenerica: [],
     categoria: "",
   };
-
   const [product, setProduct] = useState(initialState);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [categories, setCategories] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     try {
-      dispatch<any>(postProduct(product));
-      handleClose();
-      swal("Guardado", "Su producto se guardo correctamente", "success");
+      dispatch(loading());
+      dispatch<any>(postProduct(product)).then(() => {
+        handleClose();
+        dispatch(closeLoading());
+        swal("Guardado", "Su producto se guardo correctamente", "success");
+      });
     } catch (err) {
       swal("Error", "Hubo un error al guardar el nuevo producto", "error");
     }
@@ -43,10 +66,12 @@ export default function Form({ handleForm }: Props) {
     setProduct({ ...product, [event.target.name]: event.target.value });
   }
 
-  function handleChangeSelect(event: React.ChangeEvent<HTMLSelectElement>): void {
+  function handleChangeSelect(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
     setProduct({ ...product, capacidad: event.target.value });
   }
-  
+
   function handleChangeTextArea(
     event: React.ChangeEvent<HTMLTextAreaElement>
   ): void {
@@ -58,8 +83,17 @@ export default function Form({ handleForm }: Props) {
     setProduct(initialState);
   }
 
+  function handleCloseCategories(): void {
+    setCategories(!categories);
+  }
+
+  function handleSetImage(files: File[], urls: string[]) {}
+
   return (
     <div className={style.container}>
+      {categories ? (
+        <CategoriesTree data={[]} handleClose={handleCloseCategories} />
+      ) : null}
       <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.close}>
           <h4>Agregar productos</h4>
@@ -71,8 +105,8 @@ export default function Form({ handleForm }: Props) {
             X
           </button>
         </div>
-        <div className={style.inputs}>
-          <div className={style.left}>
+        <div className={style.flex}>
+          <div className={style.inputs}>
             <div className="mb-3 form-floating">
               <input
                 id="id"
@@ -127,14 +161,14 @@ export default function Form({ handleForm }: Props) {
                 value={product.capacidad}
                 onChange={handleChangeSelect}
               >
-                {
-                  capacidades.map((cap, i) => <option key={i} value={cap}>{cap}</option>)
-                }
+                {capacidades.map((cap, i) => (
+                  <option key={i} value={cap}>
+                    {cap}
+                  </option>
+                ))}
               </select>
               <label htmlFor="capacidad">Capacidad</label>
             </div>
-          </div>
-          <div className={style.right}>
             <div className="mb-3 form-floating">
               <textarea
                 id="descLarga"
@@ -156,27 +190,18 @@ export default function Form({ handleForm }: Props) {
               />
               <label htmlFor="descCorta">Desc Corta</label>
             </div>
-            <div className="mb-3 form-floating">
-              <input
-                id="familia"
-                name="familia"
-                className="form-control"
-                type="text"
-                value={product.categoria}
-                onChange={handleChange}
-              />
+            <div className={style.familia}>
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={handleCloseCategories}
+              >
+                Agregar
+              </button>
               <label htmlFor="familia">Familia</label>
             </div>
-            <input
-              id="imgGenerica"
-              name="imgGenerica"
-              className="form-control"
-              placeholder="Archivo"
-              type="file"
-              value={product.imgGenerica}
-              onChange={handleChange}
-            />
           </div>
+          <AddImages imageUrls={imageUrls} handleSetImage={handleSetImage} />
         </div>
         <button className="btn btn-success" type="submit">
           Agregar

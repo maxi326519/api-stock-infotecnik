@@ -5,6 +5,10 @@ import { postSupplier } from "../../../../../redux/actions/suppliers";
 import swal from "sweetalert";
 
 import style from "./Form.module.css";
+import {
+  closeLoading,
+  loading,
+} from "../../../../../redux/actions/loading/loading";
 
 interface Props {
   handleForm: () => void;
@@ -36,83 +40,119 @@ export default function Form({ handleForm }: Props) {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    try {
-      dispatch<any>(postSupplier(supplier));
-      handleClose();
-      swal("Guardado", "Su proveedor se guardo correctamente", "success");
-    } catch (err) {
-      swal("Error", "Hubo un error al guardar el nuevo proveedor", "error");
-    }
+    dispatch(loading());
+    dispatch<any>(postSupplier(supplier))
+      .then(() => {
+        handleClose();
+        dispatch(closeLoading());
+        swal("Guardado", "Su proveedor se guardo correctamente", "success");
+      })
+      .catch((err: any) => {
+        swal("Error", "Hubo un error al guardar el nuevo proveedor", "error");
+      });
   }
 
   return (
     <div className={style.container}>
       <form className={style.form} onSubmit={handleSubmit}>
-        <div>
-          <button onClick={handleClose}>X</button>
+        <div className={style.close}>
+          <h4>Agregar Proveedor</h4>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={handleClose}
+          >
+            X
+          </button>
         </div>
         <div className={style.inputs}>
-          <h4>Agregar Proveedor</h4>
-          <label htmlFor="nombre">Nombre</label>
-          <input
-            id="nombre"
-            name="nombre"
-            type="text"
-            className=""
-            value={supplier.nombre}
-            onChange={handleChange}
-          />
+          <div className="form-floating">
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              className="form-control"
+              value={supplier.nombre}
+              onChange={handleChange}
+            />
+            <label className="form-label" htmlFor="nombre">
+              Nombre
+            </label>
+          </div>
 
-          <label htmlFor="direccion">Direccion</label>
-          <input
-            id="direccion"
-            name="direccion"
-            type="text"
-            className=""
-            value={supplier.direccion}
-            onChange={handleChange}
-          />
+          <div className="form-floating">
+            <input
+              id="direccion"
+              name="direccion"
+              type="text"
+              className="form-control"
+              value={supplier.direccion}
+              onChange={handleChange}
+            />
+            <label className="form-label" htmlFor="direccion">
+              Direccion
+            </label>
+          </div>
 
-          <label htmlFor="postal">Codigo Postal</label>
-          <input
-            id="postal"
-            name="postal"
-            type="text"
-            className=""
-            value={supplier.postal}
-            onChange={handleChange}
-          />
+          <div className="form-floating">
+            <input
+              id="postal"
+              name="postal"
+              type="text"
+              className="form-control"
+              value={supplier.postal}
+              onChange={handleChange}
+            />
+            <label className="form-label" htmlFor="postal">
+              Codigo Postal
+            </label>
+          </div>
 
-          <label htmlFor="poblacion">Poblacion</label>
-          <input
-            id="poblacion"
-            name="poblacion"
-            type="text"
-            className=""
-            value={supplier.poblacion}
-            onChange={handleChange}
-          />
+          <div className="form-floating">
+            <input
+              id="poblacion"
+              name="poblacion"
+              type="text"
+              className="form-control"
+              value={supplier.poblacion}
+              onChange={handleChange}
+            />
+            <label className="form-label" htmlFor="poblacion">
+              Poblacion
+            </label>
+          </div>
 
-          <label htmlFor="cifNif">CIF / NIF</label>
-          <input
-            id="cifNif"
-            name="cifNif"
-            type="text"
-            className=""
-            value={supplier.cifNif}
-            onChange={handleChange}
-          />
+          <div className="form-floating">
+            <input
+              id="cifNif"
+              name="cifNif"
+              type="text"
+              className="form-control"
+              value={supplier.cifNif}
+              onChange={handleChange}
+            />
+            <label className="form-label" htmlFor="cifNif">
+              CIF / NIF
+            </label>
+          </div>
 
-          <label htmlFor="telefono">Telefono</label>
-          <input
-            id="telefono"
-            name="telefono"
-            type="text"
-            className=""
-            value={supplier.telefono}
-            onChange={handleChange}
-          />
-          <button type="submit">Agregar</button>
+          <div className="form-floating">
+            <input
+              id="telefono"
+              name="telefono"
+              type="text"
+              className="form-control"
+              value={supplier.telefono}
+              onChange={handleChange}
+            />
+            <label className="form-label" htmlFor="telefono">
+              Telefono
+            </label>
+          </div>
+
+          <button className="btn btn-success" type="submit">
+            Agregar
+          </button>
         </div>
       </form>
     </div>

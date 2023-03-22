@@ -28,8 +28,27 @@
   margin: none;
 }
 
+.flex{
+  display: flex;
+}
+
 .inputs{
   display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.familia{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0003;
+}
+
+.familia label{
+  flex-grow: 1;
+  text-align: center;
 }
 
 .left{

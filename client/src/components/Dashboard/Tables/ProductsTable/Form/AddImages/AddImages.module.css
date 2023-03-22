@@ -1,6 +1,6 @@
 .form {
-  width: 600px;
-  padding: 20px;
+  width: 400px;
+  margin-left: 20px;
   border-radius: 10px;
   background-color: var(--panel);
 }
@@ -14,13 +14,21 @@
 }
 
 .imageContainer {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 10px 0;
-  height: 600px;
+  margin-bottom: 20px;
+  height: 445px;
   overflow: hidden;
   border-radius: 5px;
+  outline: 1px solid gray;
+}
+
+.delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .imageContainer img {
@@ -29,10 +37,10 @@
 
 .imgList {
   display: flex;
-  height: 70px;
+  height: 55px;
   margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 5px;
+  border-radius: 5px;
   border: 1px solid var(--border);
   background-color: var(--background);
 }
@@ -41,7 +49,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  width: 40px;
   overflow: hidden;
   margin-right: 10px;
   border-radius: 5px;
@@ -49,7 +57,7 @@
   background-color: var(--panel);
 }
 
-.image:hover{
+.image:hover {
   border-color: var(--primary);
 }
 

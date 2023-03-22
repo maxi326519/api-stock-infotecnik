@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Login } from "../../interfaces";
+import { login } from "../../redux/actions/login/login";
+import { loading, closeLoading } from "../../redux/actions/loading/loading";
 
 import "./Login.css";
+import { getProduct } from "../../redux/actions/products";
+import { getSuppliers } from "../../redux/actions/suppliers";
 
 interface Error {
   email: string | null;
@@ -18,9 +23,9 @@ export default function Signin() {
   const redirect = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState(initialError);
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
+  const [user, setUser] = useState<Login>({
+    email: "maxi.326519@gmail.com",
+    password: "12345678",
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -40,40 +45,35 @@ export default function Signin() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    redirect("/dashboard");
-    console.log("sadasd");
+    let err: Error = {
+      email: null,
+      password: null,
+    };
 
-/*     if ((user.email === "") || (user.password === "")) {
-      let err: Error = {
-        email: null,
-        password: null,
-      }
+    if (user.email === "" || user.password === "") {
       if (user.email === "") err.email = "Debes ingresar un email";
       if (user.password === "") err.password = "Debes ingresar una contraseña";
       setError(err);
     } else {
       dispatch(loading());
-      dispatch<any>(logIn(user))
+      dispatch<any>(login(user))
         .then(() => {
-          dispatch<any>(getItems()).catch((e: any) => console.log(e));
-          dispatch<any>(getInvoince(format(new Date().toLocaleDateString()))).catch((e: any) => console.log(e));
-          dispatch<any>(getUserData()).catch((e: any) => console.log(e));
-        dispatch<any>(getReports()).catch((e: any) => console.log(e));
-        dispatch(closeLoading());
-          redirect("/");
+          redirect("/dashboard");
+          Promise.all([
+            dispatch<any>(getProduct()),
+            dispatch<any>(getSuppliers()),
+          ]).then(() => {
+            dispatch(closeLoading());
+          });
         })
-        .catch((e: any) => {
-          dispatch(closeLoading());
-          if (e.message?.includes("invalid-email")) {
-            setError({ ...error, email: "El email es invalido" });
-          } else if (e.message?.includes("user-not-found")) {
-            setError({ ...error, email: "Usuario incorrecto" });
-          } else if (e.message?.includes("wrong-password")) {
-            setError({ ...error, password: "Contraseña incorrecta" });
+        .catch((err: any) => {
+          if (err.message.split(": ")[1] === "invalid credentials") {
+            err.email = "Email o contraseña incorrecta";
+            err.password = "Email o contraseña incorrecta";
+            setError(err);
           }
-          console.log(e);
         });
-    } */
+    }
   }
 
   return (

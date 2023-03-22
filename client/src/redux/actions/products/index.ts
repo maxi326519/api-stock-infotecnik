@@ -13,11 +13,11 @@ export function postProduct(
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      const response = axios.post("/products", newProduct);
+      const response = await axios.post("/products", newProduct);
 
       dispatch({
         type: POST_PRODUCT,
-        payload: response,
+        payload: response.data,
       });
     } catch (error: any) {
       throw new Error(error.message);
@@ -29,11 +29,11 @@ export function getProduct(): ThunkAction<Promise<void>, RootState, null, AnyAct
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      const products = axios.get("/products");
+      const products = await axios.get("/products");
 
       dispatch({
         type: GET_PRODUCT,
-        payload: products,
+        payload: products.data,
       });
     } catch (error: any) {
       throw new Error(error.message);
@@ -47,7 +47,7 @@ export function updateProduct(
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      axios.patch("/products", updateProduct);
+      await axios.patch("/products", updateProduct);
 
       dispatch({
         type: UPDATE_PRODUCT,
