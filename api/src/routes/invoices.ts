@@ -9,6 +9,7 @@ const {
 routerInv.post("/", async (req: any, res: any) => {
   try{
     const invoice = req.body;
+    console.log(invoice);
     const response = await setInvoices(invoice);
     res.status(200).json(response);
   }catch(err: any){

@@ -20,7 +20,7 @@ const initialStock: Stock = {
   id: "",
   status: "Nuevo",
   IMEISerie: "",
-  TipoCodigoDeBarras: "",
+  tipoCodigoDeBarras: "",
   codigoDeBarras: "",
   precioSinIVA: 0,
   precioIVA: 0,
@@ -64,7 +64,7 @@ export default function Row({ id, tipoImpositivo }: Props) {
 
   function handleValidation(name: string, value: any) {
     if (name === "codigoDeBarras") {
-      console.log(isBarCodeValid(newStock.TipoCodigoDeBarras, value));
+      console.log(isBarCodeValid(newStock.tipoCodigoDeBarras, value));
     }
     if (name === "IMEISerie") {
       console.log(isValidIMEI(value));

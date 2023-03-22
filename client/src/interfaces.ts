@@ -34,7 +34,7 @@ export interface Stock {
   id: string;
   status: string;
   IMEISerie: string /* enum[IMEI, nroSerie] */;
-  TipoCodigoDeBarras: string;
+  tipoCodigoDeBarras: string;
   codigoDeBarras: string;
   precioSinIVA: number;
   precioIVA: number;

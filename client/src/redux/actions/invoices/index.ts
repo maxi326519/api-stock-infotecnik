@@ -8,12 +8,12 @@ export const GET_INVOICE = "GET_INVOICE";
 export const UPDATE_INVOICE = "UPDATE_INVOICE";
 
 export function postInvoice(
-  newInventory: Invoices
+  newInventory: any
 ): ThunkAction<Promise<void>, RootState, null, AnyAction> {
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      const response = await axios.post("/invocies", newInventory);
+      const response = await axios.post("/invoices", newInventory);
 
       dispatch({
         type: POST_INVOICE,

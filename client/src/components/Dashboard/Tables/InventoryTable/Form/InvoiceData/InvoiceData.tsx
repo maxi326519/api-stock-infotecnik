@@ -27,7 +27,12 @@ export default function InvoiceData({ invoice, setInvoice }: Props) {
     }
   }
 
-  function handleChange() {}
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    setInvoice({ ...invoice, [name]: value });
+  }
 
   return (
     <div className={styles.container}>
@@ -45,7 +50,13 @@ export default function InvoiceData({ invoice, setInvoice }: Props) {
       </div>
       <div className={styles.data}>
         <div className="form-floating">
-          <input id="nro" className="form-control" type="number" />
+          <input
+            id="nro"
+            className="form-control"
+            type="number"
+            value={invoice.numero}
+            onChange={handleChange}
+          />
           <label htmlFor="nro" className="form-label">
             Numero
           </label>
@@ -57,6 +68,7 @@ export default function InvoiceData({ invoice, setInvoice }: Props) {
             className="form-control"
             type="date"
             max={new Date().toISOString().split("T")[0]}
+            value={invoice.fecha}
             onChange={handleChange}
           />
           <label htmlFor="fecha" className="form-label">
@@ -70,6 +82,7 @@ export default function InvoiceData({ invoice, setInvoice }: Props) {
             className="form-control"
             type="number"
             disabled={pending}
+            value={invoice.archivo}
             onChange={handleChange}
           />
           <label htmlFor="factura" className="form-label">
@@ -81,6 +94,7 @@ export default function InvoiceData({ invoice, setInvoice }: Props) {
           <select
             id="impositivo"
             className="form-control"
+            value={invoice.tipoImpositivo}
             onChange={handleSelect}
           >
             <option value={TipoImpositivo.IVA}>IVA</option>

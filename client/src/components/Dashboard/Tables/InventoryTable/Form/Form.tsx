@@ -14,6 +14,10 @@ import supplier from "../../../../../assets/svg/supplier.svg";
 
 import style from "./Form.module.css";
 import swal from "sweetalert";
+import {
+  closeLoading,
+  loading,
+} from "../../../../../redux/actions/loading/loading";
 
 interface Props {
   handleClose: () => void;
@@ -33,7 +37,7 @@ const initialStock: Stock = {
   id: "",
   IMEISerie: "",
   status: "Nuevo",
-  TipoCodigoDeBarras: "",
+  tipoCodigoDeBarras: "",
   codigoDeBarras: "",
   precioSinIVA: 0,
   precioIVA: 0,
@@ -65,13 +69,24 @@ export default function Form({ handleClose }: Props) {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    /*     try{
-      dispatch(postInventory(inventory))
-      handleClose();
-      swal("Guardado", "Su inventario se guardo correctamente", "success");
-    }catch(err){
-      swal("Error", "Hubo un error al guardar el nuevo inventario", "error");
-    } */
+    const newInvoice = {
+      ...invoice,
+      detalles: stock,
+      supplier: supplierSelected?.id,
+    };
+    console.log(newInvoice);
+    dispatch(loading());
+    dispatch<any>(postInvoice(newInvoice))
+      .then(() => {
+        /* handleClose(); */
+        swal("Guardado", "Su inventario se guardo correctamente", "success");
+        dispatch(closeLoading());
+      })
+      .catch((err: any) => {
+        console.log(err);
+        dispatch(closeLoading());
+        swal("Error", "Hubo un error al guardar el nuevo inventario", "error");
+      });
   }
 
   function handleLocalClose(): void {
@@ -110,7 +125,11 @@ export default function Form({ handleClose }: Props) {
       <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.close}>
           <h4>Agregar inventario</h4>
-          <button className="btn btn-danger" type="button" onClick={handleLocalClose}>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={handleLocalClose}
+          >
             X
           </button>
         </div>
