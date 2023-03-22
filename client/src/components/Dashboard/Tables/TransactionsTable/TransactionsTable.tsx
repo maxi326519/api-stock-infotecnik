@@ -6,6 +6,7 @@ import style from "./TransactionsTable.module.css";
 import { RootState, Transactions } from "../../../../interfaces";
 import { useSelector } from "react-redux";
 import TransactionsRow from "./TransactionsRow/TransactionsRow";
+import ImportExcel from "./ImportExcel/ImportExcel";
 
 export default function TransactionsTable() {
   const transactions = useSelector((state: RootState) => state.transactions);
@@ -29,6 +30,7 @@ export default function TransactionsTable() {
 
   return (
     <div className={styles.dashboardList}>
+      <ImportExcel/>
       <h3>Movimientos</h3>
       <div className={styles.dashboardList__searchBar}>
         <input
