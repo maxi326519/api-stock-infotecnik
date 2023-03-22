@@ -1,32 +1,30 @@
 const { Supplier } = require("../../../db/index");
 
-const setSupplier = async (supplier) =>{
-   const response = await Supplier.create(supplier);
-   return response;
-}
+const setSupplier = async (supplier) => {
+  const response = await Supplier.create(supplier);
+  return response;
+};
 
 const getSupplier = async () => {
-   const response = await Supplier.findAll();
-   console.log(response);
-   return response;
-}
+  const response = await Supplier.findAll();
+  return response;
+};
 
-const updateSupplier = async (supplier) =>{
+const updateSupplier = async (supplier) => {
+  const query = await Supplier.findOne({
+    where: { id: supplier.id },
+  });
 
-   const query = await Supplier.findOne({
-      where: { id: supplier.id }
-   });
+  await query.update(supplier);
+};
 
-   await query.update(supplier);
-}
-
-const disabledSupplier = async (supplierId) =>{
-   await Supplier.destroy({ where: { id : supplierId } })
-}
+const disabledSupplier = async (supplierId) => {
+  await Supplier.destroy({ where: { id: supplierId } });
+};
 
 module.exports = {
-   setSupplier,
-   getSupplier,
-   updateSupplier,
-   disabledSupplier,
-}
+  setSupplier,
+  getSupplier,
+  updateSupplier,
+  disabledSupplier,
+};
