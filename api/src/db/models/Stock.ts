@@ -6,7 +6,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        unique: true,
       },
       status: {
         type: DataTypes.ENUM("Nuevo", "Casi nuevo", "Vendido"),

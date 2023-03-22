@@ -4,7 +4,7 @@ const { setInventory } = require("../inventory");
 const setInvoices = async (invoice) => {
   if (!invoice.fecha) throw new Error("Falta el parametro 'fecha'");
   if (!invoice.numero) throw new Error("Falta el parametro 'numero'");
-  if (!invoice.archivo) throw new Error("Falta el parametro 'archivo'");
+  if (!invoice.pendiente && !invoice.archivo) throw new Error("Falta el parametro 'archivo'");
   if (!invoice.tipoImpositivo)
     throw new Error("Falta el parametro 'tipoIMpositivo'");
   if (!invoice.detalles) throw new Error("Falta el parametro 'detalles'");

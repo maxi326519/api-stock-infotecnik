@@ -6,7 +6,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        unique: true,
       },
       fecha: {
         type: DataTypes.STRING,
@@ -17,6 +16,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         autoIncrement: true,
         unique: true,
+      },
+      pendiente: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
       archivo: {
         type: DataTypes.STRING,

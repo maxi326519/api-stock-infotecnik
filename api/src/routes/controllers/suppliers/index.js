@@ -7,6 +7,7 @@ const setSupplier = async (supplier) =>{
 
 const getSupplier = async () => {
    const response = await Supplier.findAll();
+   console.log(response);
    return response;
 }
 
