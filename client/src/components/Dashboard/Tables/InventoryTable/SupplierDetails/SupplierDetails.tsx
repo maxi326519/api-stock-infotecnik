@@ -23,104 +23,47 @@ export default function SupplierDetails({ supplier, handleClose }: Props) {
         </div>
         <div className={style.data}>
           <div className={style.dataGrid}>
-
             {/* CODGIO */}
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="codigo"
-                type="text"
-                value={supplier?.codigo}
-                disabled={true}
-              />
-              <label className="form-label" htmlFor="codigo">
-                Codigo
-              </label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Codigo:</span>
+              <span>{supplier?.codigo}</span>
             </div>
 
             {/* POSTAL */}
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="postal"
-                type="text"
-                value={supplier?.postal}
-                disabled={true}
-              />
-              <label className="form-label" htmlFor="postal">
-                Postal
-              </label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Postal:</span>
+              <span>{supplier?.postal}</span>
             </div>
 
             {/* NOMBRE */}
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="nombre"
-                type="text"
-                value={supplier?.nombre}
-                disabled={true}
-              />
-              <label className="form-label" htmlFor="nombre">
-                Nombre
-              </label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Nombre:</span>
+              <span>{supplier?.nombre}</span>
             </div>
 
             {/* DIRECCION */}
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="direccion"
-                type="text"
-                value={supplier?.direccion}
-                disabled={true}
-              />
-              <label className="form-label" htmlFor="direccion">
-                Direccion
-              </label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Direccion:</span>
+              <span>{supplier?.direccion}</span>
             </div>
 
             {/* POBLACION */}
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="poblacion"
-                type="text"
-                value={supplier?.poblacion}
-                disabled={true}
-              />
-              <label className="form-label" htmlFor="poblacion">
-                Poblacion
-              </label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Poblacion:</span>
+              <span>{supplier?.poblacion}</span>
             </div>
 
             {/* CIF\NIF */}
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="cifNif"
-                type="text"
-                value={supplier?.cifNif}
-                disabled={true}
-              />
-              <label className="form-label" htmlFor="cifNif">
-                CIF\NIF
-              </label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>CIF\NIF:</span>
+              <span>{supplier?.cifNif}</span>
             </div>
           </div>
 
           {/* TELEFONO */}
-          <div className="form-floating">
-            <input
-              className="form-control"
-              id="telefono"
-              type="text"
-              value={supplier?.telefono}
-              disabled={true}
-            />
-            <label className="form-label" htmlFor="telefono">
-              Telefono
-            </label>
+          <div className={style.dataContainer}>
+            <span className={style.title}>Telefono:</span>
+            <span>{supplier?.telefono}</span>
           </div>
         </div>
       </div>

@@ -13,89 +13,83 @@ export default function Details({ product, stock, handleClose }: Props) {
     <div className={style.container}>
       <div className={style.details}>
         <div className={style.btnClose}>
-          <button className="btn btn-danger" type="button" onClick={() => handleClose(null)}>
+          <h4>Detalles del item</h4>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={() => handleClose(null)}
+          >
             x
           </button>
         </div>
         <div className={style.data}>
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="id"
-                type="text"
-                value={product?.id}
-              />
-              <label htmlFor="id">ID</label>
+          <div className={style.product}>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Modelo:</span>
+              <span>{product?.modelo}</span>
             </div>
 
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="modelo"
-                type="text"
-                value={product?.modelo}
-              />
-              <label htmlFor="modelo">Modelo</label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Marca:</span>
+              <span>{product?.marca}</span>
             </div>
 
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="marca"
-                type="text"
-                value={product?.marca}
-              />
-              <label htmlFor="marca">Marca</label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Color:</span>
+              <span>{product?.color}</span>
             </div>
 
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="color"
-                type="text"
-                value={product?.color}
-              />
-              <label htmlFor="color">Color</label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Capacidad:</span>
+              <span>{product?.capacidad}</span>
             </div>
 
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="capacidad"
-                type="text"
-                value={product?.capacidad}
-              />
-              <label htmlFor="capacidad">Capacidad</label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Descripcion larga:</span>
+              <span>{product?.descLarga}</span>
             </div>
 
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="descripcionLarga"
-                type="text"
-                value={product?.descLarga}
-              />
-              <label htmlFor="descripcionLarga">Descripcion larga</label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Descripcion corta:</span>
+              <span>{product?.descCorta}</span>
             </div>
 
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="descripcionCorta"
-                type="text"
-                value={product?.descCorta}
-              />
-              <label htmlFor="descripcionCorta">Descripcion corta</label>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Familia:</span>
+              <span>{product?.categoria}</span>
             </div>
 
-            <div className="form-floating">
-              <input
-                className="form-control"
-                id="categoria"
-                type="text"
-                value={product?.categoria}
-              />
-              <label htmlFor="categoria">Familia</label>
+          </div>
+          <div className={style.stock}>
+            <div className={style.dataContainer}>
+              <span className={style.title}>Estado:</span>
+              <span>{stock?.status}</span>
+            </div>
+
+            <div className={style.dataContainer}>
+              <span className={style.title}>IMEI / Serie:</span>
+              <span>{stock?.IMEISerie}</span>
+            </div>
+
+            <div className={style.dataContainer}>
+              <span className={style.title}>Codigo De Barras:</span>
+              <span>{stock?.codigoDeBarras}</span>
+            </div>
+
+            <div className={style.dataContainer}>
+              <span className={style.title}>Precio:</span>
+              <span>{stock?.precioSinIVA}</span>
+            </div>
+
+            <div className={style.dataContainer}>
+              <span className={style.title}>Precio IVA:</span>
+              <span>{stock?.precioIVA}</span>
+            </div>
+
+            <div className={style.dataContainer}>
+              <span className={style.title}>Precio IVA INC:</span>
+              <span>{stock?.precioIVAINC}</span>
+            </div>
           </div>
         </div>
       </div>

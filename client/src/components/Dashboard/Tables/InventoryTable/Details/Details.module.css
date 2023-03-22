@@ -1,4 +1,4 @@
-.container{
+.container {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,62 +10,38 @@
   background-color: #0006;
 }
 
-.details{
+.details {
   padding: 30px;
   border-radius: 10px;
   background-color: var(--panel);
 }
 
-.btnClose{
+.btnClose {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 30px;
 }
 
-.data{
+.btnClose h4 {
+  flex-grow: 1;
+}
+
+.data {
   display: flex;
 }
 
-.inputs{
-  width: 400px;
+.product {
+  margin-right: 10px;
 }
 
-.rightData{
+.dataContainer {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  margin-left: 30px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  width: 200px;
 }
 
-.imgContainer{
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imgContainer img{
-  width: 100%;
-}
-
-.btnContainer{
-  width: 100%;
-  margin-top: 30px;
-}
-
-.btnContainer button:nth-child(2){
-  margin: 0 20px;
-}
-
-.inputs input,
-.inputs input:focus,
-.inputs input:active,
-.inputs input:disabled,
-.inputs select,
-.inputs select:focus,
-.inputs select:active,
-.inputs select:disabled,
-.inputs .form-floating{
-  background-color: #0002;
-  border-color: var(--border);
-  color: var(--font);
+.dataContainer span:last-child {
+  color: #000a;
 }

@@ -48,7 +48,7 @@ export default function InventoryTable() {
       setSelection(null);
     }else{
       const product: Product = products.find((p: Product) => p.id === stock.ProductId);
-      const supplier: Supplier = suppliers.find((s: Supplier) => s.id === stock.id);
+      const supplier: Supplier = suppliers.find((s: Supplier) => s.id === stock.ProductId);
 
       const slection: Selection = {
         product,
