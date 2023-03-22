@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Product } from "../../../../../interfaces";
 
 import style from "./ProductRow.module.css";
+import details from "../../../../../assets/svg/details.svg";
 
 interface Props {
   product: Product;
@@ -11,7 +12,7 @@ interface Props {
 export default function ProductCard({ product, handleDetails }: Props) {
   const [isDisabled, setDisabled] = useState(true);
 
-  function handleDisabled(){
+  function handleDisabled() {
     setDisabled(!isDisabled);
   }
 
@@ -41,8 +42,8 @@ export default function ProductCard({ product, handleDetails }: Props) {
         value={product.categoria}
         disabled={isDisabled}
       />
-      <button className="btn btn-success" type="button" onClick={handleDetails}>
-        detalle
+      <button className="btn btn-primary" type="button" onClick={handleDetails}>
+        <img src={details} alt="details" />
       </button>
       <span></span>
     </div>

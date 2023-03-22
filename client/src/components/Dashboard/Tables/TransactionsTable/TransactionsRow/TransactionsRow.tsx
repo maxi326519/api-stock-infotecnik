@@ -1,6 +1,10 @@
 import { Transactions } from "../../../../../interfaces";
 import style from "./TransactionsRow.module.css";
 
+import invoice from "../../../../../assets/svg/invoices.svg";
+import link from "../../../../../assets/svg/link.svg";
+import deleteSvg from "../../../../../assets/svg/delete.svg";
+
 interface Props {
   transaction: Transactions;
   handleInvoice: (invoiceid: string) => void;
@@ -20,21 +24,21 @@ export default function TransactionsRow({ transaction, handleInvoice }: Props) {
         type="button"
         onClick={() => handleInvoice(transaction.InvoiceId)}
       >
-        Factura
+        <img src={invoice} alt="invoice" />
       </button>
       <button
         className="btn btn-primary"
         type="button"
         onClick={() => handleInvoice(transaction.InvoiceId)}
       >
-        Vincular
+        <img src={link} alt="link" />
       </button>
       <button
         className="btn btn-danger"
         type="button"
         onClick={() => handleInvoice(transaction.InvoiceId)}
       >
-        -
+        <img src={deleteSvg} alt="delete" />
       </button>
       <span></span>
     </div>

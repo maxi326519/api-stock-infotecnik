@@ -40,7 +40,7 @@ export default function SupplierTable() {
         </button>
       </div>
       <div className={styles.dashboardList__grid}>
-        <div className={`${style.card} ${styles.firstrow}`}>
+        <div className={`${style.row} ${style.firstRow}`}>
           <span>Codigo</span>
           <span>Nombre</span>
           <span>Direccion</span>

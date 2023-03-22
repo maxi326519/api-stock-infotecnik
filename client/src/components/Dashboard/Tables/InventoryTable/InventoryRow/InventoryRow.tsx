@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Product, RootState, Stock } from "../../../../../interfaces";
 
 import style from "./InventoryRow.module.css";
-import { useSelector } from "react-redux";
+import supplier from "../../../../../assets/svg/supplier.svg";
+import details from "../../../../../assets/svg/details.svg";
 
 interface Props {
   stock: Stock;
@@ -41,14 +43,14 @@ export default function InventoryRow({
         type="button"
         onClick={() => handleProveedor(stock)}
       >
-        Proveedor
+        <img src={supplier} alt="supplier" />
       </button>
       <button
-        className="btn btn-success"
+        className="btn btn-primary"
         type="button"
         onClick={() => handleDetails(stock)}
       >
-        Detalle
+        <img src={details} alt="details" />
       </button>
       <span></span>
     </div>

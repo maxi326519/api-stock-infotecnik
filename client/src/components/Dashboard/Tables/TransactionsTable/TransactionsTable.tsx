@@ -49,7 +49,7 @@ export default function TransactionsTable() {
           <span>Mas datos</span>
           <span>Importe</span>
           <span>Saldo</span>
-          <span className={style.buttons}>Ver</span>
+          <span className={style.buttons}>Factura</span>
           <span className={style.buttons}>Vincular</span>
           <span className={style.buttons}>Eliminar</span>
         </div>

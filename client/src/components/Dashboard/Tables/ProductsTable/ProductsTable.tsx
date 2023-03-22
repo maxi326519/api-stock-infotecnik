@@ -49,7 +49,7 @@ export default function ProductTable() {
           <span>Codigo</span>
           <span>Descripcion</span>
           <span>Cateogria</span>
-          <span>detalle</span>
+          <span>Detalle</span>
         </div>
         <div className={styles.contentCard}>
           {rows.length <= 0 ? (

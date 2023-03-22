@@ -2,7 +2,7 @@
   --primary-color: #6433cc;
   --primary-color--transp: #6433cc44;
 
-/*   --background: #0d1117;
+  /*   --background: #0d1117;
   --panel: #21262d;
   --border: #445566;
   --font: white;
@@ -11,7 +11,6 @@
   --panel: #fff;
   --border: #aaa;
   --font: black;
- 
 }
 
 .btn-primary {
@@ -19,17 +18,17 @@
   background-color: var(--primary-color);
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
   filter: brightness(85%);
   background-color: var(--primary-color);
 }
 
-.btn-primary:active{
+.btn-primary:active {
   filter: brightness(70%);
   background-color: var(--primary-color);
 }
 
-.btn-primary:focus{
+.btn-primary:focus {
   background-color: var(--primary-color);
 }
 
@@ -39,17 +38,17 @@
   background-color: transparent;
 }
 
-.btn-outline-primary:hover{
+.btn-outline-primary:hover {
   border-color: var(--primary-color);
   background-color: var(--primary-color);
 }
 
-.btn-outline-primary:active{
+.btn-outline-primary:active {
   border-color: var(--primary-color);
   background-color: var(--primary-color);
 }
 
-.btn-outline-primary:focus{
+.btn-outline-primary:focus {
   background-color: var(--primary-color);
 }
 
@@ -59,8 +58,13 @@ input:active,
 select,
 select:focus,
 select:active,
-.form-floating{
+.form-floating {
   background-color: #0002;
   border-color: var(--border);
   color: var(--font);
+}
+
+.btn img {
+  width: 25px;
+  filter: invert(100%);
 }

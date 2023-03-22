@@ -3,6 +3,9 @@ import { Supplier } from "../../../../../interfaces";
 
 import style from "./SupplierRows.module.css";
 
+import edit from "../../../../../assets/svg/edit.svg";
+import deleteSvg from "../../../../../assets/svg/delete.svg";
+
 interface Props {
   supplier: Supplier;
 }
@@ -61,14 +64,14 @@ export default function SupplieRows({ supplier }: Props) {
         disabled={isDisabled}
       />
       <button
-        className="btn btn-success"
+        className="btn btn-primary"
         type="button"
         onClick={handleDisabled}
       >
-        Editar
+        <img src={edit} alt="edit"/>
       </button>
-      <button className="btn btn-success" type="button" onClick={handleRemove}>
-        Eliminar
+      <button className="btn btn-danger" type="button" onClick={handleRemove}>
+        <img src={deleteSvg} alt="delete"/>
       </button>
     </div>
   );

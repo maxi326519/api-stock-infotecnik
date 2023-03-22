@@ -1,6 +1,9 @@
-import { useEffect } from "react";
 import { Invoices } from "../../../../../interfaces";
 import style from "./InvoiceRow.module.css";
+
+import products from "../../../../../assets/svg/products.svg";
+import supplier from "../../../../../assets/svg/supplier.svg";
+import deleteSvg from "../../../../../assets/svg/delete.svg";
 
 interface Props {
   invoice: Invoices;
@@ -13,7 +16,6 @@ export default function InvoiceRow({
   handleStock,
   handleSupplier,
 }: Props) {
-
   return (
     <div className={style.row}>
       <span>{invoice.fecha}</span>
@@ -26,21 +28,21 @@ export default function InvoiceRow({
         type="button"
         onClick={() => handleStock(invoice.SuipplierId)}
       >
-        Productos
+        <img src={products} alt="products" />
       </button>
       <button
         className="btn btn-primary"
         type="button"
         onClick={() => handleSupplier(invoice.SuipplierId)}
       >
-        Proveedor
+        <img src={supplier} alt="supplier" />
       </button>
       <button
-        className="btn btn-primary"
+        className="btn btn-danger"
         type="button"
         onClick={() => handleSupplier(invoice.id)}
       >
-        Eliminar
+        <img src={deleteSvg} alt="delete" />
       </button>
       <span></span>
     </div>
