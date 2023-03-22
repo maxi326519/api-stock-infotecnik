@@ -33,6 +33,7 @@ interface Props {
 export default function Form({ handleForm }: Props) {
   const initialState: Product = {
     id: "",
+    codigo: "",
     modelo: "",
     marca: "",
     color: "",

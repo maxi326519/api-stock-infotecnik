@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Supplier } from "../../../../../interfaces";
 
 import style from "./SupplierRows.module.css";
@@ -7,17 +8,68 @@ interface Props {
 }
 
 export default function SupplieRows({ supplier }: Props) {
+  const [isDisabled, setDisabled] = useState(true);
+
+  function handleDisabled() {
+    setDisabled(!isDisabled);
+  }
+
+  function handleRemove() {}
+
   return (
-    <div className={style.supplier}>
-      <input value={supplier.code} placeholder="Codigo"/>
-      <input value={supplier.nombre} placeholder="Nombre"/>
-      <input value={supplier.direccion} placeholder="Direccion"/>
-      <input value={supplier.telefono} placeholder="Telefono"/>
-      <input value={supplier.poblacion} placeholder="Poblacion"/>
-      <input value={supplier.postal} placeholder="Postal"/>
-      <input value={supplier.cifNif} placeholder="CIF NIF"/>
-      <button className="btn btn-success" type="button">Editar</button>
-      <button className="btn btn-success" type="button">Eliminar</button>
+    <div className={style.row}>
+      <input
+        className="form-control"
+        value={supplier.codigo}
+        placeholder="Codigo"
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        value={supplier.nombre}
+        placeholder="Nombre"
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        value={supplier.direccion}
+        placeholder="Direccion"
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        value={supplier.telefono}
+        placeholder="Telefono"
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        value={supplier.poblacion}
+        placeholder="Poblacion"
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        value={supplier.postal}
+        placeholder="Postal"
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        value={supplier.cifNif}
+        placeholder="CIF NIF"
+        disabled={isDisabled}
+      />
+      <button
+        className="btn btn-success"
+        type="button"
+        onClick={handleDisabled}
+      >
+        Editar
+      </button>
+      <button className="btn btn-success" type="button" onClick={handleRemove}>
+        Eliminar
+      </button>
     </div>
   );
 }

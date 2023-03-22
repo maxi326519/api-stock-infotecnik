@@ -8,6 +8,8 @@ import { loading, closeLoading } from "../../redux/actions/loading/loading";
 import "./Login.css";
 import { getProduct } from "../../redux/actions/products";
 import { getSuppliers } from "../../redux/actions/suppliers";
+import { getInvoice } from "../../redux/actions/invoices";
+import { getInventory } from "../../redux/actions/inventory";
 
 interface Error {
   email: string | null;
@@ -62,6 +64,8 @@ export default function Signin() {
           Promise.all([
             dispatch<any>(getProduct()),
             dispatch<any>(getSuppliers()),
+            dispatch<any>(getInvoice()),
+            dispatch<any>(getInventory()),
           ]).then(() => {
             dispatch(closeLoading());
           });

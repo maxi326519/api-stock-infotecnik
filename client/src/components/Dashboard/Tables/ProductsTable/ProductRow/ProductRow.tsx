@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Product } from "../../../../../interfaces";
 
 import style from "./ProductRow.module.css";
@@ -8,12 +9,41 @@ interface Props {
 }
 
 export default function ProductCard({ product, handleDetails }: Props) {
+  const [isDisabled, setDisabled] = useState(true);
+
+  function handleDisabled(){
+    setDisabled(!isDisabled);
+  }
+
   return (
     <div className={style.row}>
-      <span>{product.id}</span>
-      <span>{`${product.marca} / ${product.modelo} / ${product.color} / ${product.capacidad}`}</span>
-      <span>{product.categoria}</span>
-      <button className="btn btn-success" type="button" onClick={handleDetails} >detalle</button>
+      <input
+        className="form-control"
+        id="codigo"
+        placeholder="Codigo"
+        type="text"
+        value={product.codigo}
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        id="marca"
+        placeholder="Msarca"
+        type="text"
+        value={`${product.marca} / ${product.modelo} / ${product.color} / ${product.capacidad}`}
+        disabled={isDisabled}
+      />
+      <input
+        className="form-control"
+        id="categoria"
+        placeholder="Categoria"
+        type="text"
+        value={product.categoria}
+        disabled={isDisabled}
+      />
+      <button className="btn btn-success" type="button" onClick={handleDetails}>
+        detalle
+      </button>
       <span></span>
     </div>
   );

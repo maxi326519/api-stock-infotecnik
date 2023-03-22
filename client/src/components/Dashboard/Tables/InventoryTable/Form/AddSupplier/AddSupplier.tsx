@@ -31,6 +31,7 @@ export default function AddSupplier({
     event.preventDefault();
     setSupplier(selected);
     handleClose();
+    console.log(selected);
   }
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
@@ -39,7 +40,7 @@ export default function AddSupplier({
     setRows(
       suppliers.filter((p: Supplier) => {
         if (value === "") return true;
-        if (p.code.toString() === value) return true;
+        if (p.id.toString() === value) return true;
         if (p.nombre.toLowerCase().includes(value.toLowerCase())) return true;
         if (p.direccion.toLowerCase().includes(value.toLowerCase())) return true;
         if (p.poblacion.toLowerCase().includes(value.toLowerCase()))
@@ -56,13 +57,12 @@ export default function AddSupplier({
     supplier: Supplier
   ): void {
     // Verificamos si ya esta este proveedor
-    if (selected?.code !== supplier.code) {
+    if (selected?.id !== supplier.id) {
       setSelected(supplier);
     } else {
       // Si esta lo eliminamos
       setSelected(null);
     }
-    console.log(selected);
   }
 
   return (
@@ -100,7 +100,7 @@ export default function AddSupplier({
               {rows?.map((supplier: Supplier) => (
                 <div
                   className={`${style.row} ${
-                    selected?.code === supplier.code ? style.selected : ""
+                    selected?.id === supplier.id ? style.selected : ""
                   }`}
                   onClick={(e) => handleSelect(e, supplier)}
                 >

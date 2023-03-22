@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postInvoice } from "../../../../../redux/actions/invoices";
-import { Supplier } from "../../../../../interfaces";
+import { Supplier, TipoImpositivo } from "../../../../../interfaces";
 import { Stock, RootState, Invoices } from "../../../../../interfaces";
 
 import AddProduct from "./AddProduct/AddProduct";
@@ -25,7 +25,7 @@ const initialState: Invoices = {
   numero: 0,
   archivo: "",
   detalles: [],
-  tipoImpositivo: "IVA",
+  tipoImpositivo: TipoImpositivo.IVA,
   supplier: "",
 };
 
@@ -136,10 +136,8 @@ export default function Form({ handleForm }: Props) {
                 </button>
               </div>
 
-              <InvoiceData />
-              {supplierSelected ? (
-                <SupplierData supplier={supplierSelected} />
-              ) : null}
+              <InvoiceData invoice={invoice} setInvoice={setInvoice} />
+              <SupplierData supplier={supplierSelected} />
               <button type="submit" className="btn btn-success">
                 Agregar inventario
               </button>

@@ -1,20 +1,20 @@
 import { Dispatch, AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { RootState, Product } from "../../../interfaces";
+import { RootState, Stock } from "../../../interfaces";
 import axios from "axios";
 
-export const GET_STOCK = "POST_STOCK";
-export const UPDATE_STOCK = "POST_STOCK";
+export const GET_INVENTORY = "GET_INVENTORY";
+export const UPDATE_STOCK = "UPDATE_STOCK";
 
-export function getSuppliers(): ThunkAction<Promise<void>, RootState, null, AnyAction> {
+export function getInventory(): ThunkAction<Promise<void>, RootState, null, AnyAction> {
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      const inventory = axios.get("/inventory");
+      const inventory = await axios.get("/inventory");
 
       dispatch({
-        type: GET_STOCK,
-        payload: inventory,
+        type: GET_INVENTORY,
+        payload: inventory.data,
       });
     } catch (error: any) {
       throw new Error(error.message);
@@ -23,17 +23,17 @@ export function getSuppliers(): ThunkAction<Promise<void>, RootState, null, AnyA
 }
 
 
-export function updateProduct(
-  updateProduct: Product
+export function updateStock(
+  updateStock: Stock
 ): ThunkAction<Promise<void>, RootState, null, AnyAction> {
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      axios.patch("/products", updateProduct);
+      await axios.patch("/products", updateStock);
 
       dispatch({
         type: UPDATE_STOCK,
-        payload: updateProduct,
+        payload: updateStock,
       });
     } catch (error: any) {
       throw new Error(error.message);

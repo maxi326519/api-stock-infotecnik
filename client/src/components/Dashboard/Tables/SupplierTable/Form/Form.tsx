@@ -17,7 +17,7 @@ interface Props {
 export default function Form({ handleForm }: Props) {
   const initialState: Supplier = {
     id: "",
-    code: 0,
+    codigo: "",
     nombre: "",
     direccion: "",
     poblacion: "",
@@ -48,7 +48,9 @@ export default function Form({ handleForm }: Props) {
         swal("Guardado", "Su proveedor se guardo correctamente", "success");
       })
       .catch((err: any) => {
+        dispatch(closeLoading());
         swal("Error", "Hubo un error al guardar el nuevo proveedor", "error");
+        console.log(err);
       });
   }
 

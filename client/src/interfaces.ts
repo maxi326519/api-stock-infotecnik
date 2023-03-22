@@ -9,6 +9,7 @@ export interface User{
 
 export interface Product {
   id: string;
+  codigo: string;
   modelo: string;
   marca: string;
   color: string;
@@ -21,7 +22,7 @@ export interface Product {
 
 export interface Supplier {
   id: string;
-  code: number;
+  codigo: string;
   nombre: string;
   direccion: string;
   poblacion: string;
@@ -49,8 +50,14 @@ export interface Invoices{
   numero: number;
   archivo: string;
   detalles: Stock[];
-  tipoImpositivo: string;
+  tipoImpositivo: TipoImpositivo;
   supplier: string;
+}
+
+export enum TipoImpositivo{
+  IVA,
+  recargo,
+  REBU
 }
 
 export enum BarCode{

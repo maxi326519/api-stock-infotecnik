@@ -8,7 +8,7 @@ import {
   UPDATE_SUPPLIER,
 } from "../actions/suppliers";
 import { POST_INVOICE, GET_INVOICE, UPDATE_INVOICE } from "../actions/invoices";
-import { GET_STOCK, UPDATE_STOCK } from "../actions/inventory";
+import { GET_INVENTORY, UPDATE_STOCK } from "../actions/inventory";
 import { LOADING, CLOSE_LOADING } from "../actions/loading/loading";
 import { LOGIN, LOG_OUT } from "../actions/login/login";
 
@@ -79,7 +79,7 @@ export default function Reducer(
         invoices: [...state.invoices, action.payload],
       };
 
-    case GET_STOCK:
+    case GET_INVENTORY:
       return {
         ...state,
         stock: action.payload,

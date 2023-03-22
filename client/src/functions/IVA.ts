@@ -1,8 +1,10 @@
-export default function calcularIVA(tipoImpositivo: string, name: string, value: number | string) {
+import { TipoImpositivo } from "../interfaces";
+
+export default function calcularIVA(tipoImpositivo: TipoImpositivo, name: string, value: number | string) {
   let prices = {};
 
   switch (tipoImpositivo) {
-    case "IVA":
+    case TipoImpositivo.IVA:
       if (name === "precioSinIVA") {
         prices = {
           precioSinIVA: value,
@@ -16,7 +18,7 @@ export default function calcularIVA(tipoImpositivo: string, name: string, value:
         };
       }
       break;
-    case "Recargo":
+    case TipoImpositivo.recargo:
       if (name === "precioSinIVA") {
         prices = {
           precioSinIVA: Number(value) * 1.262,
@@ -30,21 +32,7 @@ export default function calcularIVA(tipoImpositivo: string, name: string, value:
         };
       }
       break;
-    case "Equivalencia":
-        if (name === "precioSinIVA") {
-            prices = {
-              precioSinIVA: Number(value) * 1.262,
-              precioIVA: value,
-            };
-          }
-          if (name === "precioIVA") {
-            prices = {
-              precioSinIVA: value,
-              precioIVA: Number(value) / 1.21,
-            };
-          }
-      break;
-    case "REBU":
+    case TipoImpositivo.REBU:
       if (name === "precioSinIVA") {
         prices = {
           precioSinIVA: value,

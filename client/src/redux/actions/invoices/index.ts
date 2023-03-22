@@ -13,11 +13,11 @@ export function postInvoice(
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      const response = axios.post("/invocies", newInventory);
+      const response = await axios.post("/invocies", newInventory);
 
       dispatch({
         type: POST_INVOICE,
-        payload: response,
+        payload: response.data,
       });
     } catch (e: any) {
       throw new Error(e);
@@ -29,11 +29,11 @@ export function getInvoice(): ThunkAction<Promise<void>, RootState, null, AnyAct
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      const invoices = axios.get("/invoices");
+      const invoices = await axios.get("/invoices");
 
       dispatch({
         type: GET_INVOICE,
-        payload: invoices,
+        payload: invoices.data,
       });
     } catch (e: any) {
       throw new Error(e);
@@ -47,7 +47,7 @@ export function updateInvoice(
   return async (dispatch: Dispatch<AnyAction>) => {
     try {
 
-      axios.patch("/invoices", updateInventory);
+      await axios.patch("/invoices", updateInventory);
 
       dispatch({
         type: UPDATE_INVOICE,
