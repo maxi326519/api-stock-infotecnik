@@ -1,16 +1,13 @@
-.card{
+.row {
   display: grid;
-  grid-template-columns: 200px 150px 100px 1fr repeat(2, 100px) 130px 100px 80px;
+  grid-template-columns: repeat(2, 100px) repeat(4, 1fr) 100px 100px;
   grid-template-rows: 1fr;
   gap: 10px;
   padding: 10px;
+  padding-bottom: 0px;
   outline: 1px solid var(--border);
 }
 
-.card span{
+.row span {
   border-right: 1px solid var(--border);
-}
-
-.firstrow{
-  padding-right: 25px;
 }

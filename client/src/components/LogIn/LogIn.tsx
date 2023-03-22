@@ -10,6 +10,7 @@ import { getProduct } from "../../redux/actions/products";
 import { getSuppliers } from "../../redux/actions/suppliers";
 import { getInvoice } from "../../redux/actions/invoices";
 import { getInventory } from "../../redux/actions/inventory";
+import swal from "sweetalert";
 
 interface Error {
   email: string | null;
@@ -66,16 +67,34 @@ export default function Signin() {
             dispatch<any>(getSuppliers()),
             dispatch<any>(getInvoice()),
             dispatch<any>(getInventory()),
-          ]).then(() => {
-            dispatch(closeLoading());
-          });
+          ])
+            .then(() => {
+              dispatch(closeLoading());
+            })
+            .catch((err: any) => {
+              swal(
+                "Error",
+                "Ocurrio un error al cargar los datos, intentelo mas tarde",
+                "error"
+              );
+              dispatch(closeLoading());
+              console.log(err);
+            });
         })
         .catch((err: any) => {
           if (err.message.split(": ")[1] === "invalid credentials") {
             err.email = "Email o contraseña incorrecta";
             err.password = "Email o contraseña incorrecta";
             setError(err);
+          } else {
+            swal(
+              "Error",
+              "Ocurrió un error al iniciar sesión, intentelo mas tarde",
+              "error"
+            );
+            console.log(err);
           }
+          dispatch(closeLoading());
         });
     }
   }

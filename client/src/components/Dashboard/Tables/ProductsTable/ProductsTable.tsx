@@ -17,23 +17,29 @@ export default function ProductTable() {
 
   useEffect(() => {
     setRows(products);
-  }, [products])
+  }, [products]);
 
   function handleForm() {
     setForm(!form);
   }
 
-  function handleDetails(){
+  function handleDetails() {
     setDetails(!details);
   }
 
   return (
     <div className={styles.dashboardList}>
       {form ? <Form handleForm={handleForm} /> : null}
-      {details ? <Details product={products[0]} handleDetails={handleDetails} /> : null}
+      {details ? (
+        <Details product={products[0]} handleDetails={handleDetails} />
+      ) : null}
       <h3>Poductos</h3>
       <div className={styles.dashboardList__searchBar}>
-        <input className="form-control" type="search"  placeholder="Buscar producto" />
+        <input
+          className="form-control"
+          type="search"
+          placeholder="Buscar producto"
+        />
         <button className="btn btn-primary" type="button" onClick={handleForm}>
           Agregar producto
         </button>
@@ -50,12 +56,22 @@ export default function ProductTable() {
             <div className={styles.listEmpty}>
               <span>No hay productos</span>
               <span>¿Quieres agregar uno?</span>
-              <button className="btn btn-primary" type="button" onClick={handleForm}>
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={handleForm}
+              >
                 Agregar producto
               </button>
             </div>
           ) : (
-            rows?.map((p: Product) => <ProductRow product={p} handleDetails={handleDetails}/>)
+            rows?.map((product: Product) => (
+              <ProductRow
+                key={product.id}
+                product={product}
+                handleDetails={handleDetails}
+              />
+            ))
           )}
         </div>
       </div>

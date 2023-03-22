@@ -2,57 +2,56 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 import styles from "../../Dashboard.module.css";
-import style from "./InvoiceTable.module.css";
-import { Invoices, RootState } from "../../../../interfaces";
+import style from "./TransactionsTable.module.css";
+import { RootState, Transactions } from "../../../../interfaces";
 import { useSelector } from "react-redux";
-import InvoiceRow from "./InvoiceRow/InvoiceRow";
+import TransactionsRow from "./TransactionsRow/TransactionsRow";
 
-export default function InvoiceTable() {
-  const invoices = useSelector((state: RootState) => state.invoices);
-  const [rows, setRows] = useState<Invoices[]>([]);
+export default function TransactionsTable() {
+  const transactions = useSelector((state: RootState) => state.transactions);
+  const [rows, setRows] = useState<Transactions[]>([]);
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-    const filter = invoices.filter(() => {
+    const filter = transactions.filter(() => {
       if (search === "") return true;
       return true;
     });
     setRows(filter);
-  }, [invoices, search]);
+  }, [transactions, search]);
 
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     setSearch(value);
   }
 
-  function handleStock() {}
-
-  function handleSupplier() {}
+  function handleInvoice() {}
 
   return (
     <div className={styles.dashboardList}>
-      <h3>Facturas</h3>
+      <h3>Movimientos</h3>
       <div className={styles.dashboardList__searchBar}>
         <input
           className="form-control"
           type="search"
-          placeholder="Buscar factura"
+          placeholder="Buscar movimiento"
           onChange={handleSearchChange}
         />
         <button className="btn btn-primary" type="button">
-          <span>Facturas</span>
+          Importar
         </button>
       </div>
       <div className={styles.dashboardList__grid}>
         <div className={style.row}>
           <span>Fecha</span>
-          <span>Numero</span>
-          <span>Archivo</span>
-          <span>Tipo impositivo</span>
-          <span>Total</span>
-          <span>Productos</span>
-          <span>Proveedor</span>
-          <span>Eliminar</span>
+          <span>Fecha Valor</span>
+          <span>Movimiento</span>
+          <span>Mas datos</span>
+          <span>Importe</span>
+          <span>Saldo</span>
+          <span className={style.buttons}>Ver</span>
+          <span className={style.buttons}>Vincular</span>
+          <span className={style.buttons}>Eliminar</span>
         </div>
         <div className={style.card}>
           {rows.length <= 0 ? (
@@ -60,12 +59,11 @@ export default function InvoiceTable() {
               <span>No hay productos</span>
             </div>
           ) : (
-            rows?.map((invoice: Invoices) => (
-              <InvoiceRow
-                key={invoice.id}
-                invoice={invoice}
-                handleStock={handleStock}
-                handleSupplier={handleSupplier}
+            rows?.map((transaction: Transactions) => (
+              <TransactionsRow
+                key={transaction.id}
+                transaction={transaction}
+                handleInvoice={handleInvoice}
               />
             ))
           )}

@@ -16,7 +16,7 @@ import style from "./Form.module.css";
 import swal from "sweetalert";
 
 interface Props {
-  handleForm: () => void;
+  handleClose: () => void;
 }
 
 const initialState: Invoices = {
@@ -24,9 +24,9 @@ const initialState: Invoices = {
   fecha: "",
   numero: 0,
   archivo: "",
-  detalles: [],
   tipoImpositivo: TipoImpositivo.IVA,
-  supplier: "",
+  SuipplierId: "",
+  ProductId: [],
 };
 
 const initialStock: Stock = {
@@ -43,7 +43,7 @@ const initialStock: Stock = {
   InvoiceId: "",
 };
 
-export default function Form({ handleForm }: Props) {
+export default function Form({ handleClose }: Props) {
   const invoices = useSelector((state: RootState) => state.invoices);
 
   const [productsSelected, setProduct] = useState<string[]>([]);
@@ -74,8 +74,8 @@ export default function Form({ handleForm }: Props) {
     } */
   }
 
-  function handleClose(): void {
-    handleForm();
+  function handleLocalClose(): void {
+    handleClose();
     setProduct([]);
     setSupplier(null);
     setStock([]);
@@ -110,7 +110,7 @@ export default function Form({ handleForm }: Props) {
       <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.close}>
           <h4>Agregar inventario</h4>
-          <button className="btn btn-danger" onClick={handleClose}>
+          <button className="btn btn-danger" type="button" onClick={handleLocalClose}>
             X
           </button>
         </div>

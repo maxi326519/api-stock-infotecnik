@@ -2,6 +2,7 @@ import Inventory from "./InventoryTable/InventoryTable";
 import Products from "./ProductsTable/ProductsTable";
 import Supplier from "./SupplierTable/SupplierTable";
 import Invoice from "./InvoiceTable/InvoiceTable";
+import Transactions from "./TransactionsTable/TransactionsTable";
 
 import styles from "../Dashboard.module.css";
 
@@ -19,7 +20,9 @@ export default function Tables({ table }: Props) {
         ?<Products/>
         :table === 3
         ?<Supplier/>
-        :<Invoice/>
+        :table === 4
+        ?<Invoice/>
+        :<Transactions/>
       }
     </div>
   );

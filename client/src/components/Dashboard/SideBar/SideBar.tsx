@@ -3,6 +3,7 @@ import inventory from "../../../assets/svg/inventory.svg";
 import products from "../../../assets/svg/products.svg";
 import supplier from "../../../assets/svg/supplier.svg";
 import invoices from "../../../assets/svg/invoices.svg";
+import bank from "../../../assets/svg/bank.svg";
 
 import styles from "./SideBar.module.css";
 
@@ -50,6 +51,14 @@ export default function SideBar({ table, changeTable }: Props) {
       >
         <img src={invoices} alt="invoices" />
         Facturas
+      </button>
+      <button
+        className={table === 5 ? styles.selected : "5"}
+        type="button"
+        onClick={() => changeTable(5)}
+      >
+        <img src={bank} alt="movimientos" />
+        Movimientos
       </button>
     </div>
   );

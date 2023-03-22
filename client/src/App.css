@@ -2,15 +2,15 @@
   --primary-color: #6433cc;
   --primary-color--transp: #6433cc44;
 
-  --background: #0d1117;
+/*   --background: #0d1117;
   --panel: #21262d;
   --border: #445566;
   --font: white;
-
-/*   --background: #ccc;
+ */
+  --background: #ccc;
   --panel: #fff;
   --border: #aaa;
-  --font: black; */
+  --font: black;
  
 }
 

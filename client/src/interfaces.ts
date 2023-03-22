@@ -1,10 +1,10 @@
-export interface Login{
+export interface Login {
   email: string;
   password: string;
 }
 
-export interface User{
-  name: string
+export interface User {
+  name: string;
 }
 
 export interface Product {
@@ -30,10 +30,10 @@ export interface Supplier {
   cifNif: string;
   telefono: string;
 }
-export interface Stock{
+export interface Stock {
   id: string;
   status: string;
-  IMEISerie: string;/* enum[IMEI, nroSerie] */
+  IMEISerie: string /* enum[IMEI, nroSerie] */;
   TipoCodigoDeBarras: string;
   codigoDeBarras: string;
   precioSinIVA: number;
@@ -44,29 +44,40 @@ export interface Stock{
   InvoiceId: string;
 }
 
-export interface Invoices{
-  id: string
+export interface Invoices {
+  id: string;
   fecha: string;
   numero: number;
   archivo: string;
-  detalles: Stock[];
   tipoImpositivo: TipoImpositivo;
-  supplier: string;
+  SuipplierId: string;
+  ProductId: Stock[];
 }
 
-export enum TipoImpositivo{
+export enum TipoImpositivo {
   IVA,
   recargo,
-  REBU
+  REBU,
 }
 
-export enum BarCode{
+export interface Transactions{
+  id: string,
+  fecha: string,
+  fechaValor: string,
+  movimiento: string,
+  datos: string;
+  importe: number;
+  saldo: number;
+  InvoiceId: string;
+}
+
+export enum BarCode {
   Coded128,
   Code39,
   UPCA,
   UPCE,
   EAN8,
-  EAN13
+  EAN13,
 }
 
 export interface RootState {
@@ -75,5 +86,6 @@ export interface RootState {
   suppliers: Array<Supplier>;
   stock: Array<Stock>;
   invoices: Array<Invoices>;
+  transactions: Array<Transactions>
   loading: boolean;
 }

@@ -1,16 +1,12 @@
 .row {
   display: grid;
-  grid-template-columns: repeat(2, 100px) repeat(4, 1fr) 100px 100px;
-  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 100px) repeat(2, 1fr) repeat(2, 100px) repeat(3, 80px);
   gap: 10px;
   padding: 10px;
+  padding-bottom: 0px;
   outline: 1px solid var(--border);
 }
 
 .row span {
   border-right: 1px solid var(--border);
-}
-
-.firstrow {
-  padding-right: 25px;
 }

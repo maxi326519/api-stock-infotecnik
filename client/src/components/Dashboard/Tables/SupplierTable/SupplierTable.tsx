@@ -19,7 +19,7 @@ export default function SupplierTable() {
 
   useEffect(() => {
     setRows(supplier);
-  },[supplier])
+  }, [supplier]);
 
   function handleForm(): void {
     setForm(!form);
@@ -30,7 +30,11 @@ export default function SupplierTable() {
       {form ? <Form handleForm={handleForm} /> : null}
       <h3>Proveedores</h3>
       <div className={styles.dashboardList__searchBar}>
-        <input className="form-control" type="search" placeholder="Buscar proveedor" />
+        <input
+          className="form-control"
+          type="search"
+          placeholder="Buscar proveedor"
+        />
         <button className="btn btn-primary" type="button" onClick={handleForm}>
           <span>Agregar proveedor</span>
         </button>
@@ -57,7 +61,9 @@ export default function SupplierTable() {
               </button>
             </div>
           ) : (
-            rows?.map((s: Supplier) => <SupplierRows supplier={s}/>)
+            rows?.map((supplier: Supplier) => (
+              <SupplierRows key={supplier.id} supplier={supplier} />
+            ))
           )}
         </div>
       </div>
