@@ -1,7 +1,11 @@
+const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const cors = require("cors");
+const multer = require("multer");
+const sharp = require("sharp");
 const jwt = require("jsonwebtoken");
 const keys = require("./settings/keys");
 const { serialize } = require("cookie");
@@ -15,8 +19,34 @@ const suppliers = require("./routes/suppliers");
 // Ceate server
 const server = express();
 
+// Create storage
+const helperImg = (filePath: string, fileName: string, size = 300) => {
+  return sharp(filePath)
+    .resize(size)
+    .toFile(`/optimize/${fileName}.png`)
+}
+
+const storage = multer.diskStorage({
+  destination: (req: any, file: any, cb: any) => {
+    cb(null, "./src/upload")
+  },
+  filename: (req: any, file: any, cb: any) => {
+    const ext = file.originalname.split(".").pop();
+    cb(null, `${Date.now()}.${ext}`);
+  }
+})
+
+const upload = multer({ storage });
+
+server.use(express.static(path.join(__dirname, "upload")))
+server.post("/upload", upload.single("file"), (req: any, res: any) => {
+/*   helperImg(req.file.path, `resize-${req.file.filename}`, 100); */
+  res.send({ data: "Imagen cargada"});
+})
+
 // server config
 server.set("key", keys.key);
+server.use(cors());
 server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
