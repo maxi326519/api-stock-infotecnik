@@ -4,8 +4,6 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
-const multer = require("multer");
-const sharp = require("sharp"); 
 const jwt = require("jsonwebtoken");
 const keys = require("./settings/keys");
 const { serialize } = require("cookie");
@@ -13,6 +11,7 @@ const { serialize } = require("cookie");
 // Import routes
 const login = require("./routes/login").routerLogin;
 const user = require("./routes/users");
+const uploads = require("./routes/upload");
 const products = require("./routes/products");
 const invoices = require("./routes/invoices");
 const inventory = require("./routes/inventory");
@@ -21,33 +20,9 @@ const suppliers = require("./routes/suppliers");
 // Ceate server
 const server = express();
 
-// Create storage
-const helperImg = (filePath: string, fileName: string, size = 300) => {
-  return sharp(filePath)
-    .resize(size)
-    .toFile(`/optimize/${fileName}.png`)
-} 
-
-const storage = multer.diskStorage({
-  destination: (req: any, file: any, cb: any) => {
-    cb(null, "./images/upload")
-  },
-  filename: (req: any, file: any, cb: any) => {
-    const ext = file.originalname.split(".").pop();
-    cb(null, `${Date.now()}.${ext}`);
-  }
-})
-
-const upload = multer({ storage });
-
-server.use(express.static(path.join(__dirname, "./images/upload")))
-server.post("./images/upload", upload.single("file"), (req: any, res: any) => {
-/*   helperImg(req.file.path, `resize-${req.file.filename}`, 100); */
-  res.send({ data: "Imagen cargada"});
-})
-
 // server config
 server.set("key", keys.key);
+server.use(express.static(path.join(__dirname, "./upload")));
 server.use(cors());
 server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -55,7 +30,7 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req: any, res: any, next: any) => {
-  res.header("Access-Control-Allow-Origin", /* "http://localhost:3000" */ '*'); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", /* "http://localhost:3000" */ "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -68,6 +43,7 @@ server.use((req: any, res: any, next: any) => {
 // Add routes
 server.use("/login", login);
 server.use("/user", user);
+server.use("/upload", uploads);
 server.use("/products", products);
 server.use("/invoices", invoices);
 server.use("/inventory", inventory);
