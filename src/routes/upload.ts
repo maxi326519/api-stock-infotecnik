@@ -1,7 +1,7 @@
 const routerUpload = require("express").Router();
 const {
   setImage,
-/*   setInvoice, */
+  /*   setInvoice, */
   optimizeImg,
   deleteImage,
   deleteInvoiceFile,
@@ -14,7 +14,12 @@ routerUpload.post(
     try {
       console.log(req.file);
       /* optimizeImg(req.file.path, `resize-${req.file.filename}`, 100); */
-      res.status(200).json({ msg: "Uploaded image successfully" });
+      const data = {
+        msg: "Uploaded image successfully",
+        path: `/upload/images/${req.file.filename}`,
+      };
+
+      res.status(200).json(data);
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }
@@ -33,8 +38,9 @@ routerUpload.post(
   }
 ); */
 
-routerUpload.delete("/image", async (req: any, res: any) => {
+routerUpload.delete("/image/:id", async (req: any, res: any) => {
   try {
+    console.log(req.Parameters);
     res.status(200).json({ msg: "Deleted image successfully" });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
