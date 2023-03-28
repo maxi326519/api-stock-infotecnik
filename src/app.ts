@@ -5,12 +5,14 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const multer = require("multer");
-const sharp = require("sharp");
+const sharp = require("sharp"); 
 const jwt = require("jsonwebtoken");
 const keys = require("./settings/keys");
 const { serialize } = require("cookie");
 
 // Import routes
+const login = require("./routes/login").routerLogin;
+const user = require("./routes/users");
 const products = require("./routes/products");
 const invoices = require("./routes/invoices");
 const inventory = require("./routes/inventory");
@@ -24,11 +26,11 @@ const helperImg = (filePath: string, fileName: string, size = 300) => {
   return sharp(filePath)
     .resize(size)
     .toFile(`/optimize/${fileName}.png`)
-}
+} 
 
 const storage = multer.diskStorage({
   destination: (req: any, file: any, cb: any) => {
-    cb(null, "./src/upload")
+    cb(null, "./images/upload")
   },
   filename: (req: any, file: any, cb: any) => {
     const ext = file.originalname.split(".").pop();
@@ -38,8 +40,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-server.use(express.static(path.join(__dirname, "upload")))
-server.post("/upload", upload.single("file"), (req: any, res: any) => {
+server.use(express.static(path.join(__dirname, "./images/upload")))
+server.post("./images/upload", upload.single("file"), (req: any, res: any) => {
 /*   helperImg(req.file.path, `resize-${req.file.filename}`, 100); */
   res.send({ data: "Imagen cargada"});
 })
@@ -64,47 +66,14 @@ server.use((req: any, res: any, next: any) => {
 });
 
 // Add routes
+server.use("/login", login);
+server.use("/user", user);
 server.use("/products", products);
 server.use("/invoices", invoices);
 server.use("/inventory", inventory);
 server.use("/suppliers", suppliers);
 
-server.post("/login", (req: any, res: any) => {
-  const {email, password} = req.body;
-
-  if(email === "maxi.326519@gmail.com" && password === "12345678"){
-    const token = jwt.sign({ check: true, email: "maxi.326519@gmail.com" }, server.get("key"), {
-      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 24,      
-    });
-
-    res.cookie("my-cookie", token);
-    res.status(200).json({ mensage: "Login successfully"});
-  }else{
-    res.status(400).json({ error: "invalid credentials"});
-  }
-});
-
-const verification = express.Router();
-
-verification.use((req: any, res: any, next: any) => {
-  let token = req.headers["x-access-token"] || req.headers["authorization"]
-  if(!token){
-    res.status(400).send({ error: "missin token" })
-  }else{
-    token = token.split(" ")[1];
-    jwt.verify(token, server.get("key"), (error: any, decoded: any) => {
-      if(error){
-        return res.json({ message: "token invalid" })
-      }else{
-        req.decoded = decoded;
-        next();
-      }
-    })
-  }
-})
-
 // Implementar un protocolo de HTTPS de Security
-
 // Error catching endware.
 server.use((err: any, req: any, res: any, next: any) => {
   // eslint-disable-line no-unused-vars

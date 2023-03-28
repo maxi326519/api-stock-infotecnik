@@ -1,8 +1,8 @@
 require("dotenv").config();
+const pathDB = require("path");
 const { Sequelize } = require("sequelize");
-const fs = require("fs");
-const path = require("path");
 const { DataTypes } = require("sequelize");
+const fs = require("fs");
 
 const {
   DB_USER,
@@ -28,22 +28,23 @@ const options = {
   native: false,
 };
 
-console.log(options);
 
 const sequelize = new Sequelize(options);
 
-const basename = path.basename(__filename);
+const basename = pathDB.basename(__filename);
 
 const modelDefiners: any = [];
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, "/models"))
+fs.readdirSync(pathDB.join(__dirname, "/models"))
   .filter(
     (file: any) =>
-      file.indexOf(".") !== 0 && file !== basename && (file.slice(-3) === ".ts" || file.slice(-3) === ".js")
+      file.indexOf(".") !== 0 &&
+      file !== basename &&
+      (file.slice(-3) === ".ts" || file.slice(-3) === ".js")
   )
   .forEach((file: any) => {
-    modelDefiners.push(require(path.join(__dirname, "/models", file)));
+    modelDefiners.push(require(pathDB.join(__dirname, "/models", file)));
   });
 
 // Injectamos la conexion (sequelize) a todos los modelos

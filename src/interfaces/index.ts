@@ -1,3 +1,11 @@
+export interface User {
+  id: string;
+  rol: string;
+  name: string;
+  userName: string;
+  password: string;
+}
+
 export interface Product {
   id: string;
   modelo: string;
@@ -19,7 +27,7 @@ export interface Inventory{
   precioSinIVA: number;
   precioIVA: number;
   precioIVAINC: number;
-  img: Array<File>;
+  img: Array<string>;
   product: string;
   invoice: number;
   supplier: number;
