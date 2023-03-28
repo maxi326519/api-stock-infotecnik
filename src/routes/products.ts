@@ -13,7 +13,8 @@ routerPro.post("/", async (req: any, res: any) => {
     const query = await setProducts(product);
     res.status(200).json(query);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error });
+    console.log(error);
   }
 });
 

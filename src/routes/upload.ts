@@ -12,12 +12,13 @@ routerUpload.post(
   setImage.single("file"),
   async (req: any, res: any, file: any) => {
     try {
-      console.log(req.file);
       /* optimizeImg(req.file.path, `resize-${req.file.filename}`, 100); */
       const data = {
         msg: "Uploaded image successfully",
-        path: `/upload/images/${req.file.filename}`,
+        path: `/images/${req.file.filename}`,
       };
+
+      console.log(data);
 
       res.status(200).json(data);
     } catch (error: any) {

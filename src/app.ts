@@ -22,7 +22,7 @@ const server = express();
 
 // server config
 server.set("key", keys.key);
-server.use(express.static(path.join(__dirname, "./upload")));
+server.use(express.static("upload"));
 server.use(cors());
 server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));

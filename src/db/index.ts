@@ -28,7 +28,6 @@ const options = {
   native: false,
 };
 
-
 const sequelize = new Sequelize(options);
 
 const basename = pathDB.basename(__filename);
@@ -68,14 +67,8 @@ Stock.belongsTo(Invoice);
 Product.hasMany(Stock);
 Stock.belongsTo(Product);
 
-Product.hasMany(Images);
-Images.belongsTo(Product);
-
 Product.belongsTo(Category);
 Category.hasMany(Product);
-
-Stock.hasMany(Images);
-Images.belongsTo(Stock);
 
 Supplier.hasMany(Invoice);
 Invoice.belongsTo(Supplier);

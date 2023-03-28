@@ -7,8 +7,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+      fechaAlta: {
+        type: DataTypes.Date,
+        allowNull: false,
+      },
       status: {
-        type: DataTypes.ENUM("Nuevo", "Casi nuevo", "Vendido"),
+        type: DataTypes.ENUM("Nuevo", "Casi nuevo", "Vendido", "Temporal"),
         allowNull: true,
       },
       IMEISerie: {
@@ -45,7 +49,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       imagen: {
-        type: DataTypes.STRING,
+        type: DataTypes.JSON,
         allowNull: false,
       },
     },
