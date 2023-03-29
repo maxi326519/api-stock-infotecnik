@@ -39,15 +39,16 @@ routerPro.patch("/", async (req: any, res: any) => {
   }
 });
 
-routerPro.delete("/:id", (req: any, res: any) => {
+routerPro.delete("/:id", async (req: any, res: any) => {
   try {
     const { id } = req.params;
-    deletedProduct(id);
+    await deletedProduct(id);
     res
       .status(200)
       .json({ message: `El producto ${id} se elimino correctamente` });
-  } catch (error) {
-    res.status(400).json({ error: error });
+  } catch (error: any) {
+    console.log(error);
+    res.status(400).json({ error: error.message });
   }
 });
 
@@ -74,8 +75,8 @@ routerPro.get("/attributes", async (req: any, res: any) => {
 routerPro.post("/categories", async (req: any, res: any) => {
   try {
     const { data } = req.body;
-    const response = await setCategories(data);
-    res.status(200).json(response);
+    await setCategories(data);
+    res.status(200).json({ msg: "Saved categories successfully" });
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }

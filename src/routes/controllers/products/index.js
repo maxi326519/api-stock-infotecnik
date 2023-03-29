@@ -4,6 +4,7 @@ const {
   Colores,
   Category,
 } = require("../../../db/index");
+const { deleteImage } = require("../upload");
 
 const setProducts = async (products) => {
   const productRef = await Product.create(products);
@@ -24,7 +25,19 @@ const updateProducts = async (product) => {
 };
 
 const deletedProduct = async (productId) => {
-  await Product.destroy({ where: { id: productId } });
+  const product = await Product.findOne({
+    where: { id: productId },
+  });
+  if (!product) throw new Error("product not found");
+
+  const images = product.dataValues.imgGenerica;
+  console.log("for");
+  for (let i = 0; i < images.length; i++) {
+    console.log(images[i]);
+    deleteImage(images[i]);
+  }
+  console.log("finished");
+  /*   await Product.destroy({ where: { id: productId } }); */
 };
 
 const setAttributes = async (name, data) => {
@@ -78,7 +91,6 @@ const getAttributes = async () => {
 };
 
 const setCategories = async (data) => {
-  console.log(data);
   let remove = []; // Categories to add
   let create = []; // Categories to delete
 
