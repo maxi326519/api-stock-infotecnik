@@ -3,7 +3,7 @@ const {
   setSupplier,
   getSupplier,
   updateSupplier,
-  disabledSupplier,
+  deleteSupplier,
 } = require("./controllers/suppliers");
 
 routerSup.post("/", async (req: any, res: any) => {
@@ -35,14 +35,14 @@ routerSup.patch("/", async (req: any, res: any) => {
   }
 })
 
-/* routerSup.delete("/:id", async (req: any, res: any) => {
+routerSup.delete("/:id", async (req: any, res: any) => {
   try{
     const { id } = req.params;
-    await disabledSupplier(id);
+    await deleteSupplier(id);
     res.status(200).json({ message: `El proveedor ${id} se elimino correctamente` });
   }catch(err: any){
     res.status(400).json({ error: err.message });
   }
-}) */
+})
 
 module.exports = routerSup;

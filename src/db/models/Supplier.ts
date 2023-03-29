@@ -11,10 +11,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      codigo: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,

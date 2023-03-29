@@ -1,7 +1,6 @@
 const { Supplier } = require("../../../db/index");
 
 const setSupplier = async (supplier) => {
-  if (!supplier.codigo) throw new Error("missing parameter: codigo");
   if (!supplier.numero) throw new Error("missing parameter: numero");
   if (!supplier.nombre) throw new Error("missing parameter: nombre");
   if (!supplier.direccion) throw new Error("missing parameter: direccion");
@@ -27,7 +26,12 @@ const updateSupplier = async (supplier) => {
   await query.update(supplier);
 };
 
-const disabledSupplier = async (supplierId) => {
+const deleteSupplier = async (supplierId) => {
+  const supplier = await Supplier.findOne({
+    where: { id: supplierId },
+  });
+  if (!supplier) throw new Error("supplier not found");
+
   await Supplier.destroy({ where: { id: supplierId } });
 };
 
@@ -35,5 +39,5 @@ module.exports = {
   setSupplier,
   getSupplier,
   updateSupplier,
-  disabledSupplier,
+  deleteSupplier,
 };
