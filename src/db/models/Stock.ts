@@ -7,10 +7,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      fechaAlta: {
-        type: DataTypes.Date,
-        allowNull: false,
-      },
       status: {
         type: DataTypes.ENUM("Nuevo", "Casi nuevo", "Vendido", "Temporal"),
         allowNull: true,

@@ -58,8 +58,16 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Invoice, Product, Stock, Supplier, Images, Category } =
-  sequelize.models;
+const {
+  Invoice,
+  Product,
+  Stock,
+  Supplier,
+  Images,
+  Category,
+  Transaction,
+  Client,
+} = sequelize.models;
 
 Invoice.hasMany(Stock);
 Stock.belongsTo(Invoice);

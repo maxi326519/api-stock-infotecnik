@@ -20,10 +20,18 @@ const suppliers = require("./routes/suppliers");
 // Ceate server
 const server = express();
 
+// Cors options
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  methods: "GET, PATCH, POST, OPTIONS, PUT, DELETE",
+  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
+};
+
 // server config
 server.set("key", keys.key);
 server.use(express.static("upload"));
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));

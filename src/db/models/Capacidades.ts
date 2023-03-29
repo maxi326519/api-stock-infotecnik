@@ -1,21 +1,16 @@
 module.exports = (sequelize: any, DataTypes: any) => {
   sequelize.define(
-    "Category",
+    "Capacidades",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
-        unique: true,
+        autoIncrement: true,
       },
-      name: {
+      capacidad: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      parent: {
-        type: DataTypes.INTEGER,
         allowNull: true,
+        unique: true,
       },
     },
     { updatedAt: false, timestamps: false }
