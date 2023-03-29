@@ -4,10 +4,9 @@ const {
   getProducts,
   updateProducts,
   deletedProduct,
+  setCategories,
   setAttributes,
   getAttributes,
-  setCategories,
-  getCategories,
 } = require("./controllers/products");
 
 routerPro.post("/", async (req: any, res: any) => {
@@ -52,10 +51,21 @@ routerPro.delete("/:id", async (req: any, res: any) => {
   }
 });
 
+routerPro.post("/categories", async (req: any, res: any) => {
+  try {
+    const data = req.body;
+    await setCategories(data);
+    res.status(200).json({ msg: "Saved categories successfully" });
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 routerPro.post("/attributes/:name", async (req: any, res: any) => {
   try {
     const { name } = req.params;
-    const { data } = req.body;
+    const data = req.body;
+    console.log(data);
     const response = await setAttributes(name, data);
     res.status(200).json(response);
   } catch (err: any) {
@@ -66,25 +76,6 @@ routerPro.post("/attributes/:name", async (req: any, res: any) => {
 routerPro.get("/attributes", async (req: any, res: any) => {
   try {
     const response = await getAttributes();
-    res.status(200).json(response);
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-routerPro.post("/categories", async (req: any, res: any) => {
-  try {
-    const { data } = req.body;
-    await setCategories(data);
-    res.status(200).json({ msg: "Saved categories successfully" });
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-routerPro.get("/categories", async (req: any, res: any) => {
-  try {
-    const response = await getCategories();
     res.status(200).json(response);
   } catch (err: any) {
     res.status(400).json({ error: err.message });

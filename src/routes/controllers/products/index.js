@@ -30,14 +30,12 @@ const deletedProduct = async (productId) => {
   });
   if (!product) throw new Error("product not found");
 
-  const images = product.dataValues.imgGenerica;
-  console.log("for");
+  /*   const images = product.dataValues.imgGenerica;
   for (let i = 0; i < images.length; i++) {
     console.log(images[i]);
     deleteImage(images[i]);
-  }
-  console.log("finished");
-  /*   await Product.destroy({ where: { id: productId } }); */
+  } */
+  await Product.destroy({ where: { id: productId } });
 };
 
 const setAttributes = async (name, data) => {
@@ -81,12 +79,15 @@ const setAttributes = async (name, data) => {
 const getAttributes = async () => {
   const capacidadesRef = await Capacidades.findAll();
   const coloresRef = await Colores.findAll();
+  const categories = await Category.findAll();
+
   const capacidades = capacidadesRef.map((c) => c.dataValues);
   const colores = coloresRef.map((c) => c.dataValues);
 
   return {
     capacidades,
     colores,
+    categories,
   };
 };
 
@@ -123,11 +124,6 @@ const setCategories = async (data) => {
   await Category.bulkCreate(create);
 };
 
-const getCategories = async () => {
-  const categories = Category.findAll();
-  return categories;
-};
-
 module.exports = {
   setProducts,
   getProducts,
@@ -136,5 +132,4 @@ module.exports = {
   setAttributes,
   getAttributes,
   setCategories,
-  getCategories,
 };
