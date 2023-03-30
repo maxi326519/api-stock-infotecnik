@@ -16,6 +16,8 @@ const products = require("./routes/products");
 const invoices = require("./routes/invoices");
 const inventory = require("./routes/inventory");
 const suppliers = require("./routes/suppliers");
+const clients = require("./routes/clients");
+const transactions = require("./routes/transactions");
 
 // Ceate server
 const server = express();
@@ -56,6 +58,8 @@ server.use("/products", products);
 server.use("/invoices", invoices);
 server.use("/inventory", inventory);
 server.use("/suppliers", suppliers);
+server.use("/clients", clients);
+server.use("/transactions", transactions);
 
 // Implementar un protocolo de HTTPS de Security
 // Error catching endware.
