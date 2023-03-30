@@ -27,10 +27,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.FLOAT,
         allowNull: true,
       },
-      saldo: {
-        type: DataTypes.FLOAT,
-        allowNull: true,
-      },
     },
     { updatedAt: false, timestamps: false }
   );

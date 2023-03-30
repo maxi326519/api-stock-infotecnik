@@ -6,7 +6,6 @@ const setTransactions = async (data) => {
   if (!data.movimiento) throw new Error("missing parameter (movimiento)");
   if (!data.masDatos) throw new Error("missing parameter (masDatos)");
   if (!data.importe) throw new Error("missing parameter (importe)");
-  if (!data.saldo) throw new Error("missing parameter (saldo)");
 
   const response = await Transaction.create(data);
 
