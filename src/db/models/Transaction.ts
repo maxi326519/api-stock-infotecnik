@@ -21,7 +21,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       masDatos: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       importe: {
         type: DataTypes.FLOAT,

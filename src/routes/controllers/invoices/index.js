@@ -2,12 +2,13 @@ const { Invoice, Supplier, Stock } = require("../../../db/index");
 const { setInventory } = require("../inventory");
 
 const setInvoices = async (invoice) => {
+   console.log(invoice);
   if (!invoice.fecha) throw new Error("Falta el parametro 'fecha'");
   if (!invoice.numero) throw new Error("Falta el parametro 'numero'");
   if (!invoice.pendiente && !invoice.archivo)
     throw new Error("Falta el parametro 'archivo'");
   if (!invoice.tipoImpositivo)
-    throw new Error("Falta el parametro 'tipoIMpositivo'");
+    throw new Error("Falta el parametro 'tipoImpositivo'");
   if (!invoice.detalles) throw new Error("Falta el parametro 'detalles'");
   if (!invoice.supplier) throw new Error("Falta el parametro 'supplier'");
   if (invoice.detalles.length <= 0) throw new Error("No se adjunto inventario");

@@ -7,9 +7,17 @@ module.exports = (sequelize: any, DataTypes: any) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      status: {
+      estado: {
         type: DataTypes.ENUM("Nuevo", "Casi nuevo", "Vendido", "Temporal"),
-        allowNull: true,
+        allowNull: false,
+      },
+      fechaAlta: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      catalogo: {
+        type: DataTypes.BOOLEAN,
+        allowNUll: false,
       },
       IMEISerie: {
         type: DataTypes.STRING,
@@ -18,6 +26,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       tipoCodigoDeBarras: {
         type: DataTypes.ENUM(
+          "Ninguno",
           "Code128",
           "Code39",
           "UPC-A",
@@ -29,7 +38,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       codigoDeBarras: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       precioIVA: {
@@ -44,9 +53,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      imagen: {
-        type: DataTypes.JSON,
-        allowNull: false,
+      recargo: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+      },
+      detalles: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
       },
     },
     { updatedAt: false, timestamps: false }

@@ -4,7 +4,6 @@ const setTransactions = async (data) => {
   if (!data.fecha) throw new Error("missing parameter (fecha)");
   if (!data.fechaValor) throw new Error("missing parameter (fechaValor)");
   if (!data.movimiento) throw new Error("missing parameter (movimiento)");
-  if (!data.masDatos) throw new Error("missing parameter (masDatos)");
   if (!data.importe) throw new Error("missing parameter (importe)");
 
   const response = await Transaction.create(data);

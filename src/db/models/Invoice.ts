@@ -26,7 +26,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: true,
       },
       tipoImpositivo: {
-        type: DataTypes.ENUM("IVA", "Equivalencia", "REBU"),
+        type: DataTypes.ENUM("IVA", "Recargo", "REBU"),
       },
     },
     { updatedAt: false, timestamps: false }
