@@ -7,7 +7,13 @@ const {
 const { deleteImage } = require("../upload");
 
 const setProducts = async (products) => {
+  const categoryRef = await Category.findOne({
+    where: { id: products.categoria },
+  });
+  if (!categoryRef) throw new Error("category not found");
+
   const productRef = await Product.create(products);
+  productRef.setCategory(categoryRef);
   return productRef;
 };
 
@@ -30,11 +36,12 @@ const deletedProduct = async (productId) => {
   });
   if (!product) throw new Error("product not found");
 
-  /*   const images = product.dataValues.imgGenerica;
+  const images = product.dataValues.imgGenerica;
+  console.log(images);
   for (let i = 0; i < images.length; i++) {
     console.log(images[i]);
     deleteImage(images[i]);
-  } */
+  }
   await Product.destroy({ where: { id: productId } });
 };
 
