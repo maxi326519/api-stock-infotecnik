@@ -5,7 +5,6 @@ const fs = require("fs");
 // Create images storage
 const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log("adsasds");
     cb(null, "upload/images");
   },
   filename: (req, file, cb) => {
@@ -28,7 +27,7 @@ const invoiceStorage = multer.diskStorage({
 
 const setImage = multer({ storage: imageStorage });
 
-const setInvoice = multer({ invoiceStorage });
+const setInvoice = multer({ storage: invoiceStorage });
 
 const optimizeImg = (filePath, fileName, size = 300) => {
   return sharp(filePath)
@@ -37,18 +36,24 @@ const optimizeImg = (filePath, fileName, size = 300) => {
 };
 
 const deleteImage = (imageURL) => {
-  const url = `/upload/images/${imageURL}`
+  const url = `upload/images/${imageURL}`;
   console.log("URL", url);
-  fs.unlink(url);
+  fs.unlink(url, (error) => {
+    console.log(error);
+  });
 };
 
-const deleteInvoiceFile = (invoiceURL) => {
-  fs.unlink(`/upload/invoices/${invoiceURL}`);
+const deleteInvoiceFile = async (invoiceURL) => {
+  const url = `upload/invoices/${invoiceURL}`;
+  console.log("URL", url);
+  fs.unlink(url, (error) => {
+    console.log(error);
+  });
 };
 
 module.exports = {
   setImage,
-  /*   setInvoice, */
+  setInvoice,
   optimizeImg,
   deleteImage,
   deleteInvoiceFile,

@@ -2,7 +2,6 @@ const { Invoice, Supplier, Stock } = require("../../../db/index");
 const { setInventory } = require("../inventory");
 
 const setInvoices = async (invoice) => {
-   console.log(invoice);
   if (!invoice.fecha) throw new Error("Falta el parametro 'fecha'");
   if (!invoice.numero) throw new Error("Falta el parametro 'numero'");
   if (!invoice.pendiente && !invoice.archivo)
@@ -29,7 +28,7 @@ const setInvoices = async (invoice) => {
   const addinvoiceRef = await supplierRef.addInvoices(invoiceRef);
 
   /* Add Inventory to Invoice */
-  await invoiceRef.addStocks(inventory.ref);
+  await invoiceRef.addStocks(inventory.map((i) => i.ref));
 
   return {
     invoice: {

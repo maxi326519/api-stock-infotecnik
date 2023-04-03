@@ -9,7 +9,6 @@ const {
 routerInv.post("/", async (req: any, res: any) => {
   try{
     const invoice = req.body;
-    console.log(invoice);
     const response = await setInvoices(invoice);
     res.status(200).json(response);
   }catch(err: any){
@@ -21,6 +20,7 @@ routerInv.post("/", async (req: any, res: any) => {
 routerInv.get("/", async(req: any, res: any) => {
   try{
     const response = await getInvoices();
+    console.log(response);
     res.status(200).json(response);
   }catch(err: any){
     res.status(400).json({ error: err.message });

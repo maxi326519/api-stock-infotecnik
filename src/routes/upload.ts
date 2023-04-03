@@ -1,7 +1,7 @@
 const routerUpload = require("express").Router();
 const {
   setImage,
-  /*   setInvoice, */
+  setInvoice,
   optimizeImg,
   deleteImage,
   deleteInvoiceFile,
@@ -27,29 +27,41 @@ routerUpload.post(
   }
 );
 
-/* routerUpload.post(
-  "/invoice",
+routerUpload.post(
+  "/files",
   setInvoice.single("file"),
   async (req: any, res: any, file: any) => {
     try {
-      res.status(200).json({ msg: "Uploaded invoice successfully" });
+      /* optimizeImg(req.file.path, `resize-${req.file.filename}`, 100); */
+      const data = {
+        msg: "Uploaded invoice successfully",
+        path: `/invoices/${req.file.filename}`,
+      };
+
+      console.log(data);
+
+      res.status(200).json(data);
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }
   }
-); */
+);
 
 routerUpload.delete("/image/:id", async (req: any, res: any) => {
   try {
-    console.log(req.Parameters);
+    const { id } = req.params;
+    await deleteImage(id);
     res.status(200).json({ msg: "Deleted image successfully" });
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 });
 
-routerUpload.delete("/invoice", async (req: any, res: any) => {
+routerUpload.delete("/invoice/:id", async (req: any, res: any) => {
   try {
+    const { id } = req.params;
+    await deleteInvoiceFile(id);
     res.status(200).json({ msg: "Deleted invoice successfully" });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
