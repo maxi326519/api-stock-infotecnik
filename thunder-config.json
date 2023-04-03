@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Control-Stock",
-    "dateExported": "2023-03-30T08:31:39.882Z",
+    "dateExported": "2023-04-03T12:21:43.895Z",
     "version": "1.1",
     "folders": [
         {
@@ -12,10 +12,24 @@
             "sortNum": 10000
         },
         {
+            "_id": "887c4ce8-3142-4ff9-b82d-c724fc470f2c",
+            "name": "Suppliers",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.971Z",
+            "sortNum": 10000
+        },
+        {
             "_id": "dfe49aef-5884-41df-aed9-53e5732c02b5",
             "name": "Clients",
             "containerId": "3173ee86-bc7f-493e-a629-387dc804839d",
             "created": "2023-03-30T07:23:09.696Z",
+            "sortNum": 15000
+        },
+        {
+            "_id": "615c9852-0a9b-4714-a5f9-7f16da642105",
+            "name": "Clients",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.972Z",
             "sortNum": 15000
         },
         {
@@ -26,6 +40,13 @@
             "sortNum": 20000
         },
         {
+            "_id": "c2e6360a-528f-483c-8b90-55b4cd181b37",
+            "name": "Inventory",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.975Z",
+            "sortNum": 20000
+        },
+        {
             "_id": "603cc4d2-aa89-4581-9721-13b7412aebbf",
             "name": "Invoices",
             "containerId": "3173ee86-bc7f-493e-a629-387dc804839d",
@@ -33,10 +54,24 @@
             "sortNum": 30000
         },
         {
+            "_id": "4d281248-a18b-4af4-baf2-4412ecbe3539",
+            "name": "Invoices",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.976Z",
+            "sortNum": 30000
+        },
+        {
             "_id": "27702420-6d28-4ff8-abfa-bf142c41a5cb",
             "name": "Products",
             "containerId": "3173ee86-bc7f-493e-a629-387dc804839d",
             "created": "2023-03-28T12:17:52.077Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "Products",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.977Z",
             "sortNum": 40000
         },
         {
@@ -54,10 +89,31 @@
             "sortNum": 60000
         },
         {
+            "_id": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "name": "Production",
+            "containerId": "",
+            "created": "2023-03-30T10:37:31.970Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "c12484f7-6966-488b-a645-70f944ac6b78",
+            "name": "Login",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.978Z",
+            "sortNum": 60000
+        },
+        {
             "_id": "303dceb5-e41e-4332-80fb-00e51273b872",
             "name": "Files",
             "containerId": "3173ee86-bc7f-493e-a629-387dc804839d",
             "created": "2023-03-28T12:17:52.081Z",
+            "sortNum": 130000
+        },
+        {
+            "_id": "7bf7715b-9625-466a-b506-0cb78d1b207c",
+            "name": "Files",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.979Z",
             "sortNum": 130000
         },
         {
@@ -68,6 +124,13 @@
             "sortNum": 140000
         },
         {
+            "_id": "3175fce6-f44c-4ede-954b-d14986fcfb06",
+            "name": "Users",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.980Z",
+            "sortNum": 140000
+        },
+        {
             "_id": "6c98cd14-c2f3-4809-b067-72c517205084",
             "name": "Transactions",
             "containerId": "3173ee86-bc7f-493e-a629-387dc804839d",
@@ -75,10 +138,17 @@
             "sortNum": 150000
         },
         {
-            "_id": "161a1e3b-8024-4304-a1f7-e77d32fad44e",
+            "_id": "973b22d6-2bfd-4661-8184-02c6401b7808",
+            "name": "Transactions",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.981Z",
+            "sortNum": 150000
+        },
+        {
+            "_id": "c854f377-1539-43ee-bc57-975f0b6e3aba",
             "name": "Clients",
-            "containerId": "3173ee86-bc7f-493e-a629-387dc804839d",
-            "created": "2023-03-30T06:47:47.823Z",
+            "containerId": "4a06e367-12be-4dac-b01e-ec210d19b78d",
+            "created": "2023-03-30T10:37:31.982Z",
             "sortNum": 160000
         }
     ],
@@ -92,12 +162,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-03-28T12:17:52.070Z",
-            "modified": "2023-03-30T07:04:57.834Z",
+            "modified": "2023-04-01T08:05:42.194Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"codigo\": \"SAMS9\",\n  \"modelo\": \"S9\",\n  \"marca\": \"Samsung\",\n  \"color\": \"Gris\",\n  \"capacidad\": \"12GB\",\n  \"descLarga\": \"Texto largo\",\n  \"descCorta\": \"Texto corto\",\n  \"imgGenerica\": [\"imageUrl1\", \"ImageUrl2\"]\n}",
+                "raw": "{\n  \"id\": \"d7332a0c-791c-4f51-ba2a-2da59716eab5\",\n  \"codigo\": \"SAMS9\",\n  \"marca\": \"Samsung\",\n  \"modelo\": \"S9\",\n  \"color\": \"Gris\",\n  \"capacidad\": \"12GB\",\n  \"descLarga\": \"Texto largo\",\n  \"descCorta\": \"Texto corto\",\n  \"imgGenerica\": [\"/images/1680336189743.jpg\"],\n  \"categoria\": 1\n}",
                 "form": []
             },
             "tests": []
@@ -122,6 +192,44 @@
             "tests": []
         },
         {
+            "_id": "c7da74bd-5f9f-4925-b00c-118f1a88508c",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "POST",
+            "url": "http://localhost:3001/products/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-30T10:37:31.987Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"codigo\": \"SAMS9\",\n  \"modelo\": \"S9\",\n  \"marca\": \"Samsung\",\n  \"color\": \"Gris\",\n  \"capacidad\": \"12GB\",\n  \"descLarga\": \"Texto largo\",\n  \"descCorta\": \"Texto corto\",\n  \"imgGenerica\": [\"imageUrl1\", \"ImageUrl2\"]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5b11b2c1-3b40-4864-8e55-aecf9234178d",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "c12484f7-6966-488b-a645-70f944ac6b78",
+            "name": "Login - post",
+            "url": "http://localhost:3001/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-30T10:37:31.995Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"maxi.326519@gmail.com\",\n  \"password\": \"12345678\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "ef8d5f53-3cca-4faa-b5f3-4491142aabf8",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "27702420-6d28-4ff8-abfa-bf142c41a5cb",
@@ -136,6 +244,20 @@
             "tests": []
         },
         {
+            "_id": "da9178a4-3879-48f9-b59c-39a6b093b8f4",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "GET",
+            "url": "http://localhost:3001/products",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-03-30T10:37:31.988Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "6f6445f1-ad67-4db4-bb1e-2fdb5927bb34",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "13f2e902-9772-40ac-ab94-9ef813da89e4",
@@ -145,6 +267,24 @@
             "sortNum": 20000,
             "created": "2023-03-28T12:17:52.075Z",
             "modified": "2023-03-28T12:17:52.075Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNjc5Mzg4NTc5LCJleHAiOjE2Nzk5OTMzNzl9.9LgULPYd8Asby919DdwD59t-Xv3fu1oNLGm6gKJr7-c"
+            },
+            "tests": []
+        },
+        {
+            "_id": "89afb437-c480-4934-82da-15647a003567",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "c12484f7-6966-488b-a645-70f944ac6b78",
+            "name": "Verification",
+            "url": "http://localhost:3001/info",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-03-30T10:37:31.996Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "auth": {
@@ -173,6 +313,25 @@
             "tests": []
         },
         {
+            "_id": "1b0ebbf7-3911-46cc-bd47-d1ff12bdc438",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "PATCH",
+            "url": "http://localhost:3001/products",
+            "method": "PATCH",
+            "sortNum": 40000,
+            "created": "2023-03-30T10:37:31.989Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"593aa9f0-7695-4a97-8e67-cbb045cf81c5\",\n  \"codigo\": \"SAMS9\",\n  \"modelo\": \"S9\",\n  \"marca\": \"Samsung\",\n  \"color\": \"Gris\",\n  \"capacidad\": \"12GB\",\n  \"descLarga\": \"Texto largo\",\n  \"descCorta\": \"Texto corto\",\n  \"imgGenerica\": [\"1680018644375.jpg\"],\n  \"createdAt\": \"2023-03-29T03:21:24.588Z\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "34597bb6-b4b3-4f3c-8339-213916834d98",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "603cc4d2-aa89-4581-9721-13b7412aebbf",
@@ -181,7 +340,26 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-03-28T12:17:52.080Z",
-            "modified": "2023-03-28T12:17:52.080Z",
+            "modified": "2023-04-01T05:13:19.811Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"numero\": 5,\n  \"fecha\": \"02/03/2023\",\n  \"pendiente\": true,\n  \"archivo\": \"\",\n  \"detalles\": [{\n    \"estado\": \"Nuevo\",\n    \"fechaAlta\": \"01/02/2023\",\n    \"catalogo\": true,\n    \"IMEISerie\": \"41241241453413241\",\n    \"tipoCodigoDeBarras\": \"Code128\",\n    \"codigoDeBarras\": \"01128930453442382319\",\n    \"precioSinIVA\": 23,\n    \"precioIVA\": 24,\n    \"precioIVAINC\": 24,\n    \"recargo\": 0,\n    \"detalles\": \"Dispositivo roto\",\n    \"imagenes\": [\"url\"],\n    \"product\": \"d7332a0c-791c-4f51-ba2a-2da59716eab5\"\n  }],\n  \"tipoImpositivo\": \"IVA\",\n  \"supplier\": \"5daf7731-4b04-461b-98d4-002ed88fcd61\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c32e5efa-ead6-4319-bd98-004264366435",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4d281248-a18b-4af4-baf2-4412ecbe3539",
+            "name": "POST",
+            "url": "http://localhost:3001/invoices",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-03-30T10:37:31.983Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "body": {
@@ -206,6 +384,20 @@
             "tests": []
         },
         {
+            "_id": "7f9eae4f-947c-4387-9411-b21c49206b68",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4d281248-a18b-4af4-baf2-4412ecbe3539",
+            "name": "GET",
+            "url": "https://api.infotecnik.cat/invoices",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-03-30T10:37:31.984Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "b4f249a9-2cce-4e50-99a2-ffb53f6760c0",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "603cc4d2-aa89-4581-9721-13b7412aebbf",
@@ -215,6 +407,25 @@
             "sortNum": 90000,
             "created": "2023-03-28T12:17:52.084Z",
             "modified": "2023-03-28T12:17:52.084Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"id\": \"262f4510-61b5-43e3-b8f9-b83ea704e54f\",\n    \"fecha\": \"02/04/2023\",\n    \"numero\": 1,\n    \"archivo\": \"url\",\n    \"tipoImpositivo\": \"IVA\",\n    \"createdAt\": \"2023-03-10T14:46:44.000Z\",\n    \"updatedAt\": \"2023-03-10T14:46:44.000Z\",\n    \"SupplierId\": \"ccf620c9-d67c-4024-b40a-9e56d94d372a\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "81221ee2-1605-4929-b651-945ca5a0bf95",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4d281248-a18b-4af4-baf2-4412ecbe3539",
+            "name": "PATCH",
+            "url": "http://localhost:3000/invoices",
+            "method": "PATCH",
+            "sortNum": 90000,
+            "created": "2023-03-30T10:37:31.985Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "body": {
@@ -239,6 +450,20 @@
             "tests": []
         },
         {
+            "_id": "76ad6412-5fbf-4189-a398-55e89d17f7f7",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4d281248-a18b-4af4-baf2-4412ecbe3539",
+            "name": "DELETE",
+            "url": "http://localhost:3000/invoices",
+            "method": "DELETE",
+            "sortNum": 100000,
+            "created": "2023-03-30T10:37:31.986Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "cec1be21-aa98-49dc-bb7e-af432704f296",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "53454c81-8184-477f-a3f2-e9be995c0612",
@@ -248,6 +473,20 @@
             "sortNum": 120000,
             "created": "2023-03-28T12:17:52.088Z",
             "modified": "2023-03-28T12:17:52.088Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f5c223b1-a3c8-44f4-90dc-c84cb1d400a2",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "c2e6360a-528f-483c-8b90-55b4cd181b37",
+            "name": "GET",
+            "url": "http://localhost:3001/inventory",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-03-30T10:37:31.980Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -272,6 +511,25 @@
             "tests": []
         },
         {
+            "_id": "1dd12728-3934-4331-8f0a-758fdf2d89f2",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "c2e6360a-528f-483c-8b90-55b4cd181b37",
+            "name": "PATCH",
+            "url": "http://localhost:3000/inventory",
+            "method": "PATCH",
+            "sortNum": 130000,
+            "created": "2023-03-30T10:37:31.981Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"id\": \"31aa2391-deb0-4458-bee0-1995aa205926\",\n    \"status\": \"Vendido\",\n    \"IMEISerie\": \"41241241453413241\",\n    \"tipoCodigoDeBarras\": \"Code128\",\n    \"codigoDeBarras\": \"01128930453442382319\",\n    \"precioIVA\": 28,\n    \"precioSinIVA\": 23,\n    \"precioIVAINC\": 30,\n    \"imagen\": \"url\",\n    \"createdAt\": \"2023-03-10T15:30:21.000Z\",\n    \"updatedAt\": \"2023-03-10T15:30:21.000Z\",\n    \"InvoiceId\": null,\n    \"ProductId\": \"8de3dd57-232a-4c42-9688-ad5cd8f05da8\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "cfa2d2ca-b6b6-43ff-a017-924a20c3fcf2",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "53454c81-8184-477f-a3f2-e9be995c0612",
@@ -281,6 +539,20 @@
             "sortNum": 140000,
             "created": "2023-03-28T12:17:52.092Z",
             "modified": "2023-03-28T12:17:52.092Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7a76e35b-2052-45f5-a45a-54cdb7eb79fe",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "c2e6360a-528f-483c-8b90-55b4cd181b37",
+            "name": "DELETE",
+            "url": "http://localhost:3000/invoices",
+            "method": "DELETE",
+            "sortNum": 140000,
+            "created": "2023-03-30T10:37:31.982Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -308,12 +580,12 @@
             "method": "POST",
             "sortNum": 150000,
             "created": "2023-03-28T12:17:52.094Z",
-            "modified": "2023-03-29T18:18:45.005Z",
+            "modified": "2023-04-01T04:40:43.429Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"codigo\": \"PROB1\",\n  \"numero\": \"12312312\",\n  \"nombre\": \"Proveedor 11\",\n  \"direccion\": \"Direccion1\",\n  \"poblacion\": \"asdf1\",\n  \"postal\": 16282,\n  \"cifNif\": \"sdaaadad\",\n  \"telefono\": \"99 999299 9998\"\n}",
+                "raw": "{\n  \"id\": \"5daf7731-4b04-461b-98d4-002ed88fcd61\",\n  \"codigo\": \"PROB1\",\n  \"numero\": \"12312312\",\n  \"nombre\": \"Proveedor 11\",\n  \"direccion\": \"Direccion1\",\n  \"poblacion\": \"asdf1\",\n  \"postal\": 16282,\n  \"cifNif\": \"sdaaadad\",\n  \"telefono\": \"99 999299 9998\"\n}",
                 "form": []
             },
             "tests": []
@@ -335,6 +607,58 @@
                 "raw": "{\n  \"codigo\": \"PROB1\",\n  \"numero\": \"12312312\",\n  \"nombre\": \"Client 11\",\n  \"direccion\": \"Direccion1\",\n  \"poblacion\": \"asdf1\",\n  \"postal\": 16282,\n  \"cifNif\": \"sdaaadad\",\n  \"telefono\": \"99 999299 9998\"\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "c2704feb-2616-4176-8599-caf249e163f9",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "887c4ce8-3142-4ff9-b82d-c724fc470f2c",
+            "name": "POST",
+            "url": "https://api.infotecnik.cat/suppliers",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2023-03-30T10:37:31.970Z",
+            "modified": "2023-03-30T10:37:54.293Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"codigo\": \"PROB1\",\n  \"numero\": \"12312312\",\n  \"nombre\": \"Proveedor 11\",\n  \"direccion\": \"Direccion1\",\n  \"poblacion\": \"asdf1\",\n  \"postal\": 16282,\n  \"cifNif\": \"sdaaadad\",\n  \"telefono\": \"99 999299 9998\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8a7f44c5-cde9-49b7-a4be-0127afcf4793",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "615c9852-0a9b-4714-a5f9-7f16da642105",
+            "name": "POST",
+            "url": "http://localhost:3001/clients",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2023-03-30T10:37:31.975Z",
+            "modified": "2023-03-30T10:37:31.971Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"codigo\": \"PROB1\",\n  \"numero\": \"12312312\",\n  \"nombre\": \"Client 11\",\n  \"direccion\": \"Direccion1\",\n  \"poblacion\": \"asdf1\",\n  \"postal\": 16282,\n  \"cifNif\": \"sdaaadad\",\n  \"telefono\": \"99 999299 9998\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "283f3742-6258-4cd7-b5fa-947e5e8d3a53",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "DELETE",
+            "url": "http://localhost:3001/products/593aa9f0-7695-4a97-8e67-cbb045cf81c5",
+            "method": "DELETE",
+            "sortNum": 150000,
+            "created": "2023-03-30T10:37:31.990Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
             "tests": []
         },
         {
@@ -361,6 +685,34 @@
             "sortNum": 160000,
             "created": "2023-03-30T07:23:09.697Z",
             "modified": "2023-03-30T07:30:20.493Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5278672d-2244-488b-807e-e27c665a12e4",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "887c4ce8-3142-4ff9-b82d-c724fc470f2c",
+            "name": "GET",
+            "url": "http://localhost:3001/suppliers",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-03-30T10:37:31.971Z",
+            "modified": "2023-03-30T10:37:31.970Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7c467ddf-77c5-4826-bf36-477a84562e88",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "615c9852-0a9b-4714-a5f9-7f16da642105",
+            "name": "GET",
+            "url": "http://localhost:3001/clients",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-03-30T10:37:31.977Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -404,6 +756,44 @@
             "tests": []
         },
         {
+            "_id": "ddf1b7b3-4613-46b6-9978-6fc3b32c04e6",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "887c4ce8-3142-4ff9-b82d-c724fc470f2c",
+            "name": "PATCH",
+            "url": "http://localhost:3001/suppliers",
+            "method": "PATCH",
+            "sortNum": 170000,
+            "created": "2023-03-30T10:37:31.972Z",
+            "modified": "2023-03-30T10:37:31.970Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"id\": \"80692cea-e451-4ab9-8440-279610e98e5c\",\n    \"nombre\": \"Proveedor 2\",\n    \"direccion\": \"Direcciones\",\n    \"cifNif\": \"sdadad\",\n    \"poblacion\": \"asdf\",\n    \"postal\": 1682,\n    \"telefono\": \"99 9999 9999\",\n    \"createdAt\": \"2023-03-10T12:16:37.000Z\",\n    \"updatedAt\": \"2023-03-10T12:16:37.000Z\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "59a0d088-a34c-4375-818e-82667529e646",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "615c9852-0a9b-4714-a5f9-7f16da642105",
+            "name": "PATCH",
+            "url": "http://localhost:3001/clients",
+            "method": "PATCH",
+            "sortNum": 170000,
+            "created": "2023-03-30T10:37:31.978Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"id\": \"923e04e9-bfee-4c6a-8605-e0f6d35c2cce\",\n    \"codigo\": \"CLIB1\",\n    \"nombre\": \"Client 11\",\n    \"direccion\": \"Direccion1\",\n    \"cifNif\": \"sdaaadad\",\n    \"poblacion\": \"asdf1\",\n    \"postal\": 16282,\n    \"telefono\": \"99 999299 9998\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "d8f08bf7-87cb-4318-b763-3c7a4648c7f9",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "abab4453-7e47-4139-b9e1-7506a29b4f83",
@@ -432,15 +822,68 @@
             "tests": []
         },
         {
+            "_id": "4c1a19d0-bca9-405e-bbb3-18cf5c5f8284",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "887c4ce8-3142-4ff9-b82d-c724fc470f2c",
+            "name": "DELETE",
+            "url": "http://localhost:3001/suppliers/c7113643-9a42-4d40-a769-a3e3dbc6c726",
+            "method": "DELETE",
+            "sortNum": 180000,
+            "created": "2023-03-30T10:37:31.973Z",
+            "modified": "2023-03-30T10:37:31.970Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4ff55a16-2763-45e5-8c07-eb1472a984ab",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "615c9852-0a9b-4714-a5f9-7f16da642105",
+            "name": "DELETE",
+            "url": "http://localhost:3001/suppliers/c7113643-9a42-4d40-a769-a3e3dbc6c726",
+            "method": "DELETE",
+            "sortNum": 180000,
+            "created": "2023-03-30T10:37:31.979Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "76f15a4c-b735-41a8-9bfb-bb9b47c8025e",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "303dceb5-e41e-4332-80fb-00e51273b872",
-            "name": "Upload",
+            "name": "Upload images",
             "url": "http://localhost:3001/upload/image",
             "method": "POST",
             "sortNum": 190000,
             "created": "2023-03-28T12:17:52.102Z",
-            "modified": "2023-03-28T12:18:08.195Z",
+            "modified": "2023-04-01T21:54:30.494Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "file",
+                        "value": "c:\\Users\\maxim\\Downloads\\lenovo.jpg"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "3fc03b75-9082-4a34-b94d-649b09f4d447",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "7bf7715b-9625-466a-b506-0cb78d1b207c",
+            "name": "Upload",
+            "url": "http://localhost:3001/upload/image",
+            "method": "POST",
+            "sortNum": 190000,
+            "created": "2023-03-30T10:37:31.997Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "body": {
@@ -476,6 +919,25 @@
             "tests": []
         },
         {
+            "_id": "e626cadf-8555-4873-936d-5a957dffd428",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "3175fce6-f44c-4ede-954b-d14986fcfb06",
+            "name": "POST",
+            "url": "http://localhost:3001/user",
+            "method": "POST",
+            "sortNum": 210000,
+            "created": "2023-03-30T10:37:31.999Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"rol\": \"admin\",\n  \"name\": \"Maximiliano Garcia\",\n  \"userName\": \"maxi326519\",\n  \"password\": \"1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "d38e858b-e029-4e6c-a1ef-ac0b608f5c81",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "cee42246-3616-477a-a259-4e6d070639dd",
@@ -487,6 +949,45 @@
             "modified": "2023-03-28T12:17:52.104Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a8c3b650-f876-4d48-8a06-7d9e8d62fc48",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "3175fce6-f44c-4ede-954b-d14986fcfb06",
+            "name": "GET - All users",
+            "url": "http://localhost:3001/user/all",
+            "method": "GET",
+            "sortNum": 220000,
+            "created": "2023-03-30T10:37:32.000Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3eb32e4e-6843-4194-abeb-fbf5428e2e23",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "303dceb5-e41e-4332-80fb-00e51273b872",
+            "name": "Upload Files",
+            "url": "http://localhost:3001/upload/files",
+            "method": "POST",
+            "sortNum": 220000,
+            "created": "2023-04-01T21:52:57.067Z",
+            "modified": "2023-04-01T21:54:30.024Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "file",
+                        "value": "c:\\Users\\maxim\\Downloads\\CV - Maximiliano Garcia.pdf"
+                    }
+                ]
+            },
             "tests": []
         },
         {
@@ -509,15 +1010,48 @@
             "tests": []
         },
         {
+            "_id": "3b5307d0-6681-4799-9dae-f41f530bbe5c",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "3175fce6-f44c-4ede-954b-d14986fcfb06",
+            "name": "UPDATE",
+            "url": "http://localhost:3001/user",
+            "method": "PATCH",
+            "sortNum": 240000,
+            "created": "2023-03-30T10:37:32.001Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"id\": \"6608eb74-e7dc-4723-94e0-5ec0a851501f\",\n    \"rol\": \"admin\",\n    \"name\": \"Maximiliano Miguel Garcia\",\n    \"userName\": \"maxi326\",\n    \"password\": \"321654987\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "09f35a43-0d29-4e99-8f98-70525fd5115c",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "303dceb5-e41e-4332-80fb-00e51273b872",
+            "name": "DELETE - Images",
+            "url": "http://localhost:3001/upload/image/1680018644375.jpg",
+            "method": "DELETE",
+            "sortNum": 250000,
+            "created": "2023-03-28T12:17:52.106Z",
+            "modified": "2023-04-01T22:14:08.772Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fa598300-f79c-464f-b98b-da2ba9f68936",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "7bf7715b-9625-466a-b506-0cb78d1b207c",
             "name": "DELETE - images",
             "url": "http://localhost:3001/upload/image/1680018644375",
             "method": "DELETE",
             "sortNum": 250000,
-            "created": "2023-03-28T12:17:52.106Z",
-            "modified": "2023-03-29T05:53:19.800Z",
+            "created": "2023-03-30T10:37:31.998Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -542,6 +1076,39 @@
             "tests": []
         },
         {
+            "_id": "bfbb5f39-fad2-42f2-82ac-22ae85a7a0a1",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "POST - Capacidades",
+            "url": "http://localhost:3001/products/attributes/capacidad",
+            "method": "POST",
+            "sortNum": 260000,
+            "created": "2023-03-30T10:37:31.991Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[ \"64GB\", \"128GB\", \"240GB\", \"16GB\"]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fb7cc87d-28b4-4a85-960e-a6fac927f3e0",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "303dceb5-e41e-4332-80fb-00e51273b872",
+            "name": "DELETE - Invoice",
+            "url": "http://localhost:3001/upload/invoice/1680386352148.pdf",
+            "method": "DELETE",
+            "sortNum": 260000,
+            "created": "2023-04-01T22:01:57.181Z",
+            "modified": "2023-04-01T22:13:46.262Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "f89d3833-058d-427b-b470-277b6124409f",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "27702420-6d28-4ff8-abfa-bf142c41a5cb",
@@ -551,6 +1118,25 @@
             "sortNum": 262500,
             "created": "2023-03-29T00:17:00.657Z",
             "modified": "2023-03-29T15:08:29.876Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[ \"Verde\", \"Azul\", \"Violeta\", \"Negro\", \"Rosa\"]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ca181c09-6fa0-4de0-880e-6457769e52b0",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "POST - Colores",
+            "url": "http://localhost:3001/products/attributes/color",
+            "method": "POST",
+            "sortNum": 262500,
+            "created": "2023-03-30T10:37:31.992Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "body": {
@@ -580,6 +1166,25 @@
             "tests": []
         },
         {
+            "_id": "8c1188da-c073-487f-bcd3-1ac231d5b55d",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "POST - Categories",
+            "url": "http://localhost:3001/products/categories",
+            "method": "POST",
+            "sortNum": 280000,
+            "created": "2023-03-30T10:37:31.993Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  [0, \"categorias\", -1],\n  [1, \"celulares\", 0],\n  [2, \"iphone\", 10],\n  [3, \"netbooks\", 0],\n  [4, \"14 pulgadas\", 3]\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "fb9f1e3f-de52-409c-a47c-e9cff5beec48",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "27702420-6d28-4ff8-abfa-bf142c41a5cb",
@@ -589,6 +1194,20 @@
             "sortNum": 290000,
             "created": "2023-03-28T18:45:41.996Z",
             "modified": "2023-03-29T15:46:28.878Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "585a9a10-3491-48d0-9c3e-f34e41968cb6",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "4e0648b7-e3ad-4c12-bdea-d1aa68628b86",
+            "name": "GET - Attibutes",
+            "url": "http://localhost:3001/products/attributes",
+            "method": "GET",
+            "sortNum": 290000,
+            "created": "2023-03-30T10:37:31.994Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -613,6 +1232,25 @@
             "tests": []
         },
         {
+            "_id": "9d7350fd-92b1-4138-a14f-587a576328f8",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "973b22d6-2bfd-4661-8184-02c6401b7808",
+            "name": "POST",
+            "url": "http://localhost:3001/transactions",
+            "method": "POST",
+            "sortNum": 300000,
+            "created": "2023-03-30T10:37:32.002Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"fecha\": \"03/30/2023\",\n  \"fechaValor\": \"03/30/2023\",\n  \"movimiento\": 200,\n  \"masDatos\": \"Detalles\",\n  \"importe\": 150\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "80b012e6-d3f5-4fd7-a6e0-551b022471cb",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "6c98cd14-c2f3-4809-b067-72c517205084",
@@ -627,6 +1265,20 @@
             "tests": []
         },
         {
+            "_id": "38ed1a98-2250-4827-954c-e43c4c5f6deb",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "973b22d6-2bfd-4661-8184-02c6401b7808",
+            "name": "GET",
+            "url": "http://localhost:3001/transactions",
+            "method": "GET",
+            "sortNum": 315000,
+            "created": "2023-03-30T10:37:32.003Z",
+            "modified": "2023-03-30T10:37:31.972Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "92580e3f-ea14-4ba5-a859-b4970d310f48",
             "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
             "containerId": "6c98cd14-c2f3-4809-b067-72c517205084",
@@ -636,6 +1288,20 @@
             "sortNum": 320000,
             "created": "2023-03-30T06:48:17.692Z",
             "modified": "2023-03-30T08:31:15.248Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4a4fc26f-1060-4f1c-871f-9b9bff988419",
+            "colId": "b5c23daa-b4d6-4c9e-aa56-860b238b5d13",
+            "containerId": "973b22d6-2bfd-4661-8184-02c6401b7808",
+            "name": "DELETE",
+            "url": "http://localhost:3001/transactions/5371f471-e208-45cf-9375-c1e49f06140a",
+            "method": "DELETE",
+            "sortNum": 320000,
+            "created": "2023-03-30T10:37:32.004Z",
+            "modified": "2023-03-30T10:37:31.972Z",
             "headers": [],
             "params": [],
             "tests": []
