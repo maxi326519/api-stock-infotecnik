@@ -18,8 +18,6 @@ routerUpload.post(
         path: `/images/${req.file.filename}`,
       };
 
-      console.log(data);
-
       res.status(200).json(data);
     } catch (error: any) {
       res.status(400).json({ error: error.message });
@@ -37,8 +35,6 @@ routerUpload.post(
         msg: "Uploaded invoice successfully",
         path: `/invoices/${req.file.filename}`,
       };
-
-      console.log(data);
 
       res.status(200).json(data);
     } catch (error: any) {

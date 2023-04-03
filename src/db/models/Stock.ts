@@ -60,7 +60,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
       detalles: {
         type: DataTypes.STRING,
         allowNull: true,
-        unique: true,
       },
     },
     { updatedAt: false, timestamps: false }
