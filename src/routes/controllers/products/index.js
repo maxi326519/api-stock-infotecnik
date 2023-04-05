@@ -3,23 +3,57 @@ const {
   Capacidades,
   Colores,
   Category,
+  Image,
 } = require("../../../db/index");
 const { deleteImage } = require("../upload");
 
 const setProducts = async (products) => {
+  if (!products.codigo) throw new Error("missing parameter (codigo)");
+  if (!products.marca) throw new Error("missing parameter (marca)");
+  if (!products.modelo) throw new Error("missing parameter (modelo)");
+  if (!products.color) throw new Error("missing parameter (color)");
+  if (!products.capacidad) throw new Error("missing parameter (capacidad)");
+  if (!products.descLarga) throw new Error("missing parameter (descLarga)");
+  if (!products.descCorta) throw new Error("missing parameter (descCorta)");
+  if (!products.imgGenerica) throw new Error("missing parameter (imgGenerica)");
+  if (!products.categoria) throw new Error("missing parameter (categoria)");
+
   const categoryRef = await Category.findOne({
     where: { id: products.categoria },
   });
   if (!categoryRef) throw new Error("category not found");
 
+  let imgGenerica = [];
+  let imagesRef = null;
+  if (products.imgGenerica) {
+    imagesRef = await Image.bulkCreate(
+      products.imgGenerica.map((url) => ({ url: url }))
+    );
+    imgGenerica = imagesRef.map((ref) => ref.dataValues.url);
+  }
+
   const productRef = await Product.create(products);
-  productRef.setCategory(categoryRef);
-  return productRef;
+
+  await productRef.setCategory(categoryRef);
+  await productRef.setImages(imagesRef);
+
+  console.log(await Image.findAll());
+
+  return { ...productRef.dataValues, imgGenerica };
 };
 
 const getProducts = async () => {
-  const response = await Product.findAll();
-  return response;
+  const response = await Product.findAll({
+    include: {
+      model: Image,
+      attributes: ["url"],
+    },
+  });
+  const products = response.map((data) => ({
+    ...data.dataValues,
+    Images: data.dataValues.Images.map((image) => image.url),
+  }));
+  return products;
 };
 
 const updateProducts = async (product) => {
