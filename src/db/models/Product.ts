@@ -34,10 +34,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
       descLarga: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      imgGenerica: {
-        type: DataTypes.JSON,
-        allowNUll: true,
       }
     },
     { updatedAt: false, createAt: false }
