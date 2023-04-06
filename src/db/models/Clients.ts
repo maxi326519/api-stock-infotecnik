@@ -7,7 +7,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      codigo: {
+      numero: {
         type: DataTypes.STRING,
         allowNull: false,
       },

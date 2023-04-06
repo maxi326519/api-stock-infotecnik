@@ -15,21 +15,23 @@ const setProducts = async (products) => {
   if (!products.capacidad) throw new Error("missing parameter (capacidad)");
   if (!products.descLarga) throw new Error("missing parameter (descLarga)");
   if (!products.descCorta) throw new Error("missing parameter (descCorta)");
-  if (!products.imgGenerica) throw new Error("missing parameter (imgGenerica)");
-  if (!products.categoria) throw new Error("missing parameter (categoria)");
+  if (!products.Images) throw new Error("missing parameter (Images)");
+  if (!products.CategoryId) throw new Error("missing parameter (categoria)");
 
   const categoryRef = await Category.findOne({
-    where: { id: products.categoria },
+    where: { id: products.CategoryId },
   });
   if (!categoryRef) throw new Error("category not found");
 
-  let imgGenerica = [];
+  console.log(products.Images);
+
+  let Images = [];
   let imagesRef = null;
-  if (products.imgGenerica) {
+  if (products.Images) {
     imagesRef = await Image.bulkCreate(
-      products.imgGenerica.map((url) => ({ url: url }))
+      products.Images.map((url) => ({ url: url }))
     );
-    imgGenerica = imagesRef.map((ref) => ref.dataValues.url);
+    Images = imagesRef.map((ref) => ref.dataValues.url);
   }
 
   const productRef = await Product.create(products);
@@ -37,9 +39,7 @@ const setProducts = async (products) => {
   await productRef.setCategory(categoryRef);
   await productRef.setImages(imagesRef);
 
-  console.log(await Image.findAll());
-
-  return { ...productRef.dataValues, imgGenerica };
+  return { ...productRef.dataValues, Images };
 };
 
 const getProducts = async () => {
@@ -67,10 +67,14 @@ const updateProducts = async (product) => {
 const deletedProduct = async (productId) => {
   const product = await Product.findOne({
     where: { id: productId },
+    include: {
+      model: Image,
+      attributes: ["url"],
+    },
   });
   if (!product) throw new Error("product not found");
 
-  const images = product.dataValues.imgGenerica;
+  const images = product.dataValues.Images.map((image) => image.url);
   console.log(images);
   for (let i = 0; i < images.length; i++) {
     console.log(images[i]);

@@ -36,7 +36,7 @@ const optimizeImg = (filePath, fileName, size = 300) => {
 };
 
 const deleteImage = (imageURL) => {
-  const url = `upload/images/${imageURL}`;
+  const url = `upload/${imageURL}`;
   console.log("URL", url);
   fs.unlink(url, (error) => {
     console.log(error);
