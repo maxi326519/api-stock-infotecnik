@@ -4,7 +4,7 @@ const { setInventory } = require("../inventory");
 const setInvoices = async (invoice) => {
   /* Validations */
   if (!invoice.fecha) throw new Error("missing parameter (fecha)");
-  if (!invoice.numero) throw new Error("missing parameter (numero)");
+  if (invoice.numero === undefined) throw new Error("missing parameter (numero)");
   if (invoice.pendiente === undefined) throw new Error("missing parameter (numero)");
   if (!invoice.pendiente && !invoice.archivo)
     throw new Error("missing parameter (archivo)");
@@ -43,15 +43,16 @@ const setInvoices = async (invoice) => {
     invoice: {
       ...invoiceRef.dataValues,
       SupplierId: addinvoiceRef.dataValues.id,
+      StockId: inventory.map((i) => i.data.id ),
     },
-    inventory: {
+    inventory: [
       ...inventory.map((i) => {
         return {
           ...i.data,
           InvoiceId: invoiceRef.dataValues.id,
         };
       }),
-    },
+    ],
   };
 };
 

@@ -17,9 +17,12 @@ const setInventory = async (products) => {
       "EAN-13",
     ];
 
-    if (!product.estado) throw new Error(`missing parameter (estado)`);
-    if (!product.fechaAlta) throw new Error(`missing parameter (fechaAlta)`);
-    if (!product.cantidad) throw new Error(`missing parameter (cantidad)`);
+    if (product.estado === undefined)
+      throw new Error(`missing parameter (estado)`);
+    if (product.fechaAlta === undefined)
+      throw new Error(`missing parameter (fechaAlta)`);
+    if (product.cantidad === undefined)
+      throw new Error(`missing parameter (cantidad)`);
     if (product.catalogo === undefined)
       throw new Error(`missing parameter (catalogo)`);
     if (product.IMEISerie === undefined)
@@ -38,9 +41,12 @@ const setInventory = async (products) => {
       throw new Error(`missing parameter (recargo)`);
     if (product.total === undefined)
       throw new Error(`missing parameter (total)`);
-    if (!product.detalles) throw new Error(`missing parameter (detalles)`);
-    if (!product.imagenes) throw new Error(`missing parameter (imagenes)`);
-    if (!product.supplierId) throw new Error(`missing parameter (supplierId)`);
+    if (product.detalles === undefined)
+      throw new Error(`missing parameter (detalles)`);
+    if (product.imagenes === undefined)
+      throw new Error(`missing parameter (imagenes)`);
+    if (product.supplierId === undefined)
+      throw new Error(`missing parameter (supplierId)`);
 
     if (product.IMEISerie !== "") {
       const stockRef = await Stock.findOne({
