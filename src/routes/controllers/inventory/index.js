@@ -40,7 +40,6 @@ const setInventory = async (products) => {
       throw new Error(`missing parameter (total)`);
     if (!product.detalles) throw new Error(`missing parameter (detalles)`);
     if (!product.imagenes) throw new Error(`missing parameter (imagenes)`);
-    if (!product.productId) throw new Error(`missing parameter (productId)`);
     if (!product.supplierId) throw new Error(`missing parameter (supplierId)`);
 
     if (product.IMEISerie !== "") {
