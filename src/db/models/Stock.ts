@@ -15,6 +15,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       catalogo: {
         type: DataTypes.BOOLEAN,
         allowNUll: false,
@@ -26,7 +30,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       tipoCodigoDeBarras: {
         type: DataTypes.ENUM(
-          "Ninguno",
           "Code128",
           "Code39",
           "UPC-A",
@@ -34,7 +37,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
           "EAN8",
           "EAN-13"
         ),
-        allowNull: false,
+        allowNull: true,
       },
       codigoDeBarras: {
         type: DataTypes.STRING,
@@ -55,7 +58,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       recargo: {
         type: DataTypes.FLOAT,
-        allowNull: true,
+        allowNull: false,
+      },
+      total: {
+        type: DataTypes.FLOAT,
+        allowNull: false
       },
       detalles: {
         type: DataTypes.STRING,

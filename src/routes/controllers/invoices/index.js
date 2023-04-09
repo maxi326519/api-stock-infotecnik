@@ -1,22 +1,31 @@
-const { Invoice, Supplier, Stock } = require("../../../db/index");
+const { Invoice, Supplier } = require("../../../db/index");
 const { setInventory } = require("../inventory");
 
 const setInvoices = async (invoice) => {
-  if (!invoice.fecha) throw new Error("Falta el parametro 'fecha'");
-  if (!invoice.numero) throw new Error("Falta el parametro 'numero'");
+  /* Validations */
+  if (!invoice.fecha) throw new Error("missing parameter (fecha)");
+  if (!invoice.numero) throw new Error("missing parameter (numero)");
+  if (invoice.pendiente === undefined) throw new Error("missing parameter (numero)");
   if (!invoice.pendiente && !invoice.archivo)
-    throw new Error("Falta el parametro 'archivo'");
+    throw new Error("missing parameter (archivo)");
   if (!invoice.tipoImpositivo)
-    throw new Error("Falta el parametro 'tipoImpositivo'");
-  if (!invoice.detalles) throw new Error("Falta el parametro 'detalles'");
-  if (!invoice.supplier) throw new Error("Falta el parametro 'supplier'");
+    throw new Error("missing parameter (tipoImpositivo)");
+  if (!invoice.detalles) throw new Error("missing parameter (detalles)");
+  if (!invoice.supplier) throw new Error("missing parameter (supplier)");
   if (invoice.detalles.length <= 0) throw new Error("No se adjunto inventario");
+
+  if (invoice.numero !== "") {
+    const invoiceRef = await Invoice.findOne({
+      where: { numero: invoice.numero },
+    });
+    if (invoiceRef) throw new Error("numero already exist");
+  }
 
   /* Search supplier */
   const supplierRef = await Supplier.findOne({
     where: { id: invoice.supplier },
   });
-  if (!supplierRef) throw new Error("No se encontro al Proveedor");
+  if (!supplierRef) throw new Error("Supplier not found");
 
   /* Add Inventory stock */
   const inventory = await setInventory(invoice.detalles);

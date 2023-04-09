@@ -1,18 +1,18 @@
 module.exports = (sequelize: any, DataTypes: any) => {
-    sequelize.define(
-      "Image",
-      {
-        id: {
-          type: DataTypes.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
-        },
-        url: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
+  sequelize.define(
+    "Image",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
       },
-      { updatedAt: false, timestamps: false }
-    );
-  };
-  
+      url: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+    },
+    { updatedAt: false, timestamps: false }
+  );
+};

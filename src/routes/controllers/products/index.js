@@ -16,7 +16,7 @@ const setProducts = async (products) => {
   if (!products.descLarga) throw new Error("missing parameter (descLarga)");
   if (!products.descCorta) throw new Error("missing parameter (descCorta)");
   if (!products.Images) throw new Error("missing parameter (Images)");
-  if (!products.CategoryId) throw new Error("missing parameter (categoria)");
+  if (!products.CategoryId) throw new Error("missing parameter (CategoryId)");
 
   const categoryRef = await Category.findOne({
     where: { id: products.CategoryId },

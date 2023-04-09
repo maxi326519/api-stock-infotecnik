@@ -75,6 +75,9 @@ Stock.belongsTo(Invoice);
 Supplier.hasMany(Invoice);
 Invoice.belongsTo(Supplier);
 
+Supplier.hasMany(Stock);
+Stock.belongsTo(Supplier);
+
 Stock.hasMany(Image);
 Image.belongsTo(Stock);
 
