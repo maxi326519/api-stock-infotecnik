@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 const keys = require("./settings/keys");
 const { serialize } = require("cookie");
 

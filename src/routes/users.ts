@@ -11,7 +11,7 @@ routerUser.post("/", async (req: any, res: any) => {
     }
 });
 
-routerUser.get("/all", async (req: any, res: any) => {
+routerUser.get("/", async (req: any, res: any) => {
     try{
         const response = await getAllUsers();
         res.status(200).json(response);
@@ -32,7 +32,8 @@ routerUser.patch("/", async (req: any, res: any) => {
 
 routerUser.delete("/:id", async (req: any, res: any) => {
     try{
-        const id = req.parameter;
+        const { id } = req.params;
+        console.log(id);
         await deleteUser(id);
         res.status(200).json({ msg: "deleted user successfully" });
     }catch(error: any){

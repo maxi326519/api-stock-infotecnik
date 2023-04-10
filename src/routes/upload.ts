@@ -15,7 +15,7 @@ routerUpload.post(
       /* optimizeImg(req.file.path, `resize-${req.file.filename}`, 100); */
       const data = {
         msg: "Uploaded image successfully",
-        path: `/images/${req.file.filename}`,
+        path: req.file.filename,
       };
 
       res.status(200).json(data);
@@ -33,7 +33,7 @@ routerUpload.post(
       /* optimizeImg(req.file.path, `resize-${req.file.filename}`, 100); */
       const data = {
         msg: "Uploaded invoice successfully",
-        path: `/invoices/${req.file.filename}`,
+        path: req.file.filename,
       };
 
       res.status(200).json(data);

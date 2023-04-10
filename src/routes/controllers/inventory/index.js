@@ -43,8 +43,8 @@ const setInventory = async (products) => {
       throw new Error(`missing parameter (total)`);
     if (product.detalles === undefined)
       throw new Error(`missing parameter (detalles)`);
-    if (product.imagenes === undefined)
-      throw new Error(`missing parameter (imagenes)`);
+    if (product.Images === undefined)
+      throw new Error(`missing parameter (Images)`);
     if (product.supplierId === undefined)
       throw new Error(`missing parameter (supplierId)`);
 
@@ -86,9 +86,9 @@ const setInventory = async (products) => {
   for (let i = 0; i < postProducts.length; i++) {
     /* Save images and get refenreces */
     let imagesRef = [];
-    if (postProducts[i].imagenes.length > 0) {
+    if (postProducts[i].Images.length > 0) {
       imagesRef = await Image.bulkCreate(
-        postProducts[i].imagenes.map((url) => ({ url: url }))
+        postProducts[i].Images.map((url) => ({ url: url }))
       );
     }
 
@@ -124,7 +124,7 @@ const setInventory = async (products) => {
       ref: stock,
       data: {
         ...stock.dataValues,
-        imagenes: imagesRef.map((data) => data.dataValues.url),
+        Images: imagesRef.map((data) => data.dataValues.url),
       },
     });
   }
@@ -139,7 +139,10 @@ const getInventory = async () => {
       attributes: ["url"],
     },
   });
-  return response;
+  return response.map((stock) => ({
+    ...stock.dataValues,
+    Images: stock.dataValues.Images.map((image) => image.url)
+  }));
 };
 
 const updateInventory = async (stock) => {

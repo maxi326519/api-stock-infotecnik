@@ -1,16 +1,21 @@
 const { Users } = require("../../../db");
 
 const setUser = async (user) => {
-  if (!user.userName) throw new Error("missing 'userName' parameter");
-  if (!user.name) throw new Error("missing 'name' parameter");
-  if (!user.password) throw new Error("missing 'password' parameter");
-  if (!user.rol) throw new Error("missing 'rol' parameter");
+  if (!user.rol) throw new Error("missing parameter (rol)");
+  if (!user.name) throw new Error("missing parameter (name)");
+  if (!user.userName) throw new Error("missing parameter (userName)");
+  if (!user.email) throw new Error("missing parameter (email)");
+  if (!user.password) throw new Error("missing parameter (password)");
 
   const alreadyUser = await Users.findOne({
     where: { userName: user.userName },
   });
-
   if (alreadyUser) throw new Error("user already exists");
+
+  const alreadyEmail = await Users.findOne({
+    where: { userName: user.email },
+  });
+  if (alreadyEmail) throw new Error("user already exists");
 
   const newUser = await Users.create(user);
   return newUser;
@@ -33,7 +38,7 @@ const getAllUsers = async () => {
 };
 
 const updateUser = async (updateUser) => {
-  const rol = ["admin", "contador", "empleado"];
+  const rol = ["Admin", "Contador"];
 
   if (!updateUser.userName) throw new Error("missing 'userName' parameter");
   if (!updateUser.name) throw new Error("missing 'name' parameter");
@@ -56,7 +61,7 @@ const deleteUser = async (id) => {
     where: { id: id },
   });
 
-  user.delete(updateUser);
+  user.destroy();
 };
 
 module.exports = {
