@@ -1,5 +1,6 @@
 const routerLogin = require("express").Router();
 const verification = require("express").Router();
+const jwt = require("jsonwebtoken");
 
 verification.use((req: any, res: any, next: any) => {
   let token = req.headers["x-access-token"] || req.headers["authorization"];

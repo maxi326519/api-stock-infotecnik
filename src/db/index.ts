@@ -67,6 +67,7 @@ const {
   Category,
   Transaction,
   Client,
+  Configuration,
 } = sequelize.models;
 
 Invoice.hasMany(Stock);

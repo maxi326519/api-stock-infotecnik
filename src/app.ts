@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 const keys = require("./settings/keys");
 const { serialize } = require("cookie");
 
@@ -18,6 +17,7 @@ const inventory = require("./routes/inventory");
 const suppliers = require("./routes/suppliers");
 const clients = require("./routes/clients");
 const transactions = require("./routes/transactions");
+const configurations = require("./routes/configurations");
 
 // Ceate server
 const server = express();
@@ -50,6 +50,7 @@ server.use("/inventory", inventory);
 server.use("/suppliers", suppliers);
 server.use("/clients", clients);
 server.use("/transactions", transactions);
+server.use("/configurations", configurations);
 
 // Implementar un protocolo de HTTPS de Security
 // Error catching endware.
