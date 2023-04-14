@@ -3,17 +3,57 @@ const {
   Capacidades,
   Colores,
   Category,
+  Image,
 } = require("../../../db/index");
 const { deleteImage } = require("../upload");
 
 const setProducts = async (products) => {
+  if (!products.codigo) throw new Error("missing parameter (codigo)");
+  if (!products.marca) throw new Error("missing parameter (marca)");
+  if (!products.modelo) throw new Error("missing parameter (modelo)");
+  if (!products.color) throw new Error("missing parameter (color)");
+  if (!products.capacidad) throw new Error("missing parameter (capacidad)");
+  if (!products.descLarga) throw new Error("missing parameter (descLarga)");
+  if (!products.descCorta) throw new Error("missing parameter (descCorta)");
+  if (!products.Images) throw new Error("missing parameter (Images)");
+  if (!products.CategoryId) throw new Error("missing parameter (CategoryId)");
+
+  const categoryRef = await Category.findOne({
+    where: { id: products.CategoryId },
+  });
+  if (!categoryRef) throw new Error("category not found");
+
+  console.log(products.Images);
+
+  let Images = [];
+  let imagesRef = null;
+  if (products.Images) {
+    imagesRef = await Image.bulkCreate(
+      products.Images.map((url) => ({ url: url }))
+    );
+    Images = imagesRef.map((ref) => ref.dataValues.url);
+  }
+
   const productRef = await Product.create(products);
-  return productRef;
+
+  await productRef.setCategory(categoryRef);
+  await productRef.setImages(imagesRef);
+
+  return { ...productRef.dataValues, Images };
 };
 
 const getProducts = async () => {
-  const response = await Product.findAll();
-  return response;
+  const response = await Product.findAll({
+    include: {
+      model: Image,
+      attributes: ["url"],
+    },
+  });
+  const products = response.map((data) => ({
+    ...data.dataValues,
+    Images: data.dataValues.Images.map((image) => image.url),
+  }));
+  return products;
 };
 
 const updateProducts = async (product) => {
@@ -27,14 +67,19 @@ const updateProducts = async (product) => {
 const deletedProduct = async (productId) => {
   const product = await Product.findOne({
     where: { id: productId },
+    include: {
+      model: Image,
+      attributes: ["url"],
+    },
   });
   if (!product) throw new Error("product not found");
 
-  /*   const images = product.dataValues.imgGenerica;
+  const images = product.dataValues.Images.map((image) => image.url);
+  console.log(images);
   for (let i = 0; i < images.length; i++) {
     console.log(images[i]);
     deleteImage(images[i]);
-  } */
+  }
   await Product.destroy({ where: { id: productId } });
 };
 

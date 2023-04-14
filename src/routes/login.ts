@@ -1,6 +1,8 @@
+const jwt = require("jsonwebtoken");
 const routerLogin = require("express").Router();
 const verification = require("express").Router();
-const jwt = require("jsonwebtoken");
+const expresss = require("express");
+const app2 = expresss();
 
 verification.use((req: any, res: any, next: any) => {
   let token = req.headers["x-access-token"] || req.headers["authorization"];
@@ -25,14 +27,20 @@ routerLogin.post("/", (req: any, res: any) => {
   if (email === "maxi.326519@gmail.com" && password === "12345678") {
     const token = jwt.sign(
       { check: true, email: "maxi.326519@gmail.com" },
-      server.get("key"),
+      "8s1d8h1f5dj",
       {
         expiresIn: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 24,
       }
     );
 
     res.cookie("my-cookie", token);
-    res.status(200).json({ mensage: "Login successfully" });
+    res.status(200).json({
+      id: "asdasdasdasda",
+      rol: "Admin",
+      name: "Maximiliano Garcia",
+      userName: "maxi.326519",
+      email: "maxi.326519@gmail.com",
+    });
   } else {
     res.status(400).json({ error: "invalid credentials" });
   }

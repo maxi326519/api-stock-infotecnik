@@ -8,7 +8,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         primaryKey: true,
       },
       rol: {
-        type: DataTypes.ENUM("admin", "empleado", "contador"),
+        type: DataTypes.ENUM("Admin", "Contador"),
         allowNull: false,
       },
       name: {
@@ -16,6 +16,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       userName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,

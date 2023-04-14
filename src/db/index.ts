@@ -63,7 +63,7 @@ const {
   Product,
   Stock,
   Supplier,
-  Images,
+  Image,
   Category,
   Transaction,
   Client,
@@ -73,14 +73,23 @@ const {
 Invoice.hasMany(Stock);
 Stock.belongsTo(Invoice);
 
+Supplier.hasMany(Invoice);
+Invoice.belongsTo(Supplier);
+
+Supplier.hasMany(Stock);
+Stock.belongsTo(Supplier);
+
+Stock.hasMany(Image);
+Image.belongsTo(Stock);
+
 Product.hasMany(Stock);
 Stock.belongsTo(Product);
 
 Product.belongsTo(Category);
 Category.hasMany(Product);
 
-Supplier.hasMany(Invoice);
-Invoice.belongsTo(Supplier);
+Product.hasMany(Image);
+Image.belongsTo(Product);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
