@@ -2,11 +2,13 @@ const { Configuration } = require("../../../db/index");
 
 const getConfiguration = async () => {
   const configuration = await Configuration.findOne({ where: { id: 1 } });
+
+  console.log(configuration)
+
   return configuration;
 };
 
 const updateConfiguration = async (data) => {
-  console.log(data);
   const configRef = await Configuration.findOne({
     where: { id: 1 },
   });

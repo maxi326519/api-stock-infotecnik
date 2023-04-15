@@ -6,9 +6,9 @@ require("./db");
 // Initialisation
 const PORT = process.env.PORT || 3001;
 
-conn.sync({ force: false }).then(() => {
-  
-/*   models.Configuration.create(); */
+conn.sync({ force: false }).then(async () => {
+  const config = await models.Configuration.findOne({ where: { id: 1 } });
+  if (!config) await models.Configuration.create();
 
   app.listen(PORT, () => {
     console.log(`Server listening in port ${PORT}`);
