@@ -60,6 +60,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const {
   Invoice,
+  InvoiceDestails,
   Product,
   Stock,
   Supplier,
@@ -72,6 +73,9 @@ const {
 
 Invoice.hasMany(Stock);
 Stock.belongsTo(Invoice);
+
+Invoice.hasMany(InvoiceDestails);
+InvoiceDestails.belongsTo(Invoice);
 
 Supplier.hasMany(Invoice);
 Invoice.belongsTo(Supplier);

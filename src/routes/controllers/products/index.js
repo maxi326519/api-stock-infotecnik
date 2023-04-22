@@ -13,9 +13,6 @@ const setProducts = async (products) => {
   if (!products.modelo) throw new Error("missing parameter (modelo)");
   if (!products.color) throw new Error("missing parameter (color)");
   if (!products.capacidad) throw new Error("missing parameter (capacidad)");
-  if (!products.descLarga) throw new Error("missing parameter (descLarga)");
-  if (!products.descCorta) throw new Error("missing parameter (descCorta)");
-  if (!products.Images) throw new Error("missing parameter (Images)");
   if (!products.CategoryId) throw new Error("missing parameter (CategoryId)");
 
   const categoryRef = await Category.findOne({

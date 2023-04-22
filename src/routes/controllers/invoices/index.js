@@ -1,11 +1,13 @@
-const { Invoice, Supplier } = require("../../../db/index");
+const { Invoice, InvoiceDestails, Supplier } = require("../../../db/index");
 const { setInventory } = require("../inventory");
 
 const setInvoices = async (invoice) => {
   /* Validations */
   if (!invoice.fecha) throw new Error("missing parameter (fecha)");
-  if (invoice.numero === undefined) throw new Error("missing parameter (numero)");
-  if (invoice.pendiente === undefined) throw new Error("missing parameter (numero)");
+  if (invoice.numero === undefined)
+    throw new Error("missing parameter (numero)");
+  if (invoice.pendiente === undefined)
+    throw new Error("missing parameter (numero)");
   if (!invoice.pendiente && !invoice.archivo)
     throw new Error("missing parameter (archivo)");
   if (!invoice.tipoImpositivo)
@@ -43,7 +45,7 @@ const setInvoices = async (invoice) => {
     invoice: {
       ...invoiceRef.dataValues,
       SupplierId: addinvoiceRef.dataValues.id,
-      StockId: inventory.map((i) => i.data.id ),
+      StockId: inventory.map((i) => i.data.id),
     },
     inventory: [
       ...inventory.map((i) => {
@@ -54,6 +56,27 @@ const setInvoices = async (invoice) => {
       }),
     ],
   };
+};
+
+const setServiceInvoice = async (invoice) => {
+  const newInvoice = await Invoice.create(invoice);
+  let newDetails = [];
+
+  for (let i = 0; i < invoice.InvoiceDetails.length; i++) {
+    newDetails.push(await InvoiceDestails.create(invoice.InvoiceDetails[i]));
+  }
+
+  console.log(invoice.InvoiceDetails);
+  console.log(newDetails);
+
+  await newInvoice.setInvoiceDestails(newDetails);
+
+  const invoiceReturn = await Invoice.findOne({
+    where: { id: newInvoice.id },
+    include: { model: InvoiceDestails },
+  });
+
+  return invoiceReturn;
 };
 
 const getInvoices = async () => {
@@ -75,6 +98,7 @@ const disabledInvoice = async (invoiceId) => {
 
 module.exports = {
   setInvoices,
+  setServiceInvoice,
   getInvoices,
   updateInvoice,
   disabledInvoice,

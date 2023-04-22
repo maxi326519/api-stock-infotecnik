@@ -7,6 +7,8 @@ const cors = require("cors");
 const keys = require("./settings/keys");
 const { serialize } = require("cookie");
 
+const { getInvoices } = require("./routes/controllers/invoices");
+
 // Import routes
 const login = require("./routes/login").routerLogin;
 const user = require("./routes/users");
@@ -24,7 +26,7 @@ const server = express();
 
 // Cors options
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:3000",
   credentials: true,
   methods: "GET, PATCH, POST, OPTIONS, PUT, DELETE",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
@@ -41,6 +43,15 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 
 // Add routes
+server.get("/invoice", async (req: any, res: any) => {
+  try {
+    const response = await getInvoices();
+    res.status(200).json(response);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 server.use("/login", login);
 server.use("/user", user);
 server.use("/upload", uploads);

@@ -2,11 +2,20 @@ module.exports = (sequelize: any, DataTypes: any) => {
   sequelize.define(
     "Configuration",
     {
-      iva: {
+      ivaSuperReducido: {
+        type: DataTypes.FLOAT,
+        defaultValue: 4,
+        allowNull: false,
+      },
+      ivaReducido: {
+        type: DataTypes.FLOAT,
+        defaultValue: 10,
+        allowNull: false,
+      },
+      ivaGeneral: {
         type: DataTypes.FLOAT,
         defaultValue: 21,
         allowNull: false,
-        unique: true,
       },
       recargo: {
         type: DataTypes.FLOAT,
