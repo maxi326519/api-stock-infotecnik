@@ -12,9 +12,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       numero: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
-        autoIncrement: true,
         unique: true,
       },
       pendiente: {
@@ -24,6 +23,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
       archivo: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      total: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
       },
       tipoImpositivo: {
         type: DataTypes.ENUM("IVA", "Recargo", "REBU"),

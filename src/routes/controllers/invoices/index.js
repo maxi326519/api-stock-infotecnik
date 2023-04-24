@@ -6,6 +6,7 @@ const setInvoices = async (invoice) => {
   if (!invoice.fecha) throw new Error("missing parameter (fecha)");
   if (invoice.numero === undefined)
     throw new Error("missing parameter (numero)");
+  if (invoice.total === undefined) throw new Error("missing parameter (total)");
   if (invoice.pendiente === undefined)
     throw new Error("missing parameter (numero)");
   if (!invoice.pendiente && !invoice.archivo)
