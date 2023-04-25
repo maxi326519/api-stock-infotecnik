@@ -43,10 +43,8 @@ const setInventory = async (products: any) => {
       throw new Error(`missing parameter (total)`);
     if (product.detalles === undefined)
       throw new Error(`missing parameter (detalles)`);
-    if (product.Images === undefined)
-      throw new Error(`missing parameter (Images)`);
-    if (product.supplierId === undefined)
-      throw new Error(`missing parameter (supplierId)`);
+    if (product.SupplierId === undefined)
+      throw new Error(`missing parameter (SupplierId)`);
 
     if (product.IMEISerie !== "") {
       const stockRef = await Stock.findOne({
@@ -85,7 +83,7 @@ const setInventory = async (products: any) => {
   for (let i = 0; i < postProducts.length; i++) {
     /* Save images and get refenreces */
     let imagesRef: any = [];
-    if (postProducts[i].Images.length > 0) {
+    if (postProducts[i].Images?.length > 0) {
       imagesRef = await ImageDB.bulkCreate(
         postProducts[i].Images.map((url: string) => ({ url: url }))
       );
@@ -93,23 +91,26 @@ const setInventory = async (products: any) => {
 
     /* Get product reference */
     let productRef = null;
-    if (postProducts[i].productId) {
+    if (postProducts[i].ProductId) {
+      console.log("Buscando un producto");
       productRef = await Product.findOne({
-        where: { id: postProducts[i].productId },
+        where: { id: postProducts[i].ProductId },
       });
       if (!productRef)
-        throw new Error(`Product not found (${postProducts[i].productId})`);
+        throw new Error(`Product not found (${postProducts[i].ProductId})`);
     }
 
     /* Get supplier reference */
     let supplierRef = null;
-    if (postProducts[i].supplierId) {
+    if (postProducts[i].SupplierId) {
       supplierRef = await Supplier.findOne({
-        where: { id: postProducts[i].supplierId },
+        where: { id: postProducts[i].SupplierId },
       });
       if (!supplierRef)
-        throw new Error(`Supplier not found (${postProducts[i].supplierId})`);
+        throw new Error(`Supplier not found (${postProducts[i].SupplierId})`);
     }
+
+    console.log(postProducts);
 
     /* Create inventory */
     const stock: any = await Stock.create(postProducts[i]);

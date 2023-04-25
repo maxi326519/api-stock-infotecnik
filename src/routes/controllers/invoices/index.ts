@@ -14,7 +14,7 @@ const setInvoices = async (invoice: any) => {
     throw new Error("missing parameter (numero)");
   if (invoice.total === undefined) throw new Error("missing parameter (total)");
   if (invoice.pendiente === undefined)
-    throw new Error("missing parameter (numero)");
+    throw new Error("missing parameter (pendiente)");
   if (invoice.tipo === undefined) throw new Error("missing parameter (tipo)");
   if (invoice.total === undefined) throw new Error("missing parameter (total)");
   if (invoice.TotalDetails === undefined)
@@ -46,7 +46,6 @@ const setInvoices = async (invoice: any) => {
   for (let i = 0; i < invoice.TotalDetails.length; i++) {
     newDetails.push(await TotalDetail.create(invoice.TotalDetails[i]));
   }
-
   /* Create Inventory stock */
   const inventory: any = await setInventory(invoice.Stock);
 
@@ -164,6 +163,39 @@ const updateInvoice = async (invoice: any) => {
 };
 
 const deleteInvoice = async (invoiceId: string) => {
+  const invoice = await Invoice.findOne({
+    where: { id: invoiceId },
+    include: [
+      {
+        model: Stock,
+        attributes: ["id"],
+      },
+      {
+        model: TotalDetail,
+        attributes: ["id"],
+      },
+    ],
+  });
+
+  let stocksId: string[] = [];
+  let detailsId: string[] = [];
+
+  if (invoice) {
+    stocksId = invoice?.dataValues.Stocks.map(
+      (stock: any) => stock.dataValues.id
+    );
+    detailsId = invoice?.dataValues.TotalDetails.map(
+      (details: any) => details.dataValues.id
+    );
+
+    if (stocksId.length > 0) {
+      await Stock.destroy({ where: { id: stocksId } });
+    }
+
+    if (detailsId.length > 0) {
+      await TotalDetail.destroy({ where: { id: detailsId } });
+    }
+  }
   await Invoice.destroy({ where: { id: invoiceId } });
 };
 
