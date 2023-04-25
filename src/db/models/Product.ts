@@ -1,4 +1,4 @@
-module.exports = (sequelize: any, DataTypes: any) => {
+export default (sequelize: any, DataTypes: any) => {
   sequelize.define(
     "Product",
     {
@@ -27,14 +27,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      descLarga: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       descCorta: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      descLarga: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      }
     },
     { updatedAt: false, createAt: false }
   );

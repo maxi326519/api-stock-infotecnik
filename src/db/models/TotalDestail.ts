@@ -1,6 +1,6 @@
-module.exports = (sequelize: any, DataTypes: any) => {
+export default (sequelize: any, DataTypes: any) => {
   sequelize.define(
-    "InvoiceDestails",
+    "TotalDestail",
     {
       id: {
         type: DataTypes.UUID,

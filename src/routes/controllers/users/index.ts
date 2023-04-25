@@ -1,30 +1,30 @@
-const { Users } = require("../../../db");
+import { User } from "../../../db";
 
-const setUser = async (user) => {
+const setUser = async (user: any) => {
   if (!user.rol) throw new Error("missing parameter (rol)");
   if (!user.name) throw new Error("missing parameter (name)");
   if (!user.userName) throw new Error("missing parameter (userName)");
   if (!user.email) throw new Error("missing parameter (email)");
   if (!user.password) throw new Error("missing parameter (password)");
 
-  const alreadyUser = await Users.findOne({
+  const alreadyUser = await User.findOne({
     where: { userName: user.userName },
   });
   if (alreadyUser) throw new Error("user already exists");
 
-  const alreadyEmail = await Users.findOne({
+  const alreadyEmail = await User.findOne({
     where: { userName: user.email },
   });
   if (alreadyEmail) throw new Error("user already exists");
 
-  const newUser = await Users.create(user);
+  const newUser = await User.create(user);
   return newUser;
 };
 
-const getUser = async (name, value) => {
+const getUser = async (name: string, value: any) => {
   if (!name || !value) throw new Error("missing parameter");
 
-  const user = await Users.findOne({
+  const user = await User.findOne({
     where: { [name]: value },
   });
 
@@ -32,12 +32,12 @@ const getUser = async (name, value) => {
 };
 
 const getAllUsers = async () => {
-  const allUsers = await Users.findAll();
+  const allUsers = await User.findAll();
 
   return allUsers;
 };
 
-const updateUser = async (updateUser) => {
+const updateUser = async (updateUser: any) => {
   const rol = ["Admin", "Contador"];
 
   if (!updateUser.userName) throw new Error("missing 'userName' parameter");
@@ -47,7 +47,7 @@ const updateUser = async (updateUser) => {
 
   if (!rol.includes(updateUser.rol)) throw new Error("invalid rol");
 
-  const user = await Users.findOne({
+  const user = await User.findOne({
     where: { id: updateUser.id },
   });
 
@@ -56,18 +56,13 @@ const updateUser = async (updateUser) => {
   user.update(updateUser);
 };
 
-const deleteUser = async (id) => {
-  const user = await Users.findOne({
+const deleteUser = async (id: string) => {
+  const user = await User.findOne({
     where: { id: id },
   });
 
-  user.destroy();
+  if (user) user.destroy();
+  else throw new Error("user not found");
 };
 
-module.exports = {
-  setUser,
-  getUser,
-  getAllUsers,
-  updateUser,
-  deleteUser,
-};
+export { setUser, getUser, getAllUsers, updateUser, deleteUser };

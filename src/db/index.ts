@@ -1,66 +1,59 @@
 require("dotenv").config();
-const pathDB = require("path");
-const { Sequelize } = require("sequelize");
-const { DataTypes } = require("sequelize");
-const fs = require("fs");
+import fs from "fs";
+import path from "path";
+import { Sequelize, DataTypes } from "sequelize";
 
-const {
-  DB_USER,
-  DB_PASSWORD,
-  DB_HOST,
-  DB_PORT,
-  DB_NAME,
-  PROD_DB_USER,
-  PROD_DB_PASSWORD,
-  PROD_DB_HOST,
-  PROD_DB_PORT,
-  PROD_DB_NAME,
-} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
 
-const options = {
+const options: any = {
+  dialect: "mariadb",
+  host: DB_HOST,
+  post: DB_PORT,
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_NAME,
-  host: DB_HOST,
-  port: DB_PORT,
-  dialect: "mariadb",
   logging: false,
-  native: false,
+  dialectOptions: {
+    allowPublicKeyRetrieval: true,
+  },
 };
 
 const sequelize = new Sequelize(options);
 
-const basename = pathDB.basename(__filename);
+const basename = path.basename(__filename);
 
-const modelDefiners: any = [];
-
-// Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(pathDB.join(__dirname, "/models"))
+// Leer todos los archivos de la carpeta models y agregarlos al arreglo modelDefiners
+const modelDefiners: Array<(sequelize: any, DataTypes: any) => void> = [];
+fs.readdirSync(__dirname + "/models")
+  /*   .map((file) => {
+    console.log("File:", file);
+    return file;
+  }) */
   .filter(
-    (file: any) =>
+    (file) =>
       file.indexOf(".") !== 0 &&
       file !== basename &&
       (file.slice(-3) === ".ts" || file.slice(-3) === ".js")
   )
-  .forEach((file: any) => {
-    modelDefiners.push(require(pathDB.join(__dirname, "/models", file)));
+  .forEach((file) => {
+    const modelDefiner = require(path.join(
+      __dirname + "/models",
+      file
+    )).default;
+    modelDefiners.push(modelDefiner);
   });
 
-// Injectamos la conexion (sequelize) a todos los modelos
-modelDefiners.forEach((model: any) => model(sequelize, DataTypes));
-// Capitalizamos los nombres de los modelos ie: product => Product
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [
-  entry[0][0].toUpperCase() + entry[0].slice(1),
-  entry[1],
-]);
-sequelize.models = Object.fromEntries(capsEntries);
+// Agregar todos los modelos definidos al objeto sequelize.models
+for (const modelDefiner of modelDefiners) {
+  modelDefiner(sequelize, DataTypes);
+}
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const {
+export const {
   Invoice,
-  InvoiceDestails,
+  InvoiceType,
+  TotalDestail,
   Product,
   Stock,
   Supplier,
@@ -69,13 +62,19 @@ const {
   Transaction,
   Client,
   Configuration,
+  Capacity,
+  Color,
+  User,
 } = sequelize.models;
 
 Invoice.hasMany(Stock);
 Stock.belongsTo(Invoice);
 
-Invoice.hasMany(InvoiceDestails);
-InvoiceDestails.belongsTo(Invoice);
+Invoice.hasOne(InvoiceType);
+InvoiceType.belongsTo(Invoice);
+
+Invoice.hasMany(TotalDestail);
+TotalDestail.belongsTo(Invoice);
 
 Supplier.hasMany(Invoice);
 Invoice.belongsTo(Supplier);
@@ -95,7 +94,4 @@ Category.hasMany(Product);
 Product.hasMany(Image);
 Image.belongsTo(Product);
 
-module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize, // para importart la conexión { conn } = require('./db.js');
-};
+export const conn = sequelize;

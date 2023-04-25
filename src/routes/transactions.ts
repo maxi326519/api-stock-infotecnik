@@ -1,11 +1,14 @@
-const routerTransactions = require("express").Router();
-const {
+import { Router } from "express";
+import { Request, Response } from "express";
+import {
   setTransactions,
   getTransactions,
   deleteTransactions,
-} = require("./controllers/transactions");
+} from "./controllers/transactions";
 
-routerTransactions.post("/", async (req: any, res: any) => {
+const router = Router();
+
+router.post("/", async (req: Request, res: Response) => {
   try {
     const data = req.body;
     const response = await setTransactions(data);
@@ -15,7 +18,7 @@ routerTransactions.post("/", async (req: any, res: any) => {
   }
 });
 
-routerTransactions.get("/", async (req: any, res: any) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
     const response = await getTransactions();
     res.status(200).json(response);
@@ -24,7 +27,7 @@ routerTransactions.get("/", async (req: any, res: any) => {
   }
 });
 
-routerTransactions.delete("/:id", async (req: any, res: any) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     await deleteTransactions(id);
@@ -34,4 +37,4 @@ routerTransactions.delete("/:id", async (req: any, res: any) => {
   }
 });
 
-module.exports = routerTransactions;
+export default router;

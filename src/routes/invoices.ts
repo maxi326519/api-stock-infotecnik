@@ -1,12 +1,16 @@
-const routerInvoice = require("express").Router();
-const {
+import { Router } from "express";
+import { Request, Response } from "express";
+import {
   setInvoices,
   setServiceInvoice,
+  getInvoices,
   updateInvoice,
   deleteInvoice,
-} = require("./controllers/invoices");
+} from "./controllers/invoices";
 
-routerInvoice.post("/", async (req: any, res: any) => {
+const route = Router();
+
+route.post("/", async (req: Request, res: Response) => {
   try {
     const invoice = req.body;
     const response = await setInvoices(invoice);
@@ -17,7 +21,7 @@ routerInvoice.post("/", async (req: any, res: any) => {
   }
 });
 
-routerInvoice.post("/services", async (req: any, res: any) => {
+route.post("/services", async (req: Request, res: Response) => {
   try {
     const invoice = req.body;
     const response = await setServiceInvoice(invoice);
@@ -28,16 +32,16 @@ routerInvoice.post("/services", async (req: any, res: any) => {
   }
 });
 
-/* routerInvoice.get("/", async (req: any, res: any) => {
+route.get("/", async (req: Request, res: Response) => {
   try {
     const response = await getInvoices();
     res.status(200).json(response);
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }
-}); */
+});
 
-routerInvoice.patch("/", async (req: any, res: any) => {
+route.patch("/", async (req: Request, res: Response) => {
   try {
     const newInvoice = req.body;
     await updateInvoice(newInvoice);
@@ -47,7 +51,7 @@ routerInvoice.patch("/", async (req: any, res: any) => {
   }
 });
 
-routerInvoice.delete("/:id", async (req: any, res: any) => {
+route.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     await deleteInvoice(id);
@@ -59,4 +63,4 @@ routerInvoice.delete("/:id", async (req: any, res: any) => {
   }
 });
 
-module.exports = routerInvoice;
+export default route;

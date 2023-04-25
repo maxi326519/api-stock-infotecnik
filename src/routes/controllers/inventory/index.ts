@@ -1,6 +1,6 @@
-const { Stock, Product, Supplier, Image } = require("../../../db/index");
+import { Stock, Product, Supplier, Image as ImageDB } from "../../../db/index";
 
-const setInventory = async (products) => {
+const setInventory = async (products: any) => {
   /* Validations */
   const postProducts = [];
   for (const product of products) {
@@ -52,8 +52,7 @@ const setInventory = async (products) => {
       const stockRef = await Stock.findOne({
         where: { IMEISerie: product.IMEISerie },
       });
-      if (("Search per IMEISerie:", stockRef))
-        throw new Error("IMEISerie already exist");
+      if (stockRef) throw new Error("IMEISerie already exist");
       IMEISerie = product.IMEISerie;
     }
 
@@ -85,10 +84,10 @@ const setInventory = async (products) => {
   let inventory = [];
   for (let i = 0; i < postProducts.length; i++) {
     /* Save images and get refenreces */
-    let imagesRef = [];
+    let imagesRef: any = [];
     if (postProducts[i].Images.length > 0) {
-      imagesRef = await Image.bulkCreate(
-        postProducts[i].Images.map((url) => ({ url: url }))
+      imagesRef = await ImageDB.bulkCreate(
+        postProducts[i].Images.map((url: string) => ({ url: url }))
       );
     }
 
@@ -113,7 +112,7 @@ const setInventory = async (products) => {
     }
 
     /* Create inventory */
-    const stock = await Stock.create(postProducts[i]);
+    const stock: any = await Stock.create(postProducts[i]);
 
     /* Add refereces */
     if (imagesRef) await stock.setImages(imagesRef);
@@ -124,7 +123,7 @@ const setInventory = async (products) => {
       ref: stock,
       data: {
         ...stock.dataValues,
-        Images: imagesRef.map((data) => data.dataValues.url),
+        Images: imagesRef.map((data: any) => data.dataValues.url),
       },
     });
   }
@@ -135,31 +134,27 @@ const setInventory = async (products) => {
 const getInventory = async () => {
   const response = await Stock.findAll({
     include: {
-      model: Image,
+      model: ImageDB,
       attributes: ["url"],
     },
   });
   return response.map((stock) => ({
     ...stock.dataValues,
-    Images: stock.dataValues.Images.map((image) => image.url)
+    Images: stock.dataValues.Images.map((image: any) => image.url),
   }));
 };
 
-const updateInventory = async (stock) => {
+const updateInventory = async (stock: any) => {
   const query = await Stock.findOne({
     where: { id: stock.id },
   });
 
-  await query.update(stock);
+  if (query) await query.update(stock);
+  else throw new Error("stock not found");
 };
 
-const disabledInventory = async (productId) => {
+const disabledInventory = async (productId: string) => {
   await Product.destroy({ where: { id: productId } });
 };
 
-module.exports = {
-  setInventory,
-  getInventory,
-  updateInventory,
-  disabledInventory,
-};
+export { setInventory, getInventory, updateInventory, disabledInventory };

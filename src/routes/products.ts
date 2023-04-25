@@ -1,5 +1,5 @@
-const routerPro = require("express").Router();
-const {
+import { Router } from "express";
+import {
   setProducts,
   getProducts,
   updateProducts,
@@ -7,9 +7,11 @@ const {
   setCategories,
   setAttributes,
   getAttributes,
-} = require("./controllers/products");
+} from "./controllers/products";
 
-routerPro.post("/", async (req: any, res: any) => {
+const route = Router();
+
+route.post("/", async (req: any, res: any) => {
   try {
     const product = req.body;
     const query = await setProducts(product);
@@ -19,7 +21,7 @@ routerPro.post("/", async (req: any, res: any) => {
   }
 });
 
-routerPro.get("/", async (req: any, res: any) => {
+route.get("/", async (req: any, res: any) => {
   try {
     const query = await getProducts();
     res.status(200).json(query);
@@ -28,7 +30,7 @@ routerPro.get("/", async (req: any, res: any) => {
   }
 });
 
-routerPro.patch("/", async (req: any, res: any) => {
+route.patch("/", async (req: any, res: any) => {
   try {
     const product = req.body;
     await updateProducts(product);
@@ -38,7 +40,7 @@ routerPro.patch("/", async (req: any, res: any) => {
   }
 });
 
-routerPro.delete("/:id", async (req: any, res: any) => {
+route.delete("/:id", async (req: any, res: any) => {
   try {
     const { id } = req.params;
     await deletedProduct(id);
@@ -51,7 +53,7 @@ routerPro.delete("/:id", async (req: any, res: any) => {
   }
 });
 
-routerPro.post("/categories", async (req: any, res: any) => {
+route.post("/categories", async (req: any, res: any) => {
   try {
     const data = req.body;
     await setCategories(data);
@@ -61,7 +63,7 @@ routerPro.post("/categories", async (req: any, res: any) => {
   }
 });
 
-routerPro.post("/attributes/:name", async (req: any, res: any) => {
+route.post("/attributes/:name", async (req: any, res: any) => {
   try {
     const { name } = req.params;
     const data = req.body;
@@ -73,7 +75,7 @@ routerPro.post("/attributes/:name", async (req: any, res: any) => {
   }
 });
 
-routerPro.get("/attributes", async (req: any, res: any) => {
+route.get("/attributes", async (req: any, res: any) => {
   try {
     const response = await getAttributes();
     res.status(200).json(response);
@@ -82,4 +84,4 @@ routerPro.get("/attributes", async (req: any, res: any) => {
   }
 });
 
-module.exports = routerPro;
+export default route;

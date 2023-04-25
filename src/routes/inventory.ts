@@ -1,38 +1,30 @@
-const routeInventory = require("express").Router();
-const {
-  getInventory,
-  updateInventory,
-  disabledInventory,
-} = require("./controllers/inventory");
+import { Router } from "express";
+import { Request, Response } from "express";
+import { getInventory, updateInventory } from "./controllers/inventory";
 
-routeInventory.get("/", async (req: any, res: any) => {
-  try{
+const route = Router();
+
+route.get("/", async (req: Request, res: Response) => {
+  try {
     const query = await getInventory();
     res.status(200).json(query);
-  }catch(err: any){
+  } catch (err: any) {
     console.log(err);
     res.status(400).json({ error: err.message });
   }
-})
+});
 
-routeInventory.patch("/", async (req: any, res: any) => {
-  try{
+route.patch("/", async (req: Request, res: Response) => {
+  try {
     const stock = req.body;
     await updateInventory(stock);
-    res.status(200).json({ message: `El stock ${stock.id} se actualizo correctamente` });
-  }catch(err: any){
+    res
+      .status(200)
+      .json({ message: `El stock ${stock.id} se actualizo correctamente` });
+  } catch (err: any) {
     console.log(err);
     res.status(400).json({ error: err.message });
   }
-})
+});
 
-/* routeInventory.delete("/", (req: any, res: any) => {
-  try{
-    res.status(200).json({ msg: "delete inventory" });
-  }catch(err: any){
-    console.log(err);
-    res.status(400).json({ error: err.message });
-  }
-}) */
-
-module.exports = routeInventory;
+export default route;

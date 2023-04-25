@@ -18,9 +18,9 @@ export interface Product {
   categoria: string;
 }
 
-export interface Inventory{
+export interface Inventory {
   id: string;
-  IMEISerie: string;/* enum[IMEI, nroSerie] */
+  IMEISerie: string /* enum[IMEI, nroSerie] */;
   status: number;
   TipoCodigoDeBarras: string;
   codigoDeBarras: number;
@@ -44,7 +44,18 @@ export interface Supplier {
   telefono: string;
 }
 
-export interface Invoices{
+export interface Client {
+  id: string;
+  numero: string;
+  nombre: string;
+  direccion: string;
+  cifNif: string;
+  poblacion: string;
+  postal: number;
+  telefono: string;
+}
+
+export interface Invoices {
   fecha: string;
   numero: number;
   archivo: string;
@@ -53,9 +64,14 @@ export interface Invoices{
   supplier: string;
 }
 
+export interface Image {
+  id: string;
+  url: string;
+}
+
 export enum tipoImpositivo {
   IVA,
   Recargo,
   Equivalencia,
-  REBU
+  REBU,
 }

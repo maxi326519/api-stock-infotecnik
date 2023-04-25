@@ -1,16 +1,15 @@
-const jwt = require("jsonwebtoken");
-const routerLogin = require("express").Router();
-const verification = require("express").Router();
-const expresss = require("express");
-const app2 = expresss();
+import { Router } from "express";
+import jwt from "jsonwebtoken";
 
-verification.use((req: any, res: any, next: any) => {
+const route = Router();
+
+route.use((req: any, res: any, next: any) => {
   let token = req.headers["x-access-token"] || req.headers["authorization"];
   if (!token) {
     res.status(400).send({ error: "missin token" });
   } else {
     token = token.split(" ")[1];
-    jwt.verify(token, server.get("key"), (error: any, decoded: any) => {
+    jwt.verify(token, "8s1d8h1f5dj", (error: any, decoded: any) => {
       if (error) {
         return res.json({ message: "token invalid" });
       } else {
@@ -21,7 +20,7 @@ verification.use((req: any, res: any, next: any) => {
   }
 });
 
-routerLogin.post("/", (req: any, res: any) => {
+route.post("/", (req: any, res: any) => {
   const { email, password } = req.body;
 
   if (email === "maxi.326519@gmail.com" && password === "12345678") {
@@ -46,7 +45,4 @@ routerLogin.post("/", (req: any, res: any) => {
   }
 });
 
-module.exports = {
-    routerLogin,
-    verification
-}
+export default route;

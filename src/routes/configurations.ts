@@ -1,10 +1,13 @@
-const routerConfig = require("express").Router();
-const {
+import { Router } from "express";
+import { Request, Response } from "express";
+import {
   getConfiguration,
   updateConfiguration,
-} = require("./controllers/configurations");
+} from "./controllers/configurations";
 
-routerConfig.get("/", async (req: any, res: any) => {
+const route = Router();
+
+route.get("/", async (req: Request, res: Response) => {
   try {
     const response = await getConfiguration();
     res.status(200).json(response);
@@ -14,7 +17,7 @@ routerConfig.get("/", async (req: any, res: any) => {
   }
 });
 
-routerConfig.patch("/", async (req: any, res: any) => {
+route.patch("/", async (req: Request, res: Response) => {
   try {
     const data = req.body;
     const response = await updateConfiguration(data);
@@ -24,4 +27,4 @@ routerConfig.patch("/", async (req: any, res: any) => {
   }
 });
 
-module.exports = routerConfig;
+export default route;

@@ -1,4 +1,4 @@
-module.exports = (sequelize: any, DataTypes: any) => {
+export default (sequelize: any, DataTypes: any) => {
   sequelize.define(
     "Invoice",
     {
@@ -30,6 +30,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       tipoImpositivo: {
         type: DataTypes.ENUM("IVA", "Recargo", "REBU"),
+      },
+      invoiceTypeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'InvoiceTypes',
+          key: 'id'
+        }
       },
     },
     { updatedAt: false, timestamps: false }

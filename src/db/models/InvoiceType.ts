@@ -1,21 +1,16 @@
 export default (sequelize: any, DataTypes: any) => {
   sequelize.define(
-    "Category",
+    "InvoiceType",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
-        unique: true,
+        autoIncrement: true,
       },
-      name: {
+      tipo: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      parent: {
-        type: DataTypes.INTEGER,
         allowNull: true,
+        unique: true,
       },
     },
     { updatedAt: false, timestamps: false }

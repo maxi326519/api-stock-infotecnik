@@ -1,6 +1,6 @@
-const { Transaction } = require("../../../db/index");
+import { Transaction } from "../../../db/index";
 
-const setTransactions = async (data) => {
+const setTransactions = async (data: any) => {
   if (!data.fecha) throw new Error("missing parameter (fecha)");
   if (!data.fechaValor) throw new Error("missing parameter (fechaValor)");
   if (!data.movimiento) throw new Error("missing parameter (movimiento)");
@@ -16,17 +16,15 @@ const getTransactions = async () => {
   return transactions;
 };
 
-const deleteTransactions = async (transactionId) => {
-  const transactionRef = await Transaction.findOne({ hwere: { id: transactionId } });
-  if(!transactionRef) throw new Error("transaction not found");
+const deleteTransactions = async (transactionId: string) => {
+  const transactionRef = await Transaction.findOne({
+    where: { id: transactionId },
+  });
+  if (!transactionRef) throw new Error("transaction not found");
 
   await Transaction.destroy({
     where: { id: transactionId },
   });
 };
 
-module.exports = {
-  setTransactions,
-  getTransactions,
-  deleteTransactions,
-};
+export { setTransactions, getTransactions, deleteTransactions };

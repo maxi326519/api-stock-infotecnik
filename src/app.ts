@@ -1,25 +1,23 @@
-const path = require("path");
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const morgan = require("morgan");
-const cors = require("cors");
-const keys = require("./settings/keys");
-const { serialize } = require("cookie");
+import path from "path";
+import express from "express";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import cors from "cors";
 
-const { getInvoices } = require("./routes/controllers/invoices");
+/* const { getInvoices } = require("./routes/controllers/invoices"); */
 
 // Import routes
-const login = require("./routes/login").routerLogin;
-const user = require("./routes/users");
-const uploads = require("./routes/upload");
-const products = require("./routes/products");
-const invoices = require("./routes/invoices");
-const inventory = require("./routes/inventory");
-const suppliers = require("./routes/suppliers");
-const clients = require("./routes/clients");
-const transactions = require("./routes/transactions");
-const configurations = require("./routes/configurations");
+import login from "./routes/login";
+import user from "./routes/users";
+import uploads from "./routes/upload";
+import products from "./routes/products";
+import invoices from "./routes/invoices";
+import inventory from "./routes/inventory";
+import suppliers from "./routes/suppliers";
+import clients from "./routes/clients";
+import transactions from "./routes/transactions";
+import configurations from "./routes/configurations";
 
 // Ceate server
 const server = express();
@@ -33,7 +31,6 @@ const corsOptions = {
 };
 
 // server config
-server.set("key", keys.key);
 server.use(express.static("upload"));
 server.use(cors(corsOptions));
 server.use(express.json());
@@ -43,14 +40,14 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 
 // Add routes
-server.get("/invoice", async (req: any, res: any) => {
+/* server.get("/invoice", async (req: any, res: any) => {
   try {
     const response = await getInvoices();
     res.status(200).json(response);
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }
-});
+}); */
 
 server.use("/login", login);
 server.use("/user", user);
