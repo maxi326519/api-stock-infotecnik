@@ -19,8 +19,8 @@ import clients from "./routes/clients";
 import transactions from "./routes/transactions";
 import configurations from "./routes/configurations";
 
-// Ceate server
-const server = express();
+// Ceate app
+const app = express();
 
 // Cors options
 const corsOptions = {
@@ -30,17 +30,17 @@ const corsOptions = {
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
 };
 
-// server config
-server.use(express.static("upload"));
-server.use(cors(corsOptions));
-server.use(express.json());
-server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-server.use(bodyParser.json({ limit: "50mb" }));
-server.use(cookieParser());
-server.use(morgan("dev"));
+// app config
+app.use(express.static("upload"));
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(cookieParser());
+app.use(morgan("dev"));
 
 // Add routes
-/* server.get("/invoice", async (req: any, res: any) => {
+/* app.get("/invoice", async (req: any, res: any) => {
   try {
     const response = await getInvoices();
     res.status(200).json(response);
@@ -49,20 +49,20 @@ server.use(morgan("dev"));
   }
 }); */
 
-server.use("/login", login);
-server.use("/user", user);
-server.use("/upload", uploads);
-server.use("/products", products);
-server.use("/invoices", invoices);
-server.use("/inventory", inventory);
-server.use("/suppliers", suppliers);
-server.use("/clients", clients);
-server.use("/transactions", transactions);
-server.use("/configurations", configurations);
+app.use("/login", login);
+app.use("/user", user);
+app.use("/upload", uploads);
+app.use("/products", products);
+app.use("/invoices", invoices);
+app.use("/inventory", inventory);
+app.use("/suppliers", suppliers);
+app.use("/clients", clients);
+app.use("/transactions", transactions);
+app.use("/configurations", configurations);
 
 // Implementar un protocolo de HTTPS de Security
 // Error catching endware.
-server.use((err: any, req: any, res: any, next: any) => {
+app.use((err: any, req: any, res: any, next: any) => {
   // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
@@ -70,4 +70,4 @@ server.use((err: any, req: any, res: any, next: any) => {
   res.status(status).send(message);
 });
 
-module.exports = server;
+module.exports = app;

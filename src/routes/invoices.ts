@@ -6,6 +6,8 @@ import {
   getInvoices,
   updateInvoice,
   deleteInvoice,
+  getTypes,
+  setTypes,
 } from "./controllers/invoices";
 
 const route = Router();
@@ -16,7 +18,6 @@ route.post("/", async (req: Request, res: Response) => {
     const response = await setInvoices(invoice);
     res.status(200).json(response);
   } catch (err: any) {
-    console.log(err);
     res.status(400).json({ error: err.message });
   }
 });
@@ -27,14 +28,33 @@ route.post("/services", async (req: Request, res: Response) => {
     const response = await setServiceInvoice(invoice);
     res.status(200).json(response);
   } catch (err: any) {
-    console.log(err);
     res.status(400).json({ error: err.message });
+  }
+});
+
+route.post("/types", async (req: Request, res: Response) => {
+  try {
+    const data = req.body;
+    const response = await setTypes(data);
+    console.log("Set:", response);
+    res.status(200).json(response);
+  } catch (err: any) {
+    res.status(400).json({ error: err });
   }
 });
 
 route.get("/", async (req: Request, res: Response) => {
   try {
     const response = await getInvoices();
+    res.status(200).json(response);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+route.get("/types", async (req: Request, res: Response) => {
+  try {
+    const response = await getTypes();
     res.status(200).json(response);
   } catch (err: any) {
     res.status(400).json({ error: err.message });

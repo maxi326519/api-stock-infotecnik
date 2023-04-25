@@ -107,7 +107,7 @@ const setAttributes = async (name: any, data: any) => {
   });
   await model.bulkCreate(create);
 
-  const allData = model.findAll();
+  const allData = await model.findAll();
   return allData;
 };
 

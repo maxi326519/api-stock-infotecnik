@@ -1,4 +1,4 @@
-export default (sequelize: any, DataTypes: any) => {
+export const model = (sequelize: any, DataTypes: any) => {
   sequelize.define(
     "Supplier",
     {
@@ -10,6 +10,7 @@ export default (sequelize: any, DataTypes: any) => {
       numero: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       nombre: {
         type: DataTypes.STRING,
@@ -22,6 +23,7 @@ export default (sequelize: any, DataTypes: any) => {
       cifNif: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       poblacion: {
         type: DataTypes.STRING,

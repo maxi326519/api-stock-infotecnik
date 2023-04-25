@@ -15,7 +15,11 @@ router.post("/", async (req: Request, res: Response) => {
     const response = await setSupplier(supplier);
     res.status(200).json(response);
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    if (err.message.includes("missing parameter")) {
+      res.status(404).json(err.message);
+    } else {
+      res.status(500).json(err.message);
+    }
   }
 });
 

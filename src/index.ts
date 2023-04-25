@@ -1,11 +1,11 @@
 const app = require("./app");
-const { conn } = require("./db");
-const models = require("./db/index");
+import { conn } from "./db";
+import { models } from "./db";
 require("./db");
 
-// Initialisation
 const PORT = process.env.PORT || 3001;
 
+// Initialisation
 conn.sync({ force: true }).then(async () => {
   const config = await models.Configuration.findOne({ where: { id: 1 } });
   if (!config) await models.Configuration.create();

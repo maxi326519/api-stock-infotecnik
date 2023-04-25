@@ -1,0 +1,29 @@
+[
+  {
+    "numero": "121212",
+    "nombre": "Proveedor 11",
+    "direccion": "Direccion1",
+    "poblacion": "asdf1",
+    "postal": 16282,
+    "cifNif": "456456",
+    "telefono": "99 999299 9999"
+  },
+  {
+    "numero": "131313",
+    "nombre": "Proveedor 11",
+    "direccion": "Direccion2",
+    "poblacion": "asdf1",
+    "postal": 16282,
+    "cifNif": "234234",
+    "telefono": "99 999299 9998"
+  },
+  {
+    "numero": "141414",
+    "nombre": "Proveedor 11",
+    "direccion": "Direccion3",
+    "poblacion": "asdf1",
+    "postal": 16282,
+    "cifNif": "123123",
+    "telefono": "99 999299 9997"
+  }
+]

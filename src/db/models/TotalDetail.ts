@@ -1,6 +1,6 @@
-export default (sequelize: any, DataTypes: any) => {
+export const model = (sequelize: any, DataTypes: any) => {
   sequelize.define(
-    "TotalDestail",
+    "TotalDetail",
     {
       id: {
         type: DataTypes.UUID,

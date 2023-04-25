@@ -1,13 +1,20 @@
 import { Supplier } from "../../../db/index";
 
 const setSupplier = async (supplier: any) => {
-  if (!supplier.numero) throw new Error("missing parameter: numero");
-  if (!supplier.nombre) throw new Error("missing parameter: nombre");
-  if (!supplier.direccion) throw new Error("missing parameter: direccion");
-  if (!supplier.poblacion) throw new Error("missing parameter: poblacion");
-  if (!supplier.postal) throw new Error("missing parameter: postal");
-  if (!supplier.cifNif) throw new Error("missing parameter: cifNif");
-  if (!supplier.telefono) throw new Error("missing parameter: telefono");
+  if (supplier.numero === undefined)
+    throw new Error("missing parameter (numero)");
+  if (supplier.nombre === undefined)
+    throw new Error("missing parameter (nombre)");
+  if (supplier.direccion === undefined)
+    throw new Error("missing parameter (direccion)");
+  if (supplier.poblacion === undefined)
+    throw new Error("missing parameter (poblacion)");
+  if (supplier.postal === undefined)
+    throw new Error("missing parameter (postal)");
+  if (supplier.cifNif === undefined)
+    throw new Error("missing parameter (cifNif)");
+  if (supplier.telefono === undefined)
+    throw new Error("missing parameter (telefono)");
 
   const response = await Supplier.create(supplier);
   return response;

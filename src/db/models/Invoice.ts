@@ -1,4 +1,4 @@
-export default (sequelize: any, DataTypes: any) => {
+export const model = (sequelize: any, DataTypes: any) => {
   sequelize.define(
     "Invoice",
     {
@@ -29,15 +29,11 @@ export default (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       tipoImpositivo: {
-        type: DataTypes.ENUM("IVA", "Recargo", "REBU"),
+        type: DataTypes.ENUM("IVA", "Recargo", "REBU", "Compuesto"),
       },
-      invoiceTypeId: {
-        type: DataTypes.INTEGER,
+      tipo: {
+        type: DataTypes.STRING,
         allowNull: false,
-        references: {
-          model: 'InvoiceTypes',
-          key: 'id'
-        }
       },
     },
     { updatedAt: false, timestamps: false }

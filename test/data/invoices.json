@@ -1,0 +1,45 @@
+{
+  "stockInvoice": [],
+  "servicesInvoice": [
+    {
+      "numero": 210,
+      "fecha": "02/03/2023",
+      "pendiente": true,
+      "archivo": "",
+      "total": 24,
+      "TotalDetails": [
+        {
+          "concepto": "Concepto",
+          "cantidad": 1,
+          "baseImponible": 1,
+          "ivaPorcentaje": 1,
+          "ivaMonto": 1,
+          "recargoPorcentaje": 1,
+          "recargoMonto": 1
+        }
+      ],
+      "tipoImpositivo": "IVA",
+      "supplier": "5daf7731-4b04-461b-98d4-002ed88fcd61"
+    },
+    {
+      "numero": 200,
+      "fecha": "02/03/2023",
+      "pendiente": true,
+      "archivo": "",
+      "total": 24,
+      "TotalDetails": [
+        {
+          "concepto": "Concepto",
+          "cantidad": 1,
+          "baseImponible": 1,
+          "ivaPorcentaje": 1,
+          "ivaMonto": 1,
+          "recargoPorcentaje": 1,
+          "recargoMonto": 1
+        }
+      ],
+      "tipoImpositivo": "Compuesto",
+      "SupplierId": "5daf7731-4b04-461b-98d4-002ed88fcd61"
+    }
+  ]
+}

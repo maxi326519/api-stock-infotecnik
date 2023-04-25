@@ -13,6 +13,7 @@ const options: any = {
   password: DB_PASSWORD,
   database: DB_NAME,
   logging: false,
+  native: false,
   dialectOptions: {
     allowPublicKeyRetrieval: true,
   },
@@ -39,7 +40,7 @@ fs.readdirSync(__dirname + "/models")
     const modelDefiner = require(path.join(
       __dirname + "/models",
       file
-    )).default;
+    )).model;
     modelDefiners.push(modelDefiner);
   });
 
@@ -53,7 +54,7 @@ for (const modelDefiner of modelDefiners) {
 export const {
   Invoice,
   InvoiceType,
-  TotalDestail,
+  TotalDetail,
   Product,
   Stock,
   Supplier,
@@ -70,11 +71,8 @@ export const {
 Invoice.hasMany(Stock);
 Stock.belongsTo(Invoice);
 
-Invoice.hasOne(InvoiceType);
-InvoiceType.belongsTo(Invoice);
-
-Invoice.hasMany(TotalDestail);
-TotalDestail.belongsTo(Invoice);
+Invoice.hasMany(TotalDetail);
+TotalDetail.belongsTo(Invoice);
 
 Supplier.hasMany(Invoice);
 Invoice.belongsTo(Supplier);
@@ -95,3 +93,4 @@ Product.hasMany(Image);
 Image.belongsTo(Product);
 
 export const conn = sequelize;
+export const models = sequelize.models;

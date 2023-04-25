@@ -1,20 +1,22 @@
-import { Invoice, TotalDestail, Supplier } from "../../../db/index";
+import { Invoice, TotalDetail, Supplier, InvoiceType } from "../../../db/index";
 import { setInventory } from "../inventory";
 
 const setInvoices = async (invoice: any) => {
   /* Validations */
-  if (!invoice.fecha) throw new Error("missing parameter (fecha)");
+  if (invoice.fecha === undefined) throw new Error("missing parameter (fecha)");
   if (invoice.numero === undefined)
     throw new Error("missing parameter (numero)");
   if (invoice.total === undefined) throw new Error("missing parameter (total)");
   if (invoice.pendiente === undefined)
     throw new Error("missing parameter (numero)");
-  if (!invoice.pendiente && !invoice.archivo)
+  if (invoice.pendiente && !invoice.archivo)
     throw new Error("missing parameter (archivo)");
-  if (!invoice.tipoImpositivo)
+  if (invoice.tipoImpositivo === undefined)
     throw new Error("missing parameter (tipoImpositivo)");
-  if (!invoice.detalles) throw new Error("missing parameter (detalles)");
-  if (!invoice.supplier) throw new Error("missing parameter (supplier)");
+  if (invoice.detalles === undefined)
+    throw new Error("missing parameter (detalles)");
+  if (invoice.supplier === undefined)
+    throw new Error("missing parameter (supplier)");
   if (invoice.detalles.length <= 0) throw new Error("No se adjunto inventario");
 
   if (invoice.numero !== "") {
@@ -63,15 +65,19 @@ const setServiceInvoice = async (invoice: any) => {
   const newInvoice: any = await Invoice.create(invoice);
   let newDetails = [];
 
-  for (let i = 0; i < invoice.TotalDestail.length; i++) {
-    newDetails.push(await TotalDestail.create(invoice.TotalDestail[i]));
+  for (let i = 0; i < invoice.TotalDetail.length; i++) {
+    newDetails.push(await TotalDetail.create(invoice.TotalDetail[i]));
   }
 
-  await newInvoice.setTotalDestail(newDetails);
+  console.log(newInvoice.setTotalDetail);
+  console.log(newInvoice.setSupplier);
+
+  await newInvoice.setTotalDetails(newDetails);
+  await newInvoice.setSupplier(invoice.SupplierId);
 
   const invoiceReturn = await Invoice.findOne({
     where: { id: newInvoice.id },
-    include: { model: TotalDestail },
+    include: { model: TotalDetail },
   });
 
   return invoiceReturn;
@@ -95,10 +101,55 @@ const deleteInvoice = async (invoiceId: string) => {
   await Invoice.destroy({ where: { id: invoiceId } });
 };
 
+const setTypes = async (data: any) => {
+  let remove: any = []; // Types to add
+  let create: any = []; // Types to delete
+
+  // Get all types
+  const typesRef = await InvoiceType.findAll();
+
+  // Get the name of the types in dataBase
+  let list = typesRef.map((type: any) => type.tipo);
+
+  // Check types to remove
+  list.map((typeName) => {
+    if (!data.includes(typeName)) {
+      remove.push(typeName);
+    }
+  });
+  await InvoiceType.destroy({
+    where: { tipo: remove },
+  });
+
+  // Add to create new data
+  data.forEach((typeName: any) => {
+    if (!list.includes(typeName)) {
+      create.push({ tipo: typeName });
+    }
+  });
+
+  console.log(data);
+  console.log(create);
+
+  await InvoiceType.bulkCreate(create);
+
+  const allData = await InvoiceType.findAll();
+  console.log(allData);
+
+  return allData;
+};
+
+const getTypes = async () => {
+  const response = await InvoiceType.findAll();
+  return response;
+};
+
 export {
   setInvoices,
   setServiceInvoice,
   getInvoices,
   updateInvoice,
   deleteInvoice,
+  setTypes,
+  getTypes,
 };
