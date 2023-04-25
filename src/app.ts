@@ -5,8 +5,6 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
 
-/* const { getInvoices } = require("./routes/controllers/invoices"); */
-
 // Import routes
 import login from "./routes/login";
 import user from "./routes/users";
@@ -39,21 +37,11 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser());
 app.use(morgan("dev"));
 
-// Add routes
-/* app.get("/invoice", async (req: any, res: any) => {
-  try {
-    const response = await getInvoices();
-    res.status(200).json(response);
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
-  }
-}); */
-
 app.use("/login", login);
 app.use("/user", user);
 app.use("/upload", uploads);
 app.use("/products", products);
-app.use("/invoices", invoices);
+app.use("/invoice", invoices);
 app.use("/inventory", inventory);
 app.use("/suppliers", suppliers);
 app.use("/clients", clients);

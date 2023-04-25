@@ -14,7 +14,6 @@ export const model = (sequelize: any, DataTypes: any) => {
       cantidad: {
         type: DataTypes.FLOAT,
         allowNull: false,
-        unique: true,
       },
       baseImponible: {
         type: DataTypes.FLOAT,

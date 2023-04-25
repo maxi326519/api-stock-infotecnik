@@ -1,29 +1,40 @@
 const app = require("../src/app");
 const request = require("supertest");
 const invoices = require("./data/invoices.json").servicesInvoice;
+const suppliers = require("./data/supplier.json");
 
-describe("POST /invoices/services", () => {
+describe("POST /invoice/services", () => {
   describe("When the data is correct:", () => {
-    test("Should responds with a 200 status code", async () => {
-      const response = await request(app)
-        .post("/invoices/services")
-        .send(invoices[0]);
+    test("Should responds with a 200 status code and generate an id", async () => {
+      const supplier = await request(app).post("/suppliers").send(suppliers[0]);
+      const data = {
+        ...invoices[0],
+        SupplierId: supplier.body?.id,
+      };
+      const response = await request(app).post("/invoice/services").send(data);
+      await request(app).delete(`/suppliers/${supplier.body?.id}`);
       expect(response.statusCode).toEqual(200);
-    });
-
-    test("Should generate an id", async () => {
-      const response = await request(app)
-        .post("/invoices/services")
-        .send(invoices[1]);
       expect(response.body.id).toBeDefined();
     });
 
     test("Should responds with a 200 status code", async () => {
-      const response = await request(app)
-        .post("/invoices/services")
-        .send(invoices[1]);
+      // Post a supplier
+      const supplier = await request(app).post("/suppliers").send(suppliers[1]);
+      // Add supplier Id
+      const data = {
+        ...invoices[1],
+        SupplierId: supplier.body?.id,
+      };
+      // Post the invoice
+      const response = await request(app).post("/invoice/services").send(data);
+      // Delete the supplier
+      await request(app).delete(`/suppliers/${supplier.body?.id}`);
+      // Delete id's to comparate
       delete response.body.id;
-      expect(response.body).toEqual(invoices[1]);
+      response.body?.TotalDetails?.forEach((details) => {
+        delete details.id;
+      });
+      expect(response.body).toEqual(data);
     });
   });
 

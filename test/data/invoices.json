@@ -2,10 +2,12 @@
   "stockInvoice": [],
   "servicesInvoice": [
     {
-      "numero": 210,
+      "numero": "210",
       "fecha": "02/03/2023",
+      "tipo": "Luz",
       "pendiente": true,
       "archivo": "",
+      "tipoImpositivo": "IVA",
       "total": 24,
       "TotalDetails": [
         {
@@ -17,15 +19,15 @@
           "recargoPorcentaje": 1,
           "recargoMonto": 1
         }
-      ],
-      "tipoImpositivo": "IVA",
-      "supplier": "5daf7731-4b04-461b-98d4-002ed88fcd61"
+      ]
     },
     {
-      "numero": 200,
+      "numero": "200",
       "fecha": "02/03/2023",
+      "tipo": "Luz",
       "pendiente": true,
       "archivo": "",
+      "tipoImpositivo": "Compuesto",
       "total": 24,
       "TotalDetails": [
         {
@@ -37,9 +39,7 @@
           "recargoPorcentaje": 1,
           "recargoMonto": 1
         }
-      ],
-      "tipoImpositivo": "Compuesto",
-      "SupplierId": "5daf7731-4b04-461b-98d4-002ed88fcd61"
+      ]
     }
   ]
 }
