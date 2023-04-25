@@ -22,7 +22,7 @@ const app = express();
 
 // Cors options
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://inventario.infotecnik.cat",
   credentials: true,
   methods: "GET, PATCH, POST, OPTIONS, PUT, DELETE",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
