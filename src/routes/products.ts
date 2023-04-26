@@ -17,7 +17,20 @@ route.post("/", async (req: any, res: any) => {
     const query = await setProducts(product);
     res.status(200).json(query);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    console.log(error.errors);
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 

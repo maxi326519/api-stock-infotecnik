@@ -2,11 +2,6 @@ import { Product, Capacity, Color, Category, Image } from "../../../db/index";
 import { deleteImage } from "../upload";
 
 const setProducts = async (products: any) => {
-  if (!products.codigo) throw new Error("missing parameter (codigo)");
-  if (!products.marca) throw new Error("missing parameter (marca)");
-  if (!products.modelo) throw new Error("missing parameter (modelo)");
-  if (!products.color) throw new Error("missing parameter (color)");
-  if (!products.capacidad) throw new Error("missing parameter (capacidad)");
   if (!products.CategoryId) throw new Error("missing parameter (CategoryId)");
 
   const categoryRef = await Category.findOne({

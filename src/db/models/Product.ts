@@ -7,6 +7,10 @@ export const model = (sequelize: any, DataTypes: any) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+      numero: {
+        type: DataTypes.INTEGER,
+        autoincrementally: true,
+      },
       codigo: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -36,6 +40,6 @@ export const model = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
     },
-    { updatedAt: false, createAt: false }
+    { updatedAt: false }
   );
 };
