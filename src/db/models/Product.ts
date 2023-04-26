@@ -28,11 +28,11 @@ export const model = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       descLarga: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       descCorta: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false,
       },
     },

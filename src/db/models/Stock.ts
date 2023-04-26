@@ -62,7 +62,7 @@ export const model = (sequelize: any, DataTypes: any) => {
       },
       total: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false,
       },
       detalles: {
         type: DataTypes.STRING,
