@@ -1,0 +1,97 @@
+.background {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #0006;
+}
+
+.container {
+  width: 400px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close h4 {
+  flex-grow: 1;
+}
+
+.categoriesList {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  max-height: 300px;
+  margin: 10px 0;
+  padding: 5px;
+  border-radius: 5px;
+  overflow-y: scroll;
+  border: 1px solid var(--border);
+}
+
+.categoriesList {
+  width: 100%;
+  text-align: center;
+}
+
+.categoriesList .empty {
+  height: 100%;
+  color: var(--border);
+}
+
+.categoriesList .row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+}
+
+.categoriesList .row span {
+  flex-grow: 1;
+}
+
+.categoriesList .row button {
+  width: 40px;
+  border-radius: 5px;
+}
+
+.formContainer {
+  display: flex;
+  width: 100%;
+}
+
+.formContainer label {
+  display: none;
+}
+
+.formContainer input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.formContainer input {
+  border: 1px solid var(--border);
+}
+
+.formContainer button {
+  font-size: 20px;
+  width: 60px;
+}
+
+.container button[type="submit"] {
+  width: 100%;
+  margin-top: 20px;
+}

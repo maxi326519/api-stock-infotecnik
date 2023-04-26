@@ -1,0 +1,75 @@
+.dashboardList {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.dashboardList__searchBar {
+  display: flex;
+  margin: 20px 0px;
+}
+
+.dashboardList__searchBar input[type="search"] {
+  max-width: 500px;
+}
+
+.dashboardList__searchBar button {
+  margin-left: 20px;
+}
+
+.dashboardList__searchBar button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  filter: invert(100);
+}
+
+.dashboardList__grid {
+  flex-grow: 1;
+  border-radius: 10px;
+  outline: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.contentCard {
+  height: 100%;
+  padding-bottom: 35px;
+  overflow: scroll;
+}
+
+.listEmpty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.edit-buttons .btn-primary{
+  width: 100%;
+}
+
+.edit-buttons .btn-success{
+  width: 50%;
+  margin-right: 5px;
+}
+
+.edit-buttons .btn-danger{
+  width: 45%;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, 100px) repeat(2, 1fr) repeat(1, 100px) repeat(3, 80px);
+  gap: 10px;
+  padding: 10px;
+  padding-bottom: 0px;
+  outline: 1px solid var(--border);
+}
+
+.row span {
+  border-right: 1px solid var(--border);
+}

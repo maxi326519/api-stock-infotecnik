@@ -1,0 +1,73 @@
+.container {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0006;
+}
+
+.form {
+  position: relative;
+  width: 600px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.close h4 {
+  flex-grow: 1;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs input {
+  width: 100%;
+}
+
+.inputs div {
+  margin-bottom: 10px;
+}
+
+.pending {
+  margin-top: 20px;
+}
+
+.pending input {
+  width: min-content;
+  margin-right: 10px;
+}
+
+.catContainer {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  grid-template-rows: 20px 1fr;
+  margin-bottom: 0 !important;
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.catContainer .title {
+  color: #666;
+  font-size: 14px;
+}
+
+.category button {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+}

@@ -1,0 +1,13 @@
+.pending{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pending input{
+  margin-right: 10px;
+}
+
+.data div{
+  margin-bottom: 10px;
+}

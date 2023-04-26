@@ -1,0 +1,58 @@
+.sesion {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--dark-background);
+}
+
+.sesion form {
+  position: relative;
+  width: 400px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0px 0px 30px 5px #0003;
+  overflow: hidden;
+}
+
+.sesion .header {
+  padding: 50px;
+  background-color: #000a;
+}
+
+.sesion .header img {
+  width: 250px;
+}
+
+.sesion .content {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background-color: var(--background);
+}
+
+.sesion .content h2 {
+  margin-bottom: 50px;
+}
+
+.sesion .content form p {
+  margin-top: 30px;
+}
+
+.sesion button{
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  color: white;
+  background-color: var(--primary-color);
+}
+
+.sesion button:hover{
+  filter: brightness(90%);
+}
+
+.sesion button:focus{
+  filter: brightness(80%);
+}
