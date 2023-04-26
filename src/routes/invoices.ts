@@ -17,8 +17,20 @@ route.post("/", async (req: Request, res: Response) => {
     const invoice = req.body;
     const response = await setInvoices(invoice);
     res.status(200).json(response);
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
+  } catch (error: any) {
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
@@ -27,8 +39,20 @@ route.post("/services", async (req: Request, res: Response) => {
     const invoice = req.body;
     const response = await setServiceInvoice(invoice);
     res.status(200).json(response);
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
+  } catch (error: any) {
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
@@ -38,8 +62,20 @@ route.post("/types", async (req: Request, res: Response) => {
     const response = await setTypes(data);
     console.log("Set:", response);
     res.status(200).json(response);
-  } catch (err: any) {
-    res.status(400).json({ error: err });
+  } catch (error: any) {
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
@@ -47,8 +83,20 @@ route.get("/", async (req: Request, res: Response) => {
   try {
     const response = await getInvoices();
     res.status(200).json(response);
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
+  } catch (error: any) {
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
