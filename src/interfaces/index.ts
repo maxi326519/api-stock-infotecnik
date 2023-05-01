@@ -75,3 +75,24 @@ export enum tipoImpositivo {
   Equivalencia,
   REBU,
 }
+
+export interface SaleInvoice {
+  id: string;
+  numero: number;
+  fecha: Date;
+  tipoImpositivo: string;
+  total: number;
+  cantidad: number;
+  ticket: string;
+  SaleDetails: SaleDetail[];
+}
+
+export interface SaleDetail {
+  id: string;
+  date: Date;
+  precioUnitario: number;
+  cantidad: number;
+  ProductId: string;
+  StockId: string;
+  InvoiceId: string;
+}

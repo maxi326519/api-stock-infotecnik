@@ -1,6 +1,6 @@
 export const model = (sequelize: any, DataTypes: any) => {
   sequelize.define(
-    "Transaction",
+    "SaleDetail",
     {
       id: {
         type: DataTypes.UUID,
@@ -8,24 +8,16 @@ export const model = (sequelize: any, DataTypes: any) => {
         primaryKey: true,
       },
       fecha: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      fechaValor: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      movimiento: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      masDatos: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      importe: {
+      precioUnitario: {
         type: DataTypes.FLOAT,
-        allowNull: true,
+        allowNull: false,
+      },
+      cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     { updatedAt: false, timestamps: false }

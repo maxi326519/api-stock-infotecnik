@@ -11,6 +11,10 @@ export const model = (sequelize: any, DataTypes: any) => {
         type: DataTypes.INTEGER,
         autoincrementally: true,
       },
+      cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       codigo: {
         type: DataTypes.STRING,
         allowNull: false,
