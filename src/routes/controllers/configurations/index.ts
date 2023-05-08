@@ -1,8 +1,12 @@
-import { Configuration } from "../../../db/index";
+import { Configuration, BusinessConfig } from "../../../db/index";
 
 export const getConfiguration = async () => {
   const configuration = await Configuration.findOne({ where: { id: 1 } });
-  return configuration;
+  const businessConfig = await BusinessConfig.findOne({ where: { id: 1 } });
+  return {
+    configuration,
+    businessConfig
+  };
 };
 
 export const updateConfiguration = async (data: any) => {

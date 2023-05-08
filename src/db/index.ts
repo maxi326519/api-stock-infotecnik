@@ -60,6 +60,7 @@ export const {
   Transaction,
   Client,
   Configuration,
+  BusinessConfig,
   Capacity,
   Color,
   Marca,
