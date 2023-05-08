@@ -81,12 +81,17 @@ route.post("/types", async (req: Request, res: Response) => {
 
 route.get("/", async (req: Request, res: Response) => {
   try {
-    const response = await getInvoices();
-    res.status(200).json(response);
+    const { from, to } = req.query;
+    if (typeof from === "string" && typeof to === "string") {
+      const response = await getInvoices(from, to);
+      res.status(200).json(response);
+    } else {
+      res.status(400).json({ error: "invalid querys" });
+    }
   } catch (error: any) {
     switch (error.errors?.[0].type) {
       case "unique violation":
-        res.status(400).send({ error: error.errors[0].message });
+        res.status(400).json({ error: error.errors[0].message });
         break;
       case "notNull Violation":
         res

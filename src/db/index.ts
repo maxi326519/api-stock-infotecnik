@@ -62,6 +62,7 @@ export const {
   Configuration,
   Capacity,
   Color,
+  Marca,
   User,
   SaleInvoice,
   SaleDetail,

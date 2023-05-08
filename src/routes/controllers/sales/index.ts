@@ -1,4 +1,4 @@
-import { Model } from "sequelize";
+import { Model, Op } from "sequelize";
 import {
   Product,
   SaleDetail as SaleDetailDB,
@@ -58,8 +58,18 @@ async function setSale(sale: any) {
   };
 }
 
-async function getSales() {
+async function getSales(from: string, to: string) {
+  console.log(from, to);
+  console.log(new Date(from), new Date(to));
   const sales = await SaleInvoiceDB.findAll({
+    where: {
+      fecha: {
+        [Op.between]: [
+          { [Op.gte]: new Date(from) },
+          { [Op.lte]: new Date(to) },
+        ],
+      },
+    },
     include: SaleDetailDB,
   });
 

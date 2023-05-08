@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import {
   Invoice,
   TotalDetail,
@@ -50,7 +51,10 @@ const setInvoices = async (invoice: any) => {
   const inventory: any = await setInventory(invoice.Stock);
 
   /* Create invoice */
-  const invoiceRef: any = await Invoice.create(invoice);
+  const invoiceRef: any = await Invoice.create({
+    ...invoice,
+    fecha: new Date(invoice.fecha),
+  });
 
   /* Add invoice to supplier */
   const addinvoiceRef: any = await supplierRef.addInvoices(invoiceRef);
@@ -121,7 +125,7 @@ const setServiceInvoice = async (invoice: any) => {
   return invoiceReturn;
 };
 
-const getInvoices = async () => {
+const getInvoices = async (from: string, to: string) => {
   let response = await Invoice.findAll({
     include: [
       {
@@ -133,7 +137,17 @@ const getInvoices = async () => {
         attributes: { exclude: ["id", "InvoiceId"] },
       },
     ],
+/*     where: {
+      fecha: {
+        [Op.between]: [
+          { [Op.gte]: new Date(from) },
+          { [Op.lte]: new Date(to) },
+        ],
+      },
+    }, */
   });
+
+  console.log(response);
 
   if (response) {
     response = response

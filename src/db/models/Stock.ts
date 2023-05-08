@@ -28,22 +28,6 @@ export const model = (sequelize: any, DataTypes: any) => {
         allowNull: true,
         unique: true,
       },
-      tipoCodigoDeBarras: {
-        type: DataTypes.ENUM(
-          "Code128",
-          "Code39",
-          "UPC-A",
-          "UPC-E",
-          "EAN8",
-          "EAN-13"
-        ),
-        allowNull: true,
-      },
-      codigoDeBarras: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        unique: true,
-      },
       precioIVA: {
         type: DataTypes.FLOAT,
         allowNull: false,

@@ -23,7 +23,7 @@ route.post("/", async (req: any, res: any) => {
         break;
       case "notNull Violation":
         res
-          .status(500)
+          .status(400)
           .json({ error: `missing parameter (${error.errors[0].path})` });
         break;
       default:

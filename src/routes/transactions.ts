@@ -24,6 +24,7 @@ router.post("/", async (req: Request, res: Response) => {
           .json({ error: `missing parameter (${error.errors[0].path})` });
         break;
       default:
+        console.log(error);
         res.status(500).json({ error: error.message });
         break;
     }
@@ -32,8 +33,17 @@ router.post("/", async (req: Request, res: Response) => {
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const response = await getTransactions();
-    res.status(200).json(response);
+    const { from, to, linked } = req.query;
+    if (
+      typeof from === "string" &&
+      typeof to === "string" &&
+      (typeof linked === "string" || typeof linked === "undefined")
+    ) {
+      const response = await getTransactions(from, to, linked);
+      res.status(200).json(response);
+    } else {
+      throw new Error("invalid querys");
+    }
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

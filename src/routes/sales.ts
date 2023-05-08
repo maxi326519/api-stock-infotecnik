@@ -23,8 +23,13 @@ route.post("/", async (req: Request, res: Response) => {
 
 route.get("/", async (req: Request, res: Response) => {
   try {
-    const response = await getSales();
-    res.status(200).json(response);
+    const { from, to } = req.query;
+    if (typeof from === "string" && typeof to === "string") {
+      const response = await getSales(from, to);
+      res.status(200).json(response);
+    } else {
+      throw new Error("invalid querys");
+    }
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }
