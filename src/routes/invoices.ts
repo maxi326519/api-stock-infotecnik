@@ -84,7 +84,7 @@ route.get("/", async (req: Request, res: Response) => {
     const { from, to } = req.query;
     if (typeof from === "string" && typeof to === "string") {
       const response = await getInvoices(from, to);
-      res.status(200).json(response);
+      res.status(200).send(response);
     } else {
       res.status(400).json({ error: "invalid querys" });
     }

@@ -137,17 +137,15 @@ const getInvoices = async (from: string, to: string) => {
         attributes: { exclude: ["id", "InvoiceId"] },
       },
     ],
-/*     where: {
+    where: {
       fecha: {
         [Op.between]: [
           { [Op.gte]: new Date(from) },
           { [Op.lte]: new Date(to) },
         ],
       },
-    }, */
+    },
   });
-
-  console.log(response);
 
   if (response) {
     response = response
