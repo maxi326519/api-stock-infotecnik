@@ -5,17 +5,6 @@ const setInventory = async (products: any) => {
   const postProducts = [];
   for (const product of products) {
     let IMEISerie = null;
-    let codigoDeBarras = null;
-    let tipoCodigoDeBarras = null;
-    let listTipoCodigoDeBarras = [
-      "Ninguno",
-      "Code128",
-      "Code39",
-      "UPC-A",
-      "UPC-E",
-      "EAN8",
-      "EAN-13",
-    ];
 
     if (product.estado === undefined)
       throw new Error(`missing parameter (estado)`);
@@ -27,10 +16,6 @@ const setInventory = async (products: any) => {
       throw new Error(`missing parameter (catalogo)`);
     if (product.IMEISerie === undefined)
       throw new Error(`missing parameter (IMEISerie)`);
-    if (product.tipoCodigoDeBarras === undefined)
-      throw new Error(`missing parameter (tipoCodigoDeBarras)`);
-    if (product.codigoDeBarras === undefined)
-      throw new Error(`missing parameter (codigoDeBarras)`);
     if (product.precioSinIVA === undefined)
       throw new Error(`missing parameter (precioSinIVA)`);
     if (product.precioIVA === undefined)
@@ -54,27 +39,9 @@ const setInventory = async (products: any) => {
       IMEISerie = product.IMEISerie;
     }
 
-    if (product.tipoCodigoDeBarras !== "") {
-      if (listTipoCodigoDeBarras.includes(product.tipoCodigoDeBarras)) {
-        tipoCodigoDeBarras = product.tipoCodigoDeBarras;
-      } else {
-        throw new Error(`invalid data (estado)`);
-      }
-    }
-
-    if (tipoCodigoDeBarras && product.codigoDeBarras !== "") {
-      const stockRef = await Stock.findOne({
-        where: { codigoDeBarras: product.codigoDeBarras },
-      });
-      if (stockRef) throw new Error("codigoDeBarras already exist");
-      codigoDeBarras = product.codigoDeBarras;
-    }
-
     postProducts.push({
       ...product,
       IMEISerie,
-      codigoDeBarras,
-      tipoCodigoDeBarras,
     });
   }
 
@@ -117,8 +84,15 @@ const setInventory = async (products: any) => {
 
     /* Add refereces */
     if (imagesRef) await stock.setImages(imagesRef);
-    if (productRef) await stock.setProduct(productRef);
     if (supplierRef) await stock.setSupplier(supplierRef);
+    if (productRef) {
+      await stock.setProduct(productRef);
+      
+      /* Update product */
+      await productRef.update({
+        cantidad: productRef.dataValues.cantidad + postProducts[i].cantidad,
+      });
+    }
 
     inventory.push({
       ref: stock,
