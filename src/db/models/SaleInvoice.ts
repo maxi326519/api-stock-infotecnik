@@ -1,39 +1,35 @@
 export const model = (sequelize: any, DataTypes: any) => {
   sequelize.define(
-    "Invoice",
+    "SaleInvoice",
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+      numero: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       fecha: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      numero: {
-        type: DataTypes.STRING,
+      tipoImpositivo: {
+        type: DataTypes.ENUM("Compuesto", "IVA", "Recargo", "REBU"),
         allowNull: false,
-        unique: true,
-      },
-      pendiente: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      archivo: {
-        type: DataTypes.STRING,
-        allowNull: true,
       },
       total: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      tipoImpositivo: {
-        type: DataTypes.ENUM("IVA", "Recargo", "REBU", "Compuesto"),
-      },
-      tipo: {
-        type: DataTypes.STRING,
+      generada: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      ticketUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     { updatedAt: false, timestamps: false }

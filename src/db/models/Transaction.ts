@@ -8,7 +8,7 @@ export const model = (sequelize: any, DataTypes: any) => {
         primaryKey: true,
       },
       fecha: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       fechaValor: {
@@ -17,7 +17,7 @@ export const model = (sequelize: any, DataTypes: any) => {
       },
       movimiento: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       masDatos: {
         type: DataTypes.STRING,
@@ -25,8 +25,24 @@ export const model = (sequelize: any, DataTypes: any) => {
       },
       importe: {
         type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      saldo: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      vinculada: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      invoiceId: {
+        type: DataTypes.UUID,
         allowNull: true,
       },
+      invoiceType: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      }
     },
     { updatedAt: false, timestamps: false }
   );

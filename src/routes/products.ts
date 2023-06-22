@@ -17,7 +17,19 @@ route.post("/", async (req: any, res: any) => {
     const query = await setProducts(product);
     res.status(200).json(query);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(400)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
@@ -36,7 +48,19 @@ route.patch("/", async (req: any, res: any) => {
     await updateProducts(product);
     res.status(200).json({ message: "Producto actualizado correctamente" });
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
@@ -58,8 +82,20 @@ route.post("/categories", async (req: any, res: any) => {
     const data = req.body;
     await setCategories(data);
     res.status(200).json({ msg: "Saved categories successfully" });
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
+  } catch (error: any) {
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
@@ -70,8 +106,20 @@ route.post("/attributes/:name", async (req: any, res: any) => {
     console.log(data);
     const response = await setAttributes(name, data);
     res.status(200).json(response);
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
+  } catch (error: any) {
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 

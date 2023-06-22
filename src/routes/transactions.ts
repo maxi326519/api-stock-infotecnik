@@ -14,14 +14,36 @@ router.post("/", async (req: Request, res: Response) => {
     const response = await setTransactions(data);
     res.status(200).json(response);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    switch (error.errors?.[0].type) {
+      case "unique violation":
+        res.status(400).send({ error: error.errors[0].message });
+        break;
+      case "notNull Violation":
+        res
+          .status(500)
+          .json({ error: `missing parameter (${error.errors[0].path})` });
+        break;
+      default:
+        console.log(error);
+        res.status(500).json({ error: error.message });
+        break;
+    }
   }
 });
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const response = await getTransactions();
-    res.status(200).json(response);
+    const { from, to, linked } = req.query;
+    if (
+      typeof from === "string" &&
+      typeof to === "string" &&
+      (typeof linked === "string" || typeof linked === "undefined")
+    ) {
+      const response = await getTransactions(from, to, linked);
+      res.status(200).json(response);
+    } else {
+      throw new Error("invalid querys");
+    }
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

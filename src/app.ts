@@ -11,6 +11,7 @@ import user from "./routes/users";
 import uploads from "./routes/upload";
 import products from "./routes/products";
 import invoices from "./routes/invoices";
+import sales from "./routes/sales";
 import inventory from "./routes/inventory";
 import suppliers from "./routes/suppliers";
 import clients from "./routes/clients";
@@ -22,7 +23,7 @@ const app = express();
 
 // Cors options
 const corsOptions = {
-  origin: "https://inventario.infotecnik.cat",
+  origin: "http://localhost:3000",
   credentials: true,
   methods: "GET, PATCH, POST, OPTIONS, PUT, DELETE",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
@@ -43,6 +44,7 @@ app.use("/upload", uploads);
 app.use("/products", products);
 app.use("/invoice", invoices);
 app.use("/inventory", inventory);
+app.use("/sales", sales);
 app.use("/suppliers", suppliers);
 app.use("/clients", clients);
 app.use("/transactions", transactions);

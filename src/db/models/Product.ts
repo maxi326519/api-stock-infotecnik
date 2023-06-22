@@ -3,12 +3,32 @@ export const model = (sequelize: any, DataTypes: any) => {
     "Product",
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,        
         primaryKey: true,
+        autoIncrement: true,
       },
       codigo: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      tipoCodigoDeBarras: {
+        type: DataTypes.ENUM(
+          "Code128",
+          "Code39",
+          "UPC-A",
+          "UPC-E",
+          "EAN8",
+          "EAN-13"
+        ),
+        allowNull: true,
+      },
+      codigoDeBarras: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+      cantidad: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       modelo: {
@@ -28,14 +48,14 @@ export const model = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       descLarga: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       descCorta: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false,
       },
     },
-    { updatedAt: false, createAt: false }
+    { updatedAt: false }
   );
 };

@@ -37,10 +37,7 @@ fs.readdirSync(__dirname + "/models")
       (file.slice(-3) === ".ts" || file.slice(-3) === ".js")
   )
   .forEach((file) => {
-    const modelDefiner = require(path.join(
-      __dirname + "/models",
-      file
-    )).model;
+    const modelDefiner = require(path.join(__dirname + "/models", file)).model;
     modelDefiners.push(modelDefiner);
   });
 
@@ -63,10 +60,23 @@ export const {
   Transaction,
   Client,
   Configuration,
+  BusinessConfig,
   Capacity,
   Color,
+  Marca,
   User,
+  SaleInvoice,
+  SaleDetail,
 } = sequelize.models;
+
+SaleInvoice.hasMany(SaleDetail);
+SaleDetail.belongsTo(SaleInvoice);
+
+Stock.hasMany(SaleDetail);
+SaleDetail.belongsTo(Stock);
+
+Product.hasMany(SaleDetail);
+SaleDetail.belongsTo(Product);
 
 Invoice.hasMany(Stock);
 Stock.belongsTo(Invoice);

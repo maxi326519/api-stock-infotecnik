@@ -1,12 +1,7 @@
-import { Product, Capacity, Color, Category, Image } from "../../../db/index";
+import { Product, Capacity, Color, Category, Image, Marca } from "../../../db/index";
 import { deleteImage } from "../upload";
 
 const setProducts = async (products: any) => {
-  if (!products.codigo) throw new Error("missing parameter (codigo)");
-  if (!products.marca) throw new Error("missing parameter (marca)");
-  if (!products.modelo) throw new Error("missing parameter (modelo)");
-  if (!products.color) throw new Error("missing parameter (color)");
-  if (!products.capacidad) throw new Error("missing parameter (capacidad)");
   if (!products.CategoryId) throw new Error("missing parameter (CategoryId)");
 
   const categoryRef = await Category.findOne({
@@ -80,6 +75,8 @@ const setAttributes = async (name: any, data: any) => {
     model = Capacity;
   } else if (name === "color") {
     model = Color;
+  } else if (name === "marca") {
+    model = Marca;
   } else {
     throw new Error("invalid attribute name");
   }
@@ -114,15 +111,18 @@ const setAttributes = async (name: any, data: any) => {
 const getAttributes = async () => {
   const capacidadesRef = await Capacity.findAll();
   const coloresRef = await Color.findAll();
+  const marcasRef = await Marca.findAll();
   const categories = await Category.findAll();
 
   const capacidades = capacidadesRef.map((c) => c.dataValues);
   const colores = coloresRef.map((c) => c.dataValues);
+  const marcas = marcasRef.map((m) => m.dataValues);
 
   return {
     capacidades,
     colores,
     categories,
+    marcas,
   };
 };
 
