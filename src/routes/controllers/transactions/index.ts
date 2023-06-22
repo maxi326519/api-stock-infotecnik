@@ -14,27 +14,35 @@ const setTransactions = async (data: any[]) => {
     const newTransaction = {
       ...data[indice],
       fecha: new Date(data[indice].fecha),
+      importe: Number(data[indice].importe.toFixed(2)),
+      saldo: Number(data[indice].saldo.toFixed(2)),
     };
 
-    const currentTransaction = await Transaction.findOne({
-      where: {
-        fechaValor: newTransaction.fechaValor,
-        movimiento: newTransaction.movimiento,
-        importe: newTransaction.importe,
-        masDatos: newTransaction.masDatos,
-        saldo: newTransaction.saldo.toFixed(2),
+    const search = {
+      fecha: newTransaction.fecha,
+      movimiento: newTransaction.movimiento,
+      importe: {
+        [Op.between]: [
+          newTransaction.importe - 0.01, // Menor límite del rango
+          newTransaction.importe + 0.01, // Mayor límite del rango
+        ],
       },
+      masDatos: newTransaction.masDatos,
+      saldo: {
+        [Op.between]: [
+          newTransaction.saldo - 0.01, // Menor límite del rango
+          newTransaction.saldo + 0.01, // Mayor límite del rango
+        ],
+      },
+    };
+    const currentTransaction = await Transaction.findOne({
+      where: search,
     });
 
-    if (currentTransaction) {
-      console.log("transaction already exist");
-    } else {
-      console.log(currentTransaction);
-      console.log("New:", newTransaction);
+    if (!currentTransaction) {
       response.push(await Transaction.create(newTransaction));
     }
   }
-  console.log(response.length);
   return response;
 };
 
@@ -43,18 +51,21 @@ const getTransactions = async (
   to: string,
   linked: string | undefined
 ) => {
+  // Where
   let whereClause: any = {
     fecha: {
-      [Op.between]: [{ [Op.gte]: new Date(from) }, { [Op.lte]: new Date(to) }],
+      [Op.between]: [new Date(from), new Date(to)],
     },
   };
 
+  // Linked to invoice
   if (linked === "true") {
     whereClause.vinculada = true;
   } else if (linked === "false") {
     whereClause.vinculada = false;
   }
 
+  // Query
   const transactions = await Transaction.findAll({
     where: whereClause,
   });

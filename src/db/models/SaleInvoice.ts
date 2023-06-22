@@ -9,7 +9,6 @@ export const model = (sequelize: any, DataTypes: any) => {
       },
       numero: {
         type: DataTypes.STRING,
-        allowNull: false,
         unique: true,
       },
       fecha: {
@@ -17,17 +16,18 @@ export const model = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       tipoImpositivo: {
-        type: DataTypes.ENUM("IVA", "Recargo", "REBU", "Compuesto"),
+        type: DataTypes.ENUM("Compuesto", "IVA", "Recargo", "REBU"),
+        allowNull: false,
       },
       total: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      cantidad: {
-        type: DataTypes.INTEGER,
+      generada: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      ticket: {
+      ticketUrl: {
         type: DataTypes.STRING,
         allowNull: true,
       },

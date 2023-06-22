@@ -139,10 +139,7 @@ const getInvoices = async (from: string, to: string) => {
     ],
     where: {
       fecha: {
-        [Op.between]: [
-          { [Op.gte]: new Date(from) },
-          { [Op.lte]: new Date(to) },
-        ],
+        [Op.between]: [new Date(to), new Date(from)],
       },
     },
   });

@@ -6,36 +6,39 @@ import {
   Stock,
 } from "../../../db";
 import { SaleDetail, SaleInvoice } from "../../../interfaces";
+import { generateInvoicePDF } from "../../../services/pdf";
 
 async function setSale(sale: any) {
-  // Create a new invoice
+  // Create new invoice
   const newSaleInvoice: any = await SaleInvoiceDB.create(sale);
 
-  // Create the sale detils
   let newSaleDetail: any = [];
 
   try {
     for (let i = 0; i < sale.SaleDetails.length; i++) {
-      // Get current sale stock
+      // Create a SaleDetail per stock
+      const currentSaleDetail = await SaleDetailDB.create(
+        sale.SaleDetails[i]
+        );
+
+      // Get current stock
       const currentStock: any = await Stock.findOne({
         where: { id: sale.SaleDetails[i].StockId },
       });
 
-      // Get current stock product
+      // If stock exist
       let currentProduct: any;
       if (currentStock) {
+        // Get the product
         currentProduct = await Product.findOne({
           where: { id: currentStock.dataValues.ProductId },
         });
         if (currentProduct) {
-          const currentSaleDetail = await SaleDetailDB.create(
-            sale.SaleDetails[i]
-          );
           currentStock.setSaleDetails(currentSaleDetail);
           currentProduct.setSaleDetails(currentSaleDetail);
           newSaleDetail.push(currentSaleDetail);
         } else throw new Error("product not found");
-      } else throw new Error("stock not found");
+      }
     }
   } catch (err: any) {
     if (newSaleDetail) {
@@ -49,6 +52,8 @@ async function setSale(sale: any) {
 
   // Add sale details to invoice
   await newSaleInvoice.setSaleDetails(newSaleDetail);
+
+  generateInvoicePDF(sale);
 
   return {
     ...newSaleInvoice.dataValues,

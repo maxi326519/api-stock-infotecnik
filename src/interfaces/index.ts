@@ -77,14 +77,37 @@ export enum tipoImpositivo {
 }
 
 export interface SaleInvoice {
-  id: string;
-  numero: number;
+  id?: string;
+  numero?: string;
   fecha: Date;
-  tipoImpositivo: string;
   total: number;
-  cantidad: number;
-  ticket: string;
+  tipoImpositivo: TipoImpositivoSale;
+  generada: boolean;
+  ticketUrl?: string;
   SaleDetails: SaleDetail[];
+  PriceDetails: PriceDetail[];
+}
+
+export interface PriceDetail {
+  id: string;
+  metodoDePago: MetodoDePago;
+  monto: number;
+  nroOperacion?: number;
+}
+
+export enum MetodoDePago {
+  efectivo = "EFECTIVO",
+  tarjeta = "TARJETA",
+  transferenciaBancaria = "TRANSFERENCIA BANCARIA",
+  bizum = "BIZUM",
+  contratoCompraventa = "CONTRATO COMPRAVENTA",
+}
+
+export enum TipoImpositivoSale {
+  Compuesto = "Compuesto",
+  IVA = "IVA",
+  RE = "RE",
+  REBU = "REBU",
 }
 
 export interface SaleDetail {
