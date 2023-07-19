@@ -67,6 +67,7 @@ export const {
   User,
   SaleInvoice,
   SaleDetail,
+  InvoiceFile,
 } = sequelize.models;
 
 SaleInvoice.hasMany(SaleDetail);
@@ -101,6 +102,9 @@ Category.hasMany(Product);
 
 Product.hasMany(Image);
 Image.belongsTo(Product);
+
+InvoiceFile.hasOne(Transaction);
+InvoiceFile.belongsTo(Transaction);
 
 export const conn = sequelize;
 export const models = sequelize.models;

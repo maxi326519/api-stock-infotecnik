@@ -7,7 +7,7 @@ require("./db");
 const PORT = process.env.PORT || 3001;
 
 // Initialisation
-conn.sync({ force: false }).then(async () => {
+conn.sync({ force: true }).then(async () => {
   const config = await models.Configuration.findOne({ where: { id: 1 } });
   if (!config) await models.Configuration.create();
 
