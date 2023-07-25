@@ -1,23 +1,25 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 const {
-  saveInvoiceFile,
   updateInvoiceFile,
   deleteInvoiceFile,
   handleInvoiceFileUpload,
   getInvoiceFileById,
+  getAllInvoiceFiles,
+  
   } = require("./controllers/InvoicesFiles");
+import { setInvoice } from "./controllers/upload/index"
 const router = Router();
 
 router.post(
     "/invoiceFile",
-    handleInvoiceFileUpload.single("file"),
+    setInvoice.single("file"),
     async (req: any, res: Response, file: any) => {
       try {
-        const data = {
-          msg: "Uploaded invoice successfully",
-          path: req.file?.filename,
-        };
+        
+        const { date, type, description } = req.body;
+        const fileName = req.file?.fileName
+        const data =  handleInvoiceFileUpload(date, type, description, fileName)
   
         res.status(200).json(data);
       } catch (error: any) {
@@ -63,5 +65,30 @@ router.post(
     }
   });
 
+  router.get("/allInvoiceFile", async (req: Request, res: Response) => {
+    try {
+      const { from, to } = req.query;
+      if (typeof from === "string" && typeof to === "string") {
+        const response = await getAllInvoiceFiles(from, to);
+        res.status(200).send(response);
+      } else {
+        res.status(400).json({ error: "invalid querys" });
+      }
+    } catch (error: any) {
+      switch (error.errors?.[0].type) {
+        case "unique violation":
+          res.status(400).json({ error: error.errors[0].message });
+          break;
+        case "notNull Violation":
+          res
+            .status(500)
+            .json({ error: `missing parameter (${error.errors[0].path})` });
+          break;
+        default:
+          res.status(500).json({ error: error.message });
+          break;
+      }
+    }
+  });
 
   
