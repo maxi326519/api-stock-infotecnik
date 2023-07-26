@@ -1,5 +1,5 @@
+import { Op } from "sequelize";
 import { InvoiceFile } from "../../../db/index";
-import { Request, Response } from "express";
 
 const saveInvoiceFile = async (fileData: any) => {
   const createdFile = await InvoiceFile.create(fileData);
@@ -20,32 +20,44 @@ const deleteInvoiceFile = async (fileId: string) => {
   return deletedFile;
 };
 
+const getAllInvoiceFiles = async (from: string, to: string) => {
+  let response = await InvoiceFile.findAll({
+    include: [
+      {
+        model: InvoiceFile,
+        attributes: { exclude: ["id", "InvoiceId"] },
+      },
+    ],
+    where: {
+      fecha: {
+        [Op.between]: [new Date(to), new Date(from)],
+      },
+    },
+  });
+  return response
+}
+
 const getInvoiceFileById = async (fileId: string) => {
   const file = await InvoiceFile.findByPk(fileId);
   return file;
 };
 
-const handleInvoiceFileUpload = async (req: Request, res: Response) => {
-  const { date, type, description } = req.body;
+const handleInvoiceFileUpload = async (date:String, type:String, description:String, fileName:String) => {
 
-  if (!date || !type || !description) {
+  if (!date || !type || !description || !fileName) {
     throw new Error("Missing parameter.");
   }
 
   const fileData = {
     date: date,
     type: type,
+    url: `upload/invoices/${fileName}`,
     description: description || null,
   };
 
   const savedFile = await saveInvoiceFile(fileData);
 
-  const data = {
-    msg: "Uploaded invoice successfully",
-    path: savedFile.dataValues.url,
-  };
-
-  res.status(200).json(data);
+  return savedFile;
 };
 
 export {
@@ -54,4 +66,5 @@ export {
   deleteInvoiceFile,
   getInvoiceFileById,
   handleInvoiceFileUpload,
+  getAllInvoiceFiles,
 };

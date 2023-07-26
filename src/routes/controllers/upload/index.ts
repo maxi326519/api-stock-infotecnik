@@ -52,4 +52,4 @@ const deleteInvoiceFile = async (invoiceURL: string) => {
   });
 };
 
-export { setImage, setInvoice, optimizeImg, deleteImage, deleteInvoiceFile };
+export { setImage, setInvoice, optimizeImg, deleteImage, deleteInvoiceFile, invoiceStorage };
