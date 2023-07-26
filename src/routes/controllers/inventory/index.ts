@@ -41,7 +41,7 @@ const setInventory = async (products: any) => {
 
     postProducts.push({
       ...product,
-      IMEISerie,
+      IMEISerie, 
     });
   }
 

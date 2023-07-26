@@ -1,29 +1,62 @@
-import { Model, Op } from "sequelize";
+import { Model, ModelDefined, Op } from "sequelize";
+import { SaleDetail, SaleInvoice } from "../../../interfaces/Sales";
+import { crearTicketPDF, generateInvoicePDF } from "../../../services/pdf";
 import {
   Product,
   SaleDetail as SaleDetailDB,
   SaleInvoice as SaleInvoiceDB,
   Stock,
 } from "../../../db";
-import { SaleDetail, SaleInvoice } from "../../../interfaces";
-import { generateInvoicePDF } from "../../../services/pdf";
 
-async function setSale(sale: any) {
+async function setSale(sale: SaleInvoice) {
+  // Destructuring
+  const {
+    fecha,
+    tipoImpositivo,
+    total,
+    generada,
+    SaleDetails,
+    PriceDetails,
+  }: SaleInvoice = sale;
+
+  console.log(sale);
+
+  // Validations
+  if (!fecha) throw new Error("missing parameter 'fecha'");
+  if (!tipoImpositivo) throw new Error("missing parameter 'tipoImpositivo'");
+  if (!total === undefined) throw new Error("missing parameter 'total'");
+  if (!generada === undefined) throw new Error("missing parameter 'generada'");
+  if (!SaleDetails) throw new Error("missing parameter 'SaleDetails'");
+  if (!PriceDetails) throw new Error("missing parameter 'PriceDetails'");
+
+  // Generate Ticket
+  const ticketUrl = crearTicketPDF(sale);
+  
   // Create new invoice
-  const newSaleInvoice: any = await SaleInvoiceDB.create(sale);
+  const newSaleInvoice: any = await SaleInvoiceDB.create({
+    fecha: new Date(fecha),
+    tipoImpositivo,
+    total,
+    generada,
+    ticketUrl,
+  });
+  
 
   let newSaleDetail: any = [];
 
   try {
-    for (let i = 0; i < sale.SaleDetails.length; i++) {
+    for (let i = 0; i < (SaleDetails as SaleDetail[]).length; i++) {
       // Create a SaleDetail per stock
-      const currentSaleDetail = await SaleDetailDB.create(
-        sale.SaleDetails[i]
-        );
+      const currentDetail: SaleDetail = SaleDetails[i];
+      const newDetail = {
+        ...currentDetail,
+        fecha: new Date(currentDetail.fecha),
+      };
+      const currentSaleDetail = await SaleDetailDB.create(newDetail);
 
       // Get current stock
       const currentStock: any = await Stock.findOne({
-        where: { id: sale.SaleDetails[i].StockId },
+        where: { id: newDetail.StockId },
       });
 
       // If stock exist
@@ -33,6 +66,8 @@ async function setSale(sale: any) {
         currentProduct = await Product.findOne({
           where: { id: currentStock.dataValues.ProductId },
         });
+
+        // If product exist
         if (currentProduct) {
           currentStock.setSaleDetails(currentSaleDetail);
           currentProduct.setSaleDetails(currentSaleDetail);
@@ -52,8 +87,6 @@ async function setSale(sale: any) {
 
   // Add sale details to invoice
   await newSaleInvoice.setSaleDetails(newSaleDetail);
-
-  generateInvoicePDF(sale);
 
   return {
     ...newSaleInvoice.dataValues,
@@ -136,7 +169,7 @@ async function deleteSaleInvoice(saleInvoiceId: string) {
 
   if (invoice) {
     const salesId: string = invoice.dataValues.SaleDetails.map(
-      (detail: SaleDetail): string => detail.id
+      (detail: SaleDetail): string => detail.id!
     );
     await SaleDetailDB.destroy({ where: { id: salesId } });
     invoice.destroy();

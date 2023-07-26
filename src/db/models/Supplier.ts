@@ -8,7 +8,7 @@ export const model = (sequelize: any, DataTypes: any) => {
         primaryKey: true,
       },
       numero: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },

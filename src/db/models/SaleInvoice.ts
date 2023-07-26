@@ -6,6 +6,7 @@ export const model = (sequelize: any, DataTypes: any) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        allowNull: false,
       },
       numero: {
         type: DataTypes.STRING,

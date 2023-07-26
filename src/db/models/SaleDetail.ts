@@ -6,9 +6,10 @@ export const model = (sequelize: any, DataTypes: any) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        allowNull: false,
       },
       fecha: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       precioUnitario: {

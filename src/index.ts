@@ -1,13 +1,14 @@
 const app = require("./app");
 import { conn } from "./db";
 import { models } from "./db";
-import { generateInvoicePDF } from "./services/pdf";
+import { crearTicketPDF, generateInvoicePDF } from "./services/pdf";
 require("./db");
 
 const PORT = process.env.PORT || 3001;
 
 // Initialisation
 conn.sync({ force: true }).then(async () => {
+  console.log("Cargando datos");
   const config = await models.Configuration.findOne({ where: { id: 1 } });
   if (!config) await models.Configuration.create();
 
@@ -20,14 +21,14 @@ conn.sync({ force: true }).then(async () => {
       adress: " AV PAISOS CATALANS 80 17820, BANYOLES (GIRONA)",
     });
   }
+  console.log("Datos cargando");
 
   app.listen(PORT, () => {
     console.log(`Server listening in port ${PORT}`);
   });
 });
 
-
-const invoiceData = {
+/* const invoiceData = {
   invoiceNumber: 'INV-001',
   date: '18 de Mayo de 2023',
   items: [
@@ -50,6 +51,6 @@ const invoiceData = {
 };
 
 // Llama a la función para generar la factura PDF
-const pdfURL = generateInvoicePDF(invoiceData);
+const pdfURL = crearTicketPDF({}, "test");
 
-console.log('Factura generada en:', pdfURL);
+console.log('Factura generada en:', pdfURL); */
