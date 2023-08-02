@@ -20,22 +20,37 @@ const deleteInvoiceFile = async (fileId: string) => {
   return deletedFile;
 };
 
-const getAllInvoiceFiles = async (from: string, to: string) => {
-  let response = await InvoiceFile.findAll({
-    include: [
-      {
-        model: InvoiceFile,
-        attributes: { exclude: ["id", "InvoiceId"] },
-      },
-    ],
-    where: {
-      fecha: {
-        [Op.between]: [new Date(to), new Date(from)],
-      },
-    },
-  });
-  return response
+interface QueryParameters {
+  unlinked: string;
+  from?: string;
+  to?: string;
 }
+
+const getAllInvoiceFiles = async (query: QueryParameters) => {
+  const { unlinked, from, to } = query;
+
+  if (unlinked === 'true') {
+    const unlinkedInvoices = await InvoiceFile.findAll({
+      where: {
+        TransactionId: null,
+      },
+    });
+
+    return unlinkedInvoices;
+  } else if (unlinked === 'false' && from && to) {
+    const invoicesInRange = await InvoiceFile.findAll({
+      where: {
+        fecha: {
+          [Op.between]: [from, to],
+        },
+      },
+    });
+
+    return invoicesInRange;
+  } else {
+    throw new Error('Invalid query parameters.');
+  }
+};
 
 const getInvoiceFileById = async (fileId: string) => {
   const file = await InvoiceFile.findByPk(fileId);

@@ -4,6 +4,8 @@ import {
   setTransactions,
   getTransactions,
   deleteTransactions,
+  bindTransactionToInvoiceFile,
+  updateTransaction,
 } from "./controllers/transactions";
 
 const router = Router();
@@ -58,5 +60,30 @@ router.delete("/:id", async (req: Request, res: Response) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.patch('/link', async (req, res) => {
+  try {
+    const { transactions, invoiceFile } = req.body;
+
+    await bindTransactionToInvoiceFile(transactions, invoiceFile);
+
+    res.status(200).json({ message: "Successfully linked transaction" });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.patch('/', async (req: Request, res: Response) => {
+  const data = req.body;
+
+  try {
+    const message = await updateTransaction(data);
+    res.status(200).json({ message });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+
 
 export default router;

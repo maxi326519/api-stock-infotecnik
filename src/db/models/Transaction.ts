@@ -35,14 +35,6 @@ export const model = (sequelize: any, DataTypes: any) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      invoiceId: {
-        type: DataTypes.UUID,
-        allowNull: true,
-      },
-      invoiceType: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      }
     },
     { updatedAt: false, timestamps: false }
   );

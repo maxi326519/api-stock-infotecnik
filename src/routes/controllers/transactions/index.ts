@@ -1,16 +1,20 @@
 import { Op } from "sequelize";
-import { Transaction } from "../../../db/index";
+import { Transaction, InvoiceFile } from "../../../db/index";
+
+interface TransactionData {
+  fecha: Date;
+  fechaValor: string;
+  movimiento: string;
+  masDatos: string;
+  importe: number;
+  saldo: number;
+}
 
 const setTransactions = async (data: any[]) => {
   let response: any = [];
-  for (let indice in data) {
-    if (!data[indice].fecha) throw new Error("missing parameter (fecha)");
-    if (!data[indice].fechaValor)
-      throw new Error("missing parameter (fechaValor)");
-    if (!data[indice].movimiento)
-      throw new Error("missing parameter (movimiento)");
-    if (!data[indice].importe) throw new Error("missing parameter (importe)");
+  let existingTransactions: any[] = [];
 
+  for (let indice in data) {
     const newTransaction = {
       ...data[indice],
       fecha: new Date(data[indice].fecha),
@@ -20,31 +24,32 @@ const setTransactions = async (data: any[]) => {
 
     const search = {
       fecha: newTransaction.fecha,
-      movimiento: newTransaction.movimiento,
-      importe: {
-        [Op.between]: [
-          newTransaction.importe - 0.01, // Menor límite del rango
-          newTransaction.importe + 0.01, // Mayor límite del rango
-        ],
-      },
-      masDatos: newTransaction.masDatos,
-      saldo: {
-        [Op.between]: [
-          newTransaction.saldo - 0.01, // Menor límite del rango
-          newTransaction.saldo + 0.01, // Mayor límite del rango
-        ],
-      },
+      importe: newTransaction.importe,
+      saldo: newTransaction.saldo,
     };
-    const currentTransaction = await Transaction.findOne({
-      where: search,
+    const isDuplicate = existingTransactions.some((transaction) => {
+      return (
+        transaction.fecha.getTime() === newTransaction.fecha.getTime() &&
+        transaction.importe === newTransaction.importe &&
+        transaction.saldo === newTransaction.saldo
+      );
     });
 
-    if (!currentTransaction) {
-      response.push(await Transaction.create(newTransaction));
+    if (!isDuplicate) {
+      const currentTransaction = await Transaction.findOne({
+        where: search,
+      });
+
+      if (!currentTransaction) {
+        response.push(await Transaction.create(newTransaction));
+      }
+      existingTransactions.push(newTransaction);
     }
   }
+
   return response;
 };
+
 
 const getTransactions = async (
   from: string,
@@ -84,4 +89,51 @@ const deleteTransactions = async (transactionId: string) => {
   });
 };
 
-export { setTransactions, getTransactions, deleteTransactions };
+const bindTransactionToInvoiceFile = async (transactions: Array<string>, invoiceFile: string) => {
+    await InvoiceFile.findOne({
+    where: { id: invoiceFile },
+  });
+
+  await Transaction.update(
+    { vinculada: true },
+    { where: { id: transactions, vinculada: false } }
+  );
+
+  await Transaction.update(
+    { InvoiceFileId: invoiceFile },
+    { where: { id: transactions } }
+  );
+
+  return "Transactions bound and updated successfully.";
+};
+
+
+const updateTransaction = async (data: TransactionData): Promise<string> => {
+  const fechaDate = new Date(data.fecha);
+
+  await Transaction.update(
+    {
+      fecha: fechaDate,
+      fechaValor: data.fechaValor,
+      movimiento: data.movimiento,
+      masDatos: data.masDatos,
+      importe: data.importe,
+      saldo: data.saldo,
+    },
+    {
+      where: {
+        id: Transaction,
+      },
+    }
+  );
+
+  return "Transaction updated successfully.";
+};
+
+
+
+
+
+
+
+export { setTransactions, getTransactions, deleteTransactions, bindTransactionToInvoiceFile, updateTransaction };
