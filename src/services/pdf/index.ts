@@ -78,7 +78,7 @@ export const generateInvoicePDF = (invoiceData: InvoiceData): string => {
 
 export function crearTicketPDF(sale: SaleInvoice): string {
   const pdfDoc = new PDFDocument();
-  const pdfFileName: string = "";
+  const pdfFileName: string = Date.now().toString();
 
   try {
     // Crea un flujo de escritura para guardar el PDF en la carpeta "uploads/tickets"
@@ -188,7 +188,7 @@ function pdfkitTable(doc: PDFKit.PDFDocument, products: SaleDetail[]) {
 
   products.forEach((product) => {
     doc.text(
-      product.StockId!.toString(),
+      product.concepto!.toString(),
       columOneX,
       yPosition,
       columnStyleOne
@@ -200,7 +200,7 @@ function pdfkitTable(doc: PDFKit.PDFDocument, products: SaleDetail[]) {
       columnStyleTwo
     );
     doc.text(
-      `€ ${product.precioUnitario.toString()}`,
+      `€ ${product.baseImponible.toString()}`,
       columtThreeX,
       yPosition,
       columnStyleThree

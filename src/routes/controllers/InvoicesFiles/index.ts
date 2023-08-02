@@ -21,19 +21,25 @@ const deleteInvoiceFile = async (fileId: string) => {
 };
 
 const getAllInvoiceFiles = async (from: string, to: string) => {
-  let response = await InvoiceFile.findAll({
-    include: [
-      {
-        model: InvoiceFile,
-        attributes: { exclude: ["id", "InvoiceId"] },
-      },
-    ],
-    where: {
-      fecha: {
-        [Op.between]: [new Date(to), new Date(from)],
-      },
+  // Verifiques unlinked, si true devolver todos los que no tengan TransactionID, si el false utilizar el from y el to y traer todos dentro de 'from' y 'to'
+let props;
+
+unlinked true
+  include: [
+    {
+      model: InvoiceFile,
+      attributes: { exclude: ["TransactionId"] },
     },
-  });
+  ],
+
+unlinked false
+  where: {
+    fecha: {
+      [Op.between]: [new Date(to), new Date(from)],
+    },
+  }
+
+  let response = await InvoiceFile.findAll(props)
   return response
 }
 

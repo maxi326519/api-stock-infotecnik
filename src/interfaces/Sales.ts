@@ -13,11 +13,17 @@ export interface SaleInvoice {
 export interface SaleDetail {
   id?: string;
   fecha: Date;
-  precioUnitario: number;
+  concepto: string;
+  tipoImpositivo: TipoImpositivoSale;
+  baseImponible: number;
+  ivaPorcentaje: number;
+  ivaMonto: number;
+  recargoPorcentaje: number;
+  recargoMonto: number;
   cantidad: number;
-  ProductId?: string;
+  ProductId?: number;
   StockId?: string;
-  InvoiceId?: string;
+  SaleInvoiceId?: string;
 }
 
 export interface PriceDetail {

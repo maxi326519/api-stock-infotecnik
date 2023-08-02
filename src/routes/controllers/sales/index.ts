@@ -31,7 +31,7 @@ async function setSale(sale: SaleInvoice) {
 
   // Generate Ticket
   const ticketUrl = crearTicketPDF(sale);
-  
+
   // Create new invoice
   const newSaleInvoice: any = await SaleInvoiceDB.create({
     fecha: new Date(fecha),
@@ -40,7 +40,6 @@ async function setSale(sale: SaleInvoice) {
     generada,
     ticketUrl,
   });
-  
 
   let newSaleDetail: any = [];
 
@@ -100,14 +99,14 @@ async function getSales(from: string, to: string) {
   console.log(from, to);
   console.log(new Date(from), new Date(to));
   const sales = await SaleInvoiceDB.findAll({
-    where: {
+    /*     where: {
       fecha: {
         [Op.between]: [
           { [Op.gte]: new Date(from) },
           { [Op.lte]: new Date(to) },
         ],
       },
-    },
+    }, */
     include: SaleDetailDB,
   });
 
@@ -140,7 +139,7 @@ async function updateSaleItem(sale: SaleDetail) {
       const lastTotalItemPrice =
         updateItem.dataValues.precioUnitario * lastItemQuantity;
       const newItemQuantity = sale.cantidad;
-      const newTotalItemPrice = sale.cantidad * sale.precioUnitario;
+      const newTotalItemPrice = sale.cantidad * sale.baseImponible;
 
       const lastInvoiceItemQuantity = invoice.dataValues.cantidad;
       const lastInvoiceItemTotal = invoice.dataValues.total;
