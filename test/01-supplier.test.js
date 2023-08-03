@@ -4,7 +4,7 @@ const supplierData = require("./data/supplier.json");
 
 describe("POST /suppliers", () => {
   describe("When the data is correct:", () => {
-    test("Should respon width a 200 status code", async () => {
+    test("Should respon with a 200 status code", async () => {
       const response = await request(app)
         .post("/suppliers")
         .send(supplierData[0]);

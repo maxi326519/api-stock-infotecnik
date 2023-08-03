@@ -33,7 +33,8 @@ export const model = (sequelize: any, DataTypes: any) => {
       },
       vinculada: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        defaultValue: false,
+        allowNull: true,
       },
     },
     { updatedAt: false, timestamps: false }

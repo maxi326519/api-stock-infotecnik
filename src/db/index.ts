@@ -106,6 +106,5 @@ Image.belongsTo(Product);
 InvoiceFile.hasOne(Transaction);
 Transaction.belongsTo(InvoiceFile);
 
-
 export const conn = sequelize;
 export const models = sequelize.models;

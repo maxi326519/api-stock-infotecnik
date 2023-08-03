@@ -6,17 +6,17 @@ const saveInvoiceFile = async (fileData: any) => {
   return createdFile;
 };
 
-const updateInvoiceFile = async (fileId: string, updatedData: any) => {
-  const updatedFile = await InvoiceFile.update(updatedData, {
-    where: { id: fileId },
+const updateInvoiceFile = async (fileData: any) => {
+  await InvoiceFile.update(fileData, {
+    where: { id: fileData.id },
   });
-  return updatedFile;
 };
 
 const deleteInvoiceFile = async (fileId: string) => {
   const deletedFile = await InvoiceFile.destroy({
     where: { id: fileId },
   });
+
   return deletedFile;
 };
 
@@ -29,11 +29,13 @@ interface QueryParameters {
 const getAllInvoiceFiles = async (query: QueryParameters) => {
   const { unlinked, from, to } = query;
 
+  if (unlinked === undefined) throw new Error('Invalid query parameters: unlinked');
+  if (!from) throw new Error('Invalid query parameters: from');
+  if (!to) throw new Error('Invalid query parameters: to');
+
   if (unlinked === 'true') {
     const unlinkedInvoices = await InvoiceFile.findAll({
-      where: {
-        TransactionId: null,
-      },
+      attributes: { exclude: ["TransactionId"] },
     });
 
     return unlinkedInvoices;
@@ -45,10 +47,7 @@ const getAllInvoiceFiles = async (query: QueryParameters) => {
         },
       },
     });
-
     return invoicesInRange;
-  } else {
-    throw new Error('Invalid query parameters.');
   }
 };
 
@@ -57,16 +56,15 @@ const getInvoiceFileById = async (fileId: string) => {
   return file;
 };
 
-const handleInvoiceFileUpload = async (date:String, type:String, description:String, fileName:String) => {
-
-  if (!date || !type || !description || !fileName) {
-    throw new Error("Missing parameter.");
-  }
+const handleInvoiceFileUpload = async (date: String, type: String, description: String, fileName: String) => {
+  if (!date) throw new Error("missing parameter: date")
+  if (!type) throw new Error("missing parameter: type")
+  if (!description) throw new Error("missing parameter: description")
 
   const fileData = {
     date: date,
     type: type,
-    url: `upload/invoices/${fileName}`,
+    url: `${process.env.NODE_ENV === "development" ? process.env.URL_LOCAL : process.env.URL_PRODUCTION}/invoices/${fileName}`,
     description: description || null,
   };
 

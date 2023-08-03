@@ -22,12 +22,11 @@ router.post("/", async (req: Request, res: Response) => {
         break;
       case "notNull Violation":
         res
-          .status(500)
-          .json({ error: `missing parameter (${error.errors[0].path})` });
+          .status(400)
+          .json({ error: `missing parameter ${error.errors[0].path}` });
         break;
       default:
-        console.log(error);
-        res.status(500).json({ error: error.message });
+        res.status(400).json({ error: error.message });
         break;
     }
   }
@@ -83,7 +82,5 @@ router.patch('/', async (req: Request, res: Response) => {
     res.status(400).json({ error: error.message });
   }
 });
-
-
 
 export default router;

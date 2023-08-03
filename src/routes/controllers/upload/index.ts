@@ -36,9 +36,10 @@ const optimizeImg = (filePath: string, fileName: string, size = 300) => {
     .toFile(`/upload/images/optimized/${fileName}.png`);
 };
 
-const deleteImage = (imageURL: string) => {
-  const url = `upload/${imageURL}`;
-  console.log("URL", url);
+const deleteImage = (invoiceUrl: string) => {
+  // localhost:30001/invoice/nombre.ext ==> .split("/")
+  const url = "";
+  // upload/invoice/nombre.ext
   fs.unlink(url, (error) => {
     console.log(error);
   });

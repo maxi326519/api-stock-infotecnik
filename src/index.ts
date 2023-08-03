@@ -48,8 +48,3 @@ const invoiceData = {
     },
   ],
 };
-
-// Llama a la función para generar la factura PDF
-const pdfURL = generateInvoicePDF(invoiceData);
-
-console.log('Factura generada en:', pdfURL);
