@@ -5,39 +5,39 @@ const dataSet = require("./data/transactions.json");
 describe("POST /transactions", () => {
   describe("When missing parameters", () => {
     // Missing 'fecha'
-    test("Should respon with a 400 and with the message: missing parameter fecha", async () => {
-      response = await request(app)
+    test("Should respon with a 400 status code and with the message: missing parameter fecha", async () => {
+      const response = await request(app)
         .post("/transactions")
         .send([dataSet.dataSetErrors[0]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter fecha");
+      expect(response.body).toEqual({ error: "missing parameter fecha"});
     });
 
     // Missing 'fechaValor'
-    test("Should respon with a 400 and with the message: missing parameter fechaValor", async () => {
-      response = await request(app)
+    test("Should respon with a 400 status code and with the message: missing parameter fechaValor", async () => {
+      const response = await request(app)
         .post("/transactions")
         .send([dataSet.dataSetErrors[1]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter fechaValor");
+      expect(response.body).toEqual({ error: "missing parameter fechaValor"});
     });
 
     // Missing 'importe'
-    test("Should respon with a 400 and with the message: missing parameter importe", async () => {
-      response = await request(app)
+    test("Should respon with a 400 status code and with the message: missing parameter importe", async () => {
+      const response = await request(app)
         .post("/transactions")
         .send([dataSet.dataSetErrors[2]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter importe");
+      expect(response.body).toEqual({ error: "missing parameter importe"});
     });
 
     // Missing 'saldo'
-    test("Should respon with a 400 and with the message: missing parameter saldo", async () => {
-      response = await request(app)
+    test("Should respon with a 400 status code and with the message: missing parameter saldo", async () => {
+      const response = await request(app)
         .post("/transactions")
         .send([dataSet.dataSetErrors[3]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter saldo");
+      expect(response.body).toEqual({ error: "missing parameter saldo"});
     });
   });
 
@@ -68,7 +68,7 @@ describe("POST /transactions", () => {
   describe("When post the same data", () => {
     // Missing 'fecha'
     test("Should respon with a empty array", async () => {
-      response = await request(app)
+      const response = await request(app)
         .post("/transactions")
         .send(dataSet.dataSet1);
       expect(response.statusCode).toEqual(200);
@@ -86,7 +86,7 @@ describe("PATCH /transactions", () => {
   };
 
   describe("When the parameters are correct", () => {
-    test("Should update and respond with a 200 and the message: Successfully updated", async () => {
+    test("Should update and respond with a 200 status code and the message: Successfully updated", async () => {
       // Create new Transaction
       const newTransaction = await request(app)
         .post("/transactions")
@@ -101,9 +101,6 @@ describe("PATCH /transactions", () => {
         saldo: 1,
       };
 
-      console.log(newTransaction.body);
-      console.log(newData);
-
       const response = await request(app).patch("/transactions").send(newData);
       const queryGet = await request(app).get(
         `/transactions?linked=false&from=${data.fecha}&to=${data.fecha}`
@@ -111,8 +108,6 @@ describe("PATCH /transactions", () => {
       const transactionUpdated = queryGet.body?.find(
         (transaction) => transaction.id === data.id
       );
-
-      console.log(response.body);
 
       expect(response.statusCode).toEqual(200);
       expect(response.body.message).toEqual("Transaction updated successfully");
@@ -122,66 +117,103 @@ describe("PATCH /transactions", () => {
 
   describe("When missing parameters", () => {
     // Missing 'id'
-    test("Should respon with a 400 and with the message: missing parameter id", async () => {
+    test("Should respon with a 400 status code and with the message: missing parameter id", async () => {
       // Separate the id from the data
       const { id, ...newData } = data;
 
-      response = await request(app).patch("/transactions").send(newData);
+      const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter id");
+      expect(response.body).toEqual({ error: "missing parameter id"});
     });
 
     // Missing 'fecha'
-    test("Should respon with a 400 and with the message: missing parameter fecha", async () => {
+    test("Should respon with a 400 status code and with the message: missing parameter fecha", async () => {
       // Separate the fecha from the data
       const { fecha, ...newData } = data;
 
-      response = await request(app).patch("/transactions").send(newData);
+      const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter fecha");
+      expect(response.body).toEqual({ error: "missing parameter fecha"});
     });
 
     // Missing 'fechaValor'
-    test("Should respon with a 400 and with the message: missing parameter fechaValor", async () => {
+    test("Should respon with a 400 status code and with the message: missing parameter fechaValor", async () => {
       // Separate the fechaValor from the data
       const { fechaValor, ...newData } = data;
 
-      response = await request(app).patch("/transactions").send(newData);
+      const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter fechaValor");
+      expect(response.body).toEqual({ error: "missing parameter fechaValor"});
     });
 
     // Missing 'importe'
-    test("Should respon with a 400 and with the message: missing parameter importe", async () => {
+    test("Should respon with a 400 status code and with the message: missing parameter importe", async () => {
       // Separate the importe from the data
       const { importe, ...newData } = data;
 
-      response = await request(app).patch("/transactions").send(newData);
+      const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter importe");
+      expect(response.body).toEqual({ error: "missing parameter importe"});
     });
 
     // Missing 'saldo'
-    test("Should respon with a 400 and with the message: missing parameter saldo", async () => {
+    test("Should respon with a 400 status code and with the message: missing parameter saldo", async () => {
       // Separate the saldo from the data
       const { saldo, ...newData } = data;
 
-      response = await request(app).patch("/transactions").send(newData);
+      const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body.error).toEqual("missing parameter saldo");
+      expect(response.body).toEqual({ error: "missing parameter saldo"});
     });
   });
 });
 
-/* describe("GET /transactions", () => {
-  describe("When the parameters are correct", () => {
-    test("If linked is 'true' should respond with a 200 and only linked data", async () => {
-      response = await request(app)
-        .post("/transactions?linked=true")
-        .send(dataSet.dataSet1);
+describe("GET /transactions", () => {
+  describe("When missing querys", () => {
+    // Qeury 'linked'
+    test("Should respond with a 400 status code and the message: missing query linked", async () => {
+      const response = await request(app).get("/transactions");
+      expect(response.statusCode).toEqual(400);
+      expect(response.body).toEqual({ error: "missing query linked"});
+    });
+
+    describe("If linked is false", () => {
+      // Query 'from'
+      test("Should respond with a 400 status code and the message: missing query from", async () => {
+        const response = await request(app).get(
+          "/transactions?linked=false&to=31/08/2023"
+        );
+        expect(response.statusCode).toEqual(400);
+        expect(response.body).toEqual({ error: "missing query from"});
+      });
+
+      // Query 'to'
+      test("Should respond with a 400 status code and the message: missing query to", async () => {
+        const response = await request(app).get(
+          "/transactions?linked=false&from=01/08/2023"
+        );
+        expect(response.statusCode).toEqual(400);
+        expect(response.body).toEqual({ error: "missing query to"});
+      });
     });
   });
-}); */
+
+  describe("When the parameters are correct", () => {
+    test("Should respond with a 200 and only linked data", async () => {
+      response = await request(app).get(
+        "/transactions?linked=true&from=01/08/2023&to=31/08/2023"
+      );
+      expect(response.body?.length).toEqual(3);
+    });
+
+    test("Should respond with a 200 and only unlinked data", async () => {
+      response = await request(app).get(
+        "/transactions?linked=true&from=01/08/2023&to=31/08/2023"
+      );
+      expect(response.body?.length).toEqual(1);
+    });
+  });
+});
 
 /* describe("DELETE /transactions", () => {
   test("Should respond with a 200 and message: Transaction successfully deleted", async () => {
