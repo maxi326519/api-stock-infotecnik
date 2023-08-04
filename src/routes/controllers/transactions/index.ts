@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import { Transaction, InvoiceFile } from "../../../db/index";
 import { TransactionData } from "../../../interfaces/transactions";
+import { error } from "console";
 
 const setTransactions = async (data: any[]) => {
   let response: any = [];
@@ -83,22 +84,31 @@ const deleteTransactions = async (transactionId: string) => {
   });
 };
 
-const bindTransactionToInvoiceFile = async (transactions: Array<string>, invoiceFile: string) => {
-  await InvoiceFile.findOne({
+const bindTransactionToInvoiceFile = async (transactions: Array<string>, invoiceFile: string): Promise<string> => {
+  const foundInvoiceFile = await InvoiceFile.findOne({
     where: { id: invoiceFile },
   });
+   
+  if(!foundInvoiceFile) throw Error("NoFound foundInvoiceFile")
 
-  await Transaction.update(
-    { vinculada: true },
-    { where: { id: transactions, vinculada: false } }
-  );
+  for (const transactionId of transactions) {
+    const foundTransaction: any = await Transaction.findOne({
+      where: { id: transactionId },
+  
+    });
 
-  await Transaction.update(
-    { InvoiceFileId: invoiceFile },
-    { where: { id: transactions } }
-  );
-
-  return "Transactions bound and updated successfully.";
+    if (foundTransaction) {
+      await foundTransaction.update(
+        { vinculada: true },
+      );
+      await foundTransaction.setInvoiceFile(foundInvoiceFile);
+      
+    }else {
+      throw Error("transactionsNofound")
+    }
+  }
+   
+  return "Successfully linked transactions.";
 };
 
 const updateTransaction = async (data: TransactionData): Promise<void> => {
@@ -125,11 +135,11 @@ const updateTransaction = async (data: TransactionData): Promise<void> => {
     },
     {
       where: {
-        id: Transaction,
+        id: data.id,
       },
     }
   );
 };
 
 
-export { setTransactions, getTransactions, deleteTransactions, bindTransactionToInvoiceFile, updateTransaction };
+export { setTransactions, getTransactions, bindTransactionToInvoiceFile, updateTransaction, deleteTransactions };

@@ -63,9 +63,9 @@ router.delete("/:id", async (req: Request, res: Response) => {
 router.patch('/link', async (req, res) => {
   try {
     const { transactions, invoiceFile } = req.body;
-
+   console.log("primera parte")
     await bindTransactionToInvoiceFile(transactions, invoiceFile);
-
+   console.log("segunda parte")
     res.status(200).json({ message: "Successfully linked transaction" });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
