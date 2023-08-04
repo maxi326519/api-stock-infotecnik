@@ -101,29 +101,7 @@ const bindTransactionToInvoiceFile = async (transactions: Array<string>, invoice
   return "Transactions bound and updated successfully.";
 };
 
-/* const bindTransactionToInvoiceFile = async (transactions: Array<string>, invoiceFile: string) => {
-  // Obtener InvoiceFile
-  const invoiceFileRef = await InvoiceFile.findOne({
-    where: { id: invoiceFile },
-  });
-
-  // Obtener todas las transacciones
-  const transactionsRef = await Transaction.findAll(
-    { where: { id: transactions, vinculada: false } }
-  );
-
-  // Recorrer las transacciones y hacer el update y la conexion con addInvoiceFile
-  // Podes verificar si existe de esta manera: console.log(model.addInvoiceFile);
-  transactionsRef.forEach((model) => {
-    model.update({vinculada: true});
-    // Conectar acá
-  })
-
-  return "Transactions bound and updated successfully.";
-}; */
-
-
-const updateTransaction = async (data: TransactionData): Promise<string> => {
+const updateTransaction = async (data: TransactionData): Promise<void> => {
 
   // Validations
   if (typeof data.id !== "string") throw new Error("missing parameter id");
@@ -151,8 +129,6 @@ const updateTransaction = async (data: TransactionData): Promise<string> => {
       },
     }
   );
-
-  return "Transaction updated successfully.";
 };
 
 

@@ -76,8 +76,8 @@ router.patch('/', async (req: Request, res: Response) => {
   const data = req.body;
 
   try {
-    const message = await updateTransaction(data);
-    res.status(200).json({ message });
+    await updateTransaction(data);
+    res.status(200).json({ message: "Transaction updated successfully" });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
