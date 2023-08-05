@@ -10,7 +10,7 @@ describe("POST /transactions", () => {
         .post("/transactions")
         .send([dataSet.dataSetErrors[0]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter fecha"});
+      expect(response.body).toEqual({ error: "missing parameter fecha" });
     });
 
     // Missing 'fechaValor'
@@ -19,7 +19,7 @@ describe("POST /transactions", () => {
         .post("/transactions")
         .send([dataSet.dataSetErrors[1]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter fechaValor"});
+      expect(response.body).toEqual({ error: "missing parameter fechaValor" });
     });
 
     // Missing 'importe'
@@ -28,7 +28,7 @@ describe("POST /transactions", () => {
         .post("/transactions")
         .send([dataSet.dataSetErrors[2]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter importe"});
+      expect(response.body).toEqual({ error: "missing parameter importe" });
     });
 
     // Missing 'saldo'
@@ -37,7 +37,7 @@ describe("POST /transactions", () => {
         .post("/transactions")
         .send([dataSet.dataSetErrors[3]]);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter saldo"});
+      expect(response.body).toEqual({ error: "missing parameter saldo" });
     });
   });
 
@@ -123,7 +123,7 @@ describe("PATCH /transactions", () => {
 
       const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter id"});
+      expect(response.body).toEqual({ error: "missing parameter id" });
     });
 
     // Missing 'fecha'
@@ -133,7 +133,7 @@ describe("PATCH /transactions", () => {
 
       const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter fecha"});
+      expect(response.body).toEqual({ error: "missing parameter fecha" });
     });
 
     // Missing 'fechaValor'
@@ -143,7 +143,7 @@ describe("PATCH /transactions", () => {
 
       const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter fechaValor"});
+      expect(response.body).toEqual({ error: "missing parameter fechaValor" });
     });
 
     // Missing 'importe'
@@ -153,7 +153,7 @@ describe("PATCH /transactions", () => {
 
       const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter importe"});
+      expect(response.body).toEqual({ error: "missing parameter importe" });
     });
 
     // Missing 'saldo'
@@ -163,8 +163,14 @@ describe("PATCH /transactions", () => {
 
       const response = await request(app).patch("/transactions").send(newData);
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing parameter saldo"});
+      expect(response.body).toEqual({ error: "missing parameter saldo" });
     });
+  });
+});
+
+describe("PATCH /transactions/link", () => {
+  test("", async () => {
+   
   });
 });
 
@@ -174,7 +180,7 @@ describe("GET /transactions", () => {
     test("Should respond with a 400 status code and the message: missing query linked", async () => {
       const response = await request(app).get("/transactions");
       expect(response.statusCode).toEqual(400);
-      expect(response.body).toEqual({ error: "missing query linked"});
+      expect(response.body).toEqual({ error: "missing query linked" });
     });
 
     describe("If linked is false", () => {
@@ -184,7 +190,7 @@ describe("GET /transactions", () => {
           "/transactions?linked=false&to=31/08/2023"
         );
         expect(response.statusCode).toEqual(400);
-        expect(response.body).toEqual({ error: "missing query from"});
+        expect(response.body).toEqual({ error: "missing query from" });
       });
 
       // Query 'to'
@@ -193,7 +199,7 @@ describe("GET /transactions", () => {
           "/transactions?linked=false&from=01/08/2023"
         );
         expect(response.statusCode).toEqual(400);
-        expect(response.body).toEqual({ error: "missing query to"});
+        expect(response.body).toEqual({ error: "missing query to" });
       });
     });
   });

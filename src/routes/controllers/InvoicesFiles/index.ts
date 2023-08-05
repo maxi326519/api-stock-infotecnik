@@ -13,11 +13,16 @@ const updateInvoiceFile = async (fileData: any) => {
 };
 
 const deleteInvoiceFile = async (fileId: string) => {
+  // Get data from InvoiceFile table
+
+
+  // Delete file from server
+
+
+  // Delete data from InvoiceFile table
   const deletedFile = await InvoiceFile.destroy({
     where: { id: fileId },
   });
-
-  return deletedFile;
 };
 
 interface QueryParameters {
