@@ -33,16 +33,9 @@ export const model = (sequelize: any, DataTypes: any) => {
       },
       vinculada: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      invoiceId: {
-        type: DataTypes.UUID,
+        defaultValue: false,
         allowNull: true,
       },
-      invoiceType: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      }
     },
     { updatedAt: false, timestamps: false }
   );

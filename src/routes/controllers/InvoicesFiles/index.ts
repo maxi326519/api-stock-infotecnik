@@ -6,58 +6,70 @@ const saveInvoiceFile = async (fileData: any) => {
   return createdFile;
 };
 
-const updateInvoiceFile = async (fileId: string, updatedData: any) => {
-  const updatedFile = await InvoiceFile.update(updatedData, {
-    where: { id: fileId },
+const updateInvoiceFile = async (fileData: any) => {
+  await InvoiceFile.update(fileData, {
+    where: { id: fileData.id },
   });
-  return updatedFile;
 };
 
 const deleteInvoiceFile = async (fileId: string) => {
+  // Get data from InvoiceFile table
+
+
+  // Delete file from server
+
+
+  // Delete data from InvoiceFile table
   const deletedFile = await InvoiceFile.destroy({
     where: { id: fileId },
   });
-  return deletedFile;
 };
 
-const getAllInvoiceFiles = async (from: string, to: string) => {
-  // Verifiques unlinked, si true devolver todos los que no tengan TransactionID, si el false utilizar el from y el to y traer todos dentro de 'from' y 'to'
-let props;
-
-unlinked true
-  include: [
-    {
-      model: InvoiceFile,
-      attributes: { exclude: ["TransactionId"] },
-    },
-  ],
-
-unlinked false
-  where: {
-    fecha: {
-      [Op.between]: [new Date(to), new Date(from)],
-    },
-  }
-
-  let response = await InvoiceFile.findAll(props)
-  return response
+interface QueryParameters {
+  unlinked: string;
+  from?: string;
+  to?: string;
 }
+
+const getAllInvoiceFiles = async (query: QueryParameters) => {
+  const { unlinked, from, to } = query;
+
+  if (unlinked === undefined) throw new Error('Invalid query parameters: unlinked');
+  if (!from) throw new Error('Invalid query parameters: from');
+  if (!to) throw new Error('Invalid query parameters: to');
+
+  if (unlinked === 'true') {
+    const unlinkedInvoices = await InvoiceFile.findAll({
+      attributes: { exclude: ["TransactionId"] },
+    });
+
+    return unlinkedInvoices;
+  } else if (unlinked === 'false' && from && to) {
+    const invoicesInRange = await InvoiceFile.findAll({
+      where: {
+        fecha: {
+          [Op.between]: [from, to],
+        },
+      },
+    });
+    return invoicesInRange;
+  }
+};
 
 const getInvoiceFileById = async (fileId: string) => {
   const file = await InvoiceFile.findByPk(fileId);
   return file;
 };
 
-const handleInvoiceFileUpload = async (date:String, type:String, description:String, fileName:String) => {
-
-  if (!date || !type || !description || !fileName) {
-    throw new Error("Missing parameter.");
-  }
+const handleInvoiceFileUpload = async (date: String, type: String, description: String, fileName: String) => {
+  if (!date) throw new Error("missing parameter: date")
+  if (!type) throw new Error("missing parameter: type")
+  if (!description) throw new Error("missing parameter: description")
 
   const fileData = {
     date: date,
     type: type,
-    url: `upload/invoices/${fileName}`,
+    url: `${process.env.NODE_ENV === "development" ? process.env.URL_LOCAL : process.env.URL_PRODUCTION}/invoices/${fileName}`,
     description: description || null,
   };
 

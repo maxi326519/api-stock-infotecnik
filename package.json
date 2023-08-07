@@ -11,7 +11,8 @@
     "test 01": "npx jest ./01-supplier.test.js",
     "test 02": "npx jest ./02-product.test.js",
     "test 03": "npx jest ./03-invoices.test.js",
-    "test 04": "npx jest ./04-servicesInvoices.test.js"
+    "test 04": "npx jest ./04-servicesInvoices.test.js",
+    "test 06": "npx jest ./06-transaction.test.js"
   },
   "author": "",
   "license": "ISC",
