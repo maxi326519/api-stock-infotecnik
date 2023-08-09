@@ -1,5 +1,6 @@
-import { Op } from "sequelize";
+import { EnumDataType, Op } from "sequelize";
 import { InvoiceFile } from "../../../db/index";
+import { deleteInvoice } from "../upload/index"
 
 const saveInvoiceFile = async (fileData: any) => {
   const createdFile = await InvoiceFile.create(fileData);
@@ -12,13 +13,23 @@ const updateInvoiceFile = async (fileData: any) => {
   });
 };
 
-const deleteInvoiceFile = async (fileId: string) => {
-  const deletedFile = await InvoiceFile.destroy({
-    where: { id: fileId },
-  });
 
-  return deletedFile;
+
+const deleteInvoiceFile = async (fileId: string) => {
+  
+  const invoiceFile = await InvoiceFile.findOne({where: { id: fileId }});
+    console.log(invoiceFile)
+    console.log(!invoiceFile)
+    if (!invoiceFile) throw new Error("File NoFound")
+     
+    deleteInvoice(invoiceFile.dataValues.url);
+
+    await invoiceFile.destroy();
+  
+
+  console.log("All files and entries have been deleted successfully.");
 };
+
 
 interface QueryParameters {
   unlinked: string;
@@ -56,7 +67,7 @@ const getInvoiceFileById = async (fileId: string) => {
   return file;
 };
 
-const handleInvoiceFileUpload = async (date: String, type: String, description: String, fileName: String) => {
+const handleInvoiceFileUpload = async (date: String, type: number, description: String, fileName: String) => {
   if (!date) throw new Error("missing parameter: date")
   if (!type) throw new Error("missing parameter: type")
   if (!description) throw new Error("missing parameter: description")

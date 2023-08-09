@@ -36,21 +36,28 @@ const optimizeImg = (filePath: string, fileName: string, size = 300) => {
     .toFile(`/upload/images/optimized/${fileName}.png`);
 };
 
-const deleteImage = (invoiceUrl: string) => {
-  // localhost:30001/invoice/nombre.ext ==> .split("/")
-  const url = "";
-  // upload/invoice/nombre.ext
+const deleteImage = (imageURL: string) => {
+  const segments = imageURL.split('/');
+  const fileName = segments[segments.length - 1];
+  const url = `upload/images/${fileName}`;
+
   fs.unlink(url, (error) => {
-    console.log(error);
+    if (error) {
+      console.error("Error deleting file:", error);
+    } else {
+      console.log("File deleted successfully:", url);
+    }
   });
 };
 
-const deleteInvoiceFile = async (invoiceURL: string) => {
-  const url = `upload/invoices/${invoiceURL}`;
-  console.log("URL", url);
+const deleteInvoice = async (invoiceURL: string) => {
+  const segments = invoiceURL.split('/');
+  const fileName = segments[segments.length - 1];
+  const url = `upload/invoices/${fileName}`;
+
   fs.unlink(url, (error) => {
-    console.log(error);
+    if (error) {throw new Error("Error deleting file:")};
   });
 };
 
-export { setImage, setInvoice, optimizeImg, deleteImage, deleteInvoiceFile, invoiceStorage };
+export { setImage, setInvoice, optimizeImg, deleteImage, deleteInvoice, invoiceStorage };
