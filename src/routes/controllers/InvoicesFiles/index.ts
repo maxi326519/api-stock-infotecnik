@@ -45,10 +45,13 @@ const getAllInvoiceFiles = async (query: QueryParameters) => {
 
     return unlinkedInvoices;
   } else if (unlinked === 'false' && from && to) {
+    const fromDate = new Date(from);
+    const toDate = new Date(to);
+
     const invoicesInRange = await InvoiceFile.findAll({
       where: {
-        fecha: {
-          [Op.between]: [from, to],
+        date: {
+          [Op.between]: [fromDate, toDate],
         },
       },
     });

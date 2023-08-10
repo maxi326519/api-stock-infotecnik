@@ -21,6 +21,7 @@ router.post(
 
       res.status(200).json(data);
     } catch (error: any) {
+      console.log(error);
       res.status(400).json({ error: error.message });
     }
   }
