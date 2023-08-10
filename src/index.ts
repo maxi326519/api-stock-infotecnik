@@ -49,8 +49,3 @@ conn.sync({ force: true }).then(async () => {
     },
   ],
 };
-
-// Llama a la función para generar la factura PDF
-const pdfURL = crearTicketPDF({}, "test");
-
-console.log('Factura generada en:', pdfURL); */

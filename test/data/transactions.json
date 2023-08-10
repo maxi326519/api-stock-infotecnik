@@ -1,0 +1,76 @@
+{
+  "dataSet1": [
+    {
+      "fecha": "03/08/2023",
+      "fechaValor": "03/08/2023",
+      "movimiento": "Paypal",
+      "masDatos": "",
+      "importe": 100,
+      "saldo": 450
+    },
+    {
+      "fecha": "04/09/2023",
+      "fechaValor": "04/09/2023",
+      "movimiento": "Amazon",
+      "masDatos": "Pedido",
+      "importe": 70,
+      "saldo": 520
+    },
+    {
+      "fecha": "05/10/2023",
+      "fechaValor": "05/10/2023",
+      "movimiento": "Amazon",
+      "masDatos": "",
+      "importe": 70,
+      "saldo": 590
+    }
+  ],
+  "dataSet2": [
+    {
+      "fecha": "03/08/2023",
+      "fechaValor": "03/08/2023",
+      "movimiento": "Paypal pago",
+      "masDatos": "",
+      "importe": 100,
+      "saldo": 450
+    },
+    {
+      "fecha": "04/09/2023",
+      "fechaValor": "04/09/2023",
+      "movimiento": "Amazon.es",
+      "masDatos": "Pedido",
+      "importe": 70,
+      "saldo": 520
+    },
+    {
+      "fecha": "05/10/2023",
+      "fechaValor": "05/10/2023",
+      "movimiento": "Amazon.es",
+      "masDatos": "",
+      "importe": 70,
+      "saldo": 590
+    }
+  ],
+  "dataSetErrors": [
+    {
+      "fechaValor": "03/08/2023",
+      "importe": 100,
+      "saldo": 450
+    },
+    {
+      "fecha": "03/08/2023",
+      "importe": 100,
+      "saldo": 450
+    },
+    {
+      "fecha": "03/08/2023",
+      "fechaValor": "03/08/2023",
+      "saldo": 450
+    },
+    {
+      "fecha": "03/08/2023",
+      "fechaValor": "03/08/2023",
+      "importe": 100
+    }
+  ]
+}

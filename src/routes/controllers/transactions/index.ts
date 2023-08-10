@@ -1,16 +1,21 @@
 import { Op } from "sequelize";
-import { Transaction } from "../../../db/index";
+import { Transaction, InvoiceFile } from "../../../db/index";
+import { TransactionData } from "../../../interfaces/transactions";
 
 const setTransactions = async (data: any[]) => {
   let response: any = [];
-  for (let indice in data) {
-    if (!data[indice].fecha) throw new Error("missing parameter (fecha)");
-    if (!data[indice].fechaValor)
-      throw new Error("missing parameter (fechaValor)");
-    if (!data[indice].movimiento)
-      throw new Error("missing parameter (movimiento)");
-    if (!data[indice].importe) throw new Error("missing parameter (importe)");
 
+  //Validations
+  data.forEach((transaction: any) => {
+    if (typeof transaction.fecha !== "string") throw new Error("missing parameter fecha");
+    if (typeof transaction.fechaValor !== "string") throw new Error("missing parameter fechaValor");
+    if (typeof transaction.importe !== "number") throw new Error("missing parameter importe");
+    if (typeof transaction.saldo !== "number") throw new Error("missing parameter saldo");
+  });
+
+  // Iterate the transactions
+  for (let indice in data) {
+    // Create and formate every transactions
     const newTransaction = {
       ...data[indice],
       fecha: new Date(data[indice].fecha),
@@ -18,33 +23,27 @@ const setTransactions = async (data: any[]) => {
       saldo: Number(data[indice].saldo.toFixed(2)),
     };
 
+    // Create 'search' to find the same data
     const search = {
       fecha: newTransaction.fecha,
-      movimiento: newTransaction.movimiento,
-      importe: {
-        [Op.between]: [
-          newTransaction.importe - 0.01, // Menor límite del rango
-          newTransaction.importe + 0.01, // Mayor límite del rango
-        ],
-      },
-      masDatos: newTransaction.masDatos,
-      saldo: {
-        [Op.between]: [
-          newTransaction.saldo - 0.01, // Menor límite del rango
-          newTransaction.saldo + 0.01, // Mayor límite del rango
-        ],
-      },
+      importe: newTransaction.importe,
+      saldo: newTransaction.saldo,
     };
+
+    // Find the same data
     const currentTransaction = await Transaction.findOne({
       where: search,
     });
 
+    // If not duplicate save
     if (!currentTransaction) {
       response.push(await Transaction.create(newTransaction));
     }
   }
+
   return response;
 };
+
 
 const getTransactions = async (
   from: string,
@@ -84,4 +83,53 @@ const deleteTransactions = async (transactionId: string) => {
   });
 };
 
-export { setTransactions, getTransactions, deleteTransactions };
+const bindTransactionToInvoiceFile = async (transactions: Array<string>, invoiceFile: string) => {
+  await InvoiceFile.findOne({
+    where: { id: invoiceFile },
+  });
+
+  await Transaction.update(
+    { vinculada: true },
+    { where: { id: transactions, vinculada: false } }
+  );
+
+  await Transaction.update(
+    { InvoiceFileId: invoiceFile },
+    { where: { id: transactions } }
+  );
+
+  return "Transactions bound and updated successfully.";
+};
+
+const updateTransaction = async (data: TransactionData): Promise<void> => {
+
+  // Validations
+  if (typeof data.id !== "string") throw new Error("missing parameter id");
+  if (typeof data.fecha !== "string") throw new Error("missing parameter fecha");
+  if (typeof data.fechaValor !== "string") throw new Error("missing parameter fechaValor");
+  if (typeof data.importe !== "number") throw new Error("missing parameter importe");
+  if (typeof data.saldo !== "number") throw new Error("missing parameter saldo");
+
+  // 'Fecha' from string to Date
+  const fechaDate = new Date(data.fecha);
+
+  // Update transaction
+  await Transaction.update(
+    {
+      fecha: fechaDate,
+      fechaValor: data.fechaValor,
+      movimiento: data.movimiento,
+      masDatos: data.masDatos,
+      importe: data.importe,
+      saldo: data.saldo,
+    },
+    {
+      where: {
+        id: Transaction,
+      },
+    }
+  );
+};
+
+
+export { setTransactions, getTransactions, deleteTransactions, bindTransactionToInvoiceFile, updateTransaction };
