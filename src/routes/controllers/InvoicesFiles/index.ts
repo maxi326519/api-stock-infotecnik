@@ -1,5 +1,6 @@
-import { Op } from "sequelize";
+import { EnumDataType, Op } from "sequelize";
 import { InvoiceFile } from "../../../db/index";
+import { deleteInvoice } from "../upload/index"
 
 const saveInvoiceFile = async (fileData: any) => {
   const createdFile = await InvoiceFile.create(fileData);
@@ -12,17 +13,21 @@ const updateInvoiceFile = async (fileData: any) => {
   });
 };
 
+
+
 const deleteInvoiceFile = async (fileId: string) => {
-  // Get data from InvoiceFile table
+  
+  const invoiceFile = await InvoiceFile.findOne({where: { id: fileId }});
+    console.log(invoiceFile)
+    console.log(!invoiceFile)
+    if (!invoiceFile) throw new Error("File NoFound")
+     
+    deleteInvoice(invoiceFile.dataValues.url);
 
+    await invoiceFile.destroy();
+  
 
-  // Delete file from server
-
-
-  // Delete data from InvoiceFile table
-  const deletedFile = await InvoiceFile.destroy({
-    where: { id: fileId },
-  });
+  console.log("All files and entries have been deleted successfully.");
 };
 
 interface QueryParameters {
@@ -45,10 +50,13 @@ const getAllInvoiceFiles = async (query: QueryParameters) => {
 
     return unlinkedInvoices;
   } else if (unlinked === 'false' && from && to) {
+    const fromDate = new Date(from);
+    const toDate = new Date(to);
+
     const invoicesInRange = await InvoiceFile.findAll({
       where: {
-        fecha: {
-          [Op.between]: [from, to],
+        date: {
+          [Op.between]: [fromDate, toDate],
         },
       },
     });
@@ -61,7 +69,7 @@ const getInvoiceFileById = async (fileId: string) => {
   return file;
 };
 
-const handleInvoiceFileUpload = async (date: String, type: String, description: String, fileName: String) => {
+const handleInvoiceFileUpload = async (date: String, type: number, description: String, fileName: String) => {
   if (!date) throw new Error("missing parameter: date")
   if (!type) throw new Error("missing parameter: type")
   if (!description) throw new Error("missing parameter: description")

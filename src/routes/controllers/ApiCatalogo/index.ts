@@ -13,4 +13,4 @@ const getProductsAndStock = async (filters: any) => {
 
   export {
     getProductsAndStock,
-  }
+  };

@@ -23,6 +23,10 @@ export const model = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      notas: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       importe: {
         type: DataTypes.FLOAT,
         allowNull: false,
