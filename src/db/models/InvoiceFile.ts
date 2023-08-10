@@ -16,7 +16,7 @@ export const model = (sequelize: any, DataTypes: any) => {
           allowNull: false,
         },
         type: {
-          type: DataTypes.STRING,
+          type: DataTypes.ENUM("Compra", "Venta", "Servicios"),
           allowNull: false,
         },
         description: {

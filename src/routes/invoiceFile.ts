@@ -16,9 +16,12 @@ router.post(
   async (req: any, res: Response, file: any) => {
     try {
       const { date, type, description } = req.body;
-      const filename = req.file?.filename
+      const allowedTypes = ["Compra", "Venta", "Servicios"];
+      if (!allowedTypes.includes(type)) {
+        return res.status(400).json({ error: "The value of 'type' is incorrect" });
+      }
+      const filename = req.file?.filename;
       const data = await handleInvoiceFileUpload(date, type, description, filename);
-
       res.status(200).json(data);
     } catch (error: any) {
       console.log(error);
@@ -64,6 +67,7 @@ router.get('/', async (req: Request, res: Response) => {
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    console.log(id)
     await deleteInvoiceFile(id);
     res.status(200).json({ msg: "Deleted File successfully" });
   } catch (error: any) {
@@ -75,12 +79,15 @@ router.delete("/:id", async (req: Request, res: Response) => {
 router.patch("/", async (req: Request, res: Response) => {
   try {
     const newInvoice = req.body;
+    const allowedTypes = ["Compra", "Venta", "Servicios"];
+    if (!allowedTypes.includes(newInvoice.type)) {
+      return res.status(400).json({ error: "The value of 'type' is incorrect" });
+    }
     await updateInvoiceFile(newInvoice);
-    res.status(200).json({ message: "Document has been replaced succesfully" });
+    res.status(200).json({ message: "Document has been replaced successfully" });
   } catch (err) {
     res.status(400).json({ error: err });
   }
 });
-
 
 export default router;
