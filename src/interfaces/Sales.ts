@@ -5,7 +5,8 @@ export interface SaleInvoice {
   total: number;
   tipoImpositivo: TipoImpositivoSale;
   generada: boolean;
-  ticketUrl?: string;
+  tipo: TipoCliente;
+  pdfUrl?: string;
   SaleDetails: SaleDetail[];
   PriceDetails: PriceDetail[];
 }
@@ -46,4 +47,9 @@ export enum TipoImpositivoSale {
   IVA = "IVA",
   RE = "RE",
   REBU = "REBU",
+}
+
+export enum TipoCliente {
+  PARTICULAR = 1,
+  EMPRESA = 2,
 }

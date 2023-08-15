@@ -28,7 +28,11 @@ export const model = (sequelize: any, DataTypes: any) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      ticketUrl: {
+      tipo: {
+        type: DataTypes.INTEGER, // 1 Particular - 2 Empresa
+        allowNull: true,
+      },
+      pdfUrl: {
         type: DataTypes.STRING,
         allowNull: true,
       },

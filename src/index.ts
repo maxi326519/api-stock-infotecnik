@@ -3,6 +3,9 @@ import { conn } from "./db";
 import { models } from "./db";
 require("./db");
 
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+
 const PORT = process.env.PORT || 3001;
 
 // Initialisation

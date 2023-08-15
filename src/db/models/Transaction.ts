@@ -40,10 +40,6 @@ export const model = (sequelize: any, DataTypes: any) => {
         defaultValue: false,
         allowNull: true,
       },
-      notas: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      }
     },
     { updatedAt: false, timestamps: false }
   );

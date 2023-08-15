@@ -1,82 +1,9 @@
-import PDFDocument from "pdfkit";
-import fs from "fs";
-import path from "path";
-import * as ejs from "ejs";
 import { SaleDetail, SaleInvoice } from "../../interfaces/Sales";
-interface InvoiceItem {
-  description: string;
-  quantity: number;
-  price: number;
-}
+import PDFDocument from "pdfkit";
+import path from "path";
+import fs from "fs";
 
-interface InvoiceData {
-  invoiceNumber: string;
-  date: string;
-  items: InvoiceItem[];
-}
-
-// Función para generar la factura PDF
-export const generateInvoicePDF = (invoiceData: InvoiceData): string => {
-  // Crea un nuevo documento PDF
-  const doc = new PDFDocument();
-
-  // Image
-  const imagePath = path.join(__dirname, "", "Infotecnik-logo.png"); // Reemplaza 'ruta/de/la/imagen/logo.png' con la ruta de tu imagen
-  doc.image(imagePath, {
-    fit: [400, 200], // Ajusta el tamaño de la imagen según tus necesidades
-    align: "center",
-  });
-
-  // Genera el contenido de la factura
-  doc.fontSize(100).text("Factura", { align: "center" });
-  doc.moveDown();
-
-  // Información de la factura
-  doc.fontSize(12).text(`Número de factura: ${invoiceData.invoiceNumber}`);
-  doc.fontSize(12).text(`Fecha: ${invoiceData.date}`);
-  doc.moveDown();
-
-  // Detalles de los productos/servicios
-  doc.fontSize(12).text("Detalles:", { underline: true });
-  doc.moveDown();
-  let totalPrice = 0;
-
-  invoiceData.items.forEach((item, index) => {
-    const itemTotal = item.price * item.quantity;
-    totalPrice += itemTotal;
-
-    doc.fontSize(12).text(`${index + 1}. ${item.description}`);
-    doc.fontSize(10).text(`   Cantidad: ${item.quantity}`);
-    doc.fontSize(10).text(`   Precio unitario: $${item.price}`);
-    doc.fontSize(10).text(`   Total: $${itemTotal}`);
-    doc.moveDown();
-  });
-
-  doc.fontSize(30).text(`Total: $${totalPrice}`, { align: "right" });
-
-  // Genera un nombre de archivo único para la factura PDF
-  const fileName = `invoice_${invoiceData.invoiceNumber}.pdf`;
-
-  // Ruta de la carpeta donde se guardará la factura (puedes cambiarla según tus necesidades)
-  const folderPath = "./invoices";
-
-  // Verifica si la carpeta existe, si no, créala
-  if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath);
-  }
-
-  // Genera la ruta completa del archivo PDF
-  const filePath = `${folderPath}/${fileName}`;
-
-  // Guarda la factura en la carpeta
-  doc.pipe(fs.createWriteStream(filePath));
-  doc.end();
-
-  // Devuelve la URL del archivo PDF
-  return filePath;
-};
-
-export function crearTicketPDF(sale: SaleInvoice): string {
+export default function crearTicketPDF(sale: SaleInvoice): string {
   const pdfDoc = new PDFDocument();
   const pdfFileName: string = Date.now().toString();
 

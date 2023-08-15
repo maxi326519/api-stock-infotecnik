@@ -45,6 +45,26 @@ route.patch("/invoice/:id", async (req: Request, res: Response) => {
   }
 });
 
+route.patch("/rectify", async (req: Request, res: Response) => {
+  try {
+    // Codigo
+
+    res.status(200).json({ msg: ""/* Url de la factura rectificativa */ });
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+route.delete("/rectify", async (req: Request, res: Response) => {
+  try {
+    // Codigo
+
+    res.status(200).json({ msg: "Invoice delete successfully"});
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 route.patch("/item/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.body;

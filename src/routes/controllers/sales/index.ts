@@ -1,12 +1,14 @@
-import { Model, ModelDefined, Op } from "sequelize";
-import { SaleDetail, SaleInvoice } from "../../../interfaces/Sales";
-import { crearTicketPDF, generateInvoicePDF } from "../../../services/pdf";
+import { Model } from "sequelize";
+import { SaleDetail, SaleInvoice, TipoCliente } from "../../../interfaces/Sales";
 import {
   Product,
   SaleDetail as SaleDetailDB,
   SaleInvoice as SaleInvoiceDB,
   Stock,
 } from "../../../db";
+import createInvoicePDF from "../../../services/pdf/createInvoicePDF";
+import crearTicketPDF from "../../../services/pdf/createTicketPDF";
+import { deleteInvoice } from "../upload";
 
 async function setSale(sale: SaleInvoice) {
   // Destructuring
@@ -15,22 +17,27 @@ async function setSale(sale: SaleInvoice) {
     tipoImpositivo,
     total,
     generada,
+    tipo,
     SaleDetails,
     PriceDetails,
   }: SaleInvoice = sale;
-
-  console.log(sale);
 
   // Validations
   if (!fecha) throw new Error("missing parameter 'fecha'");
   if (!tipoImpositivo) throw new Error("missing parameter 'tipoImpositivo'");
   if (!total === undefined) throw new Error("missing parameter 'total'");
   if (!generada === undefined) throw new Error("missing parameter 'generada'");
+  if (!tipo === undefined) throw new Error("missing parameter 'tipo'");
   if (!SaleDetails) throw new Error("missing parameter 'SaleDetails'");
   if (!PriceDetails) throw new Error("missing parameter 'PriceDetails'");
 
-  // Generate Ticket
-  const ticketUrl = crearTicketPDF(sale);
+  // Generate pdf
+  let pdfUrl: string = "";
+  if (generada && tipo === TipoCliente.PARTICULAR) {
+    pdfUrl = crearTicketPDF(sale);
+  }else if (generada && tipo === TipoCliente.EMPRESA) {
+    pdfUrl = createInvoicePDF(sale);
+  }
 
   // Create new invoice
   const newSaleInvoice: any = await SaleInvoiceDB.create({
@@ -38,7 +45,7 @@ async function setSale(sale: SaleInvoice) {
     tipoImpositivo,
     total,
     generada,
-    ticketUrl,
+    pdfUrl,
   });
 
   let newSaleDetail: any = [];
@@ -66,11 +73,13 @@ async function setSale(sale: SaleInvoice) {
           where: { id: currentStock.dataValues.ProductId },
         });
 
+        // Update the product
+
         // If product exist
         if (currentProduct) {
-          currentStock.setSaleDetails(currentSaleDetail);
-          currentProduct.setSaleDetails(currentSaleDetail);
-          newSaleDetail.push(currentSaleDetail);
+          await currentStock.setSaleDetails(currentSaleDetail);
+          await currentProduct.setSaleDetails(currentSaleDetail);
+          await newSaleDetail.push(currentSaleDetail);
         } else throw new Error("product not found");
       }
     }
@@ -80,7 +89,7 @@ async function setSale(sale: SaleInvoice) {
         where: { id: newSaleDetail.map((detail: any) => detail.dataValues.id) },
       });
     }
-    newSaleInvoice.destroy();
+    await newSaleInvoice.destroy();
     throw new Error(err);
   }
 
@@ -157,6 +166,27 @@ async function updateSaleItem(sale: SaleDetail) {
   } else throw new Error("sale invoice not found");
 }
 
+async function rectifyingSaleInvoice(){
+  // Get SaleInvoice with SaleDetails and PriceDetails
+
+  // Generate the rectifying invoice or ticket
+  /*
+  let rectifyPdfUrl = "";
+  if (tipo === TipoCliente.PARTICULAR) {
+    rectifyPdfUrl = createRectifyTicketPDF(sale);
+  }else if (generada && tipo === TipoCliente.EMPRESA) {
+    rectifyPdfUrl = createRectifyInvoicePDF(sale);
+  } */
+
+  // Update Sale invoice
+
+  /* return rectifyPdfUrl; */
+}
+
+async function deleteRectifyingSaleInvoice(){
+  /* deleteInvoice(url) */
+}
+
 async function deleteSaleInvoice(saleInvoiceId: string) {
   const invoice = await SaleInvoiceDB.findOne({
     include: {
@@ -202,6 +232,7 @@ export {
   getSales,
   updateSaleInvoice,
   updateSaleItem,
+  rectifyingSaleInvoice,
   deleteSaleInvoice,
   deleteSaleItem,
 };

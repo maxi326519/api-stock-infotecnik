@@ -1,4 +1,4 @@
-import { EnumDataType, Op } from "sequelize";
+import { Op } from "sequelize";
 import { InvoiceFile } from "../../../db/index";
 import { deleteInvoice } from "../upload/index"
 
@@ -13,23 +13,15 @@ const updateInvoiceFile = async (fileData: any) => {
   });
 };
 
-
-
 const deleteInvoiceFile = async (fileId: string) => {
-  
-  const invoiceFile = await InvoiceFile.findOne({where: { id: fileId }});
-    console.log(invoiceFile)
-    console.log(!invoiceFile)
-    if (!invoiceFile) throw new Error("File NoFound")
-     
-    deleteInvoice(invoiceFile.dataValues.url);
+  const invoiceFile = await InvoiceFile.findOne({ where: { id: fileId } });
 
-    await invoiceFile.destroy();
-  
+  if (!invoiceFile) throw new Error("File NoFound")
 
-  console.log("All files and entries have been deleted successfully.");
+  deleteInvoice(invoiceFile.dataValues.url);
+
+  await invoiceFile.destroy();
 };
-
 
 interface QueryParameters {
   unlinked: string;
@@ -44,25 +36,26 @@ const getAllInvoiceFiles = async (query: QueryParameters) => {
   if (!from) throw new Error('Invalid query parameters: from');
   if (!to) throw new Error('Invalid query parameters: to');
 
+  let invoices: any = [];
+
   if (unlinked === 'true') {
-    const unlinkedInvoices = await InvoiceFile.findAll({
+    invoices = await InvoiceFile.findAll({
       attributes: { exclude: ["TransactionId"] },
     });
-
-    return unlinkedInvoices;
   } else if (unlinked === 'false' && from && to) {
     const fromDate = new Date(from);
     const toDate = new Date(to);
 
-    const invoicesInRange = await InvoiceFile.findAll({
+    invoices = await InvoiceFile.findAll({
       where: {
         date: {
           [Op.between]: [fromDate, toDate],
         },
       },
     });
-    return invoicesInRange;
   }
+
+  return invoices;
 };
 
 const getInvoiceFileById = async (fileId: string) => {

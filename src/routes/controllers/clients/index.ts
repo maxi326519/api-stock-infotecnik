@@ -17,6 +17,8 @@ export const setClient = async (client: any) => {
   if (client.telefono === undefined)
     throw new Error("missing parameter (telefono)");
 
+  // Validar cifNif
+
   const response = await ClientDB.create(client);
   return response;
 };

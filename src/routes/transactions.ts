@@ -66,7 +66,7 @@ router.patch('/link', async (req, res) => {
 
     await bindTransactionToInvoiceFile(transactions, notes, invoiceFile);
 
-    res.status(200).json({ message: "Successfully linked transaction" });
+    res.status(200).json({ message: "Transactions linked successfully" });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

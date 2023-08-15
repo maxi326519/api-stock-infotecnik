@@ -84,31 +84,42 @@ const deleteTransactions = async (transactionId: string) => {
   });
 };
 
-const bindTransactionToInvoiceFile = async (transactions: Array<string>, invoiceFile: string): Promise<string> => {
-  const foundInvoiceFile = await InvoiceFile.findOne({
-    where: { id: invoiceFile },
-  });
-   
-  if(!foundInvoiceFile) throw Error("NoFound foundInvoiceFile")
+const bindTransactionToInvoiceFile = async (transactions: Array<string>, notes: string, invoiceFile: string): Promise<any> => {
 
+  // Iterate the transactins id 
   for (const transactionId of transactions) {
+
+    // Get transaction
     const foundTransaction: any = await Transaction.findOne({
       where: { id: transactionId },
-  
+
     });
 
+    // If exist update
     if (foundTransaction) {
-      await foundTransaction.update(
-        { vinculada: true },
-      );
-      await foundTransaction.setInvoiceFile(foundInvoiceFile);
-      
-    }else {
-      throw Error("transactionsNofound")
+      let updatedTransaction: any = { vinculada: true };
+
+      // If notes exist add them
+      if (notes) updatedTransaction.notas = notes;
+
+      // Update transaction
+      await foundTransaction.update(updatedTransaction);
+
+      // If invoiceFileId exist
+      if (invoiceFile) {
+        // Get the invoice file data
+        const foundInvoiceFile = await InvoiceFile.findOne({
+          where: { id: invoiceFile },
+        });
+
+        // If exist invoic file data bind transaction with invoice file
+        if (foundInvoiceFile) await foundTransaction.setInvoiceFile(foundInvoiceFile);
+        else throw new Error("Invoice file not found");
+      }
+    } else {
+      throw Error("Transaction not found")
     }
   }
-   
-  return "Successfully linked transactions.";
 };
 
 const updateTransaction = async (data: TransactionData): Promise<void> => {
