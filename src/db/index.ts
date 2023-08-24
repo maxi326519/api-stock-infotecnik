@@ -68,10 +68,14 @@ export const {
   SaleInvoice,
   SaleDetail,
   InvoiceFile,
+  PriceDetails
 } = sequelize.models;
 
 SaleInvoice.hasMany(SaleDetail);
 SaleDetail.belongsTo(SaleInvoice);
+
+PriceDetails.hasMany(SaleDetail);
+SaleDetail.belongsTo(PriceDetails);
 
 Stock.hasMany(SaleDetail);
 SaleDetail.belongsTo(Stock);

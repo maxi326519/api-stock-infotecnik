@@ -17,7 +17,13 @@ export const setClient = async (client: any) => {
   if (client.telefono === undefined)
     throw new Error("missing parameter (telefono)");
 
-  // Validar cifNif
+  const existingClient = await ClientDB.findOne({
+      where: { cifNif: client.cifNif }
+    });
+  
+  if (existingClient) {
+      throw new Error("Client Cif already exist");
+    }
 
   const response = await ClientDB.create(client);
   return response;

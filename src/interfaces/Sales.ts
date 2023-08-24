@@ -9,6 +9,7 @@ export interface SaleInvoice {
   pdfUrl?: string;
   SaleDetails: SaleDetail[];
   PriceDetails: PriceDetail[];
+  rectifyPdfUrl: string;
 }
 
 export interface SaleDetail {

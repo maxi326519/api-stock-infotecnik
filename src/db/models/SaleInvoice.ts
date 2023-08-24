@@ -29,10 +29,14 @@ export const model = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       tipo: {
-        type: DataTypes.INTEGER, // 1 Particular - 2 Empresa
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       pdfUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      rectifyPdfUrl: {
         type: DataTypes.STRING,
         allowNull: true,
       },

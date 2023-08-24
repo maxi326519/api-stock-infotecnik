@@ -8,6 +8,9 @@ import {
 } from "../../../db";
 import createInvoicePDF from "../../../services/pdf/createInvoicePDF";
 import crearTicketPDF from "../../../services/pdf/createTicketPDF";
+import { createRectifyInvoicePDF } from "../../../services/pdf/createRectifyInvoicePDF";
+import { createRectifyTicketPDF } from "../../../services/pdf/createRectifyTicketPDF";
+import { error } from "console";
 import { deleteInvoice } from "../upload";
 
 async function setSale(sale: SaleInvoice) {
@@ -29,7 +32,7 @@ async function setSale(sale: SaleInvoice) {
   if (!generada === undefined) throw new Error("missing parameter 'generada'");
   if (!tipo === undefined) throw new Error("missing parameter 'tipo'");
   if (!SaleDetails) throw new Error("missing parameter 'SaleDetails'");
-  if (!PriceDetails) throw new Error("missing parameter 'PriceDetails'");
+  if (!PriceDetails) throw new Error("missing parameter 'PriceDetails'")
 
   // Generate pdf
   let pdfUrl: string = "";
@@ -166,26 +169,52 @@ async function updateSaleItem(sale: SaleDetail) {
   } else throw new Error("sale invoice not found");
 }
 
-async function rectifyingSaleInvoice(){
-  // Get SaleInvoice with SaleDetails and PriceDetails
+const rectifyingSaleInvoice = async (saleId: string) => {
+  const saleInvoice = await SaleInvoiceDB.findOne( {
+    where: {id: saleId},
+    include: [
+      { model: SaleDetailDB },
+    ]
+  });
 
-  // Generate the rectifying invoice or ticket
-  /*
-  let rectifyPdfUrl = "";
-  if (tipo === TipoCliente.PARTICULAR) {
-    rectifyPdfUrl = createRectifyTicketPDF(sale);
-  }else if (generada && tipo === TipoCliente.EMPRESA) {
-    rectifyPdfUrl = createRectifyInvoicePDF(sale);
-  } */
+  if (!saleInvoice) {
+    return null;
+  }
 
-  // Update Sale invoice
+  let pdfUrl = ""
+  if (saleInvoice.dataValues.tipo === 1)
+  {
+  pdfUrl = await createRectifyTicketPDF(saleInvoice.dataValues);
+  }
+  if (saleInvoice.dataValues.tipo === 2)
+  {
+  pdfUrl = await createRectifyInvoicePDF(saleInvoice.dataValues);
+  }
+  if (!pdfUrl) 
+  throw new Error ("type value invalid.")
 
-  /* return rectifyPdfUrl; */
-}
+  await saleInvoice.update({ rectifyPdfUrl: pdfUrl });
 
-async function deleteRectifyingSaleInvoice(){
-  /* deleteInvoice(url) */
-}
+  return pdfUrl;
+};
+
+const deleteRectifyingSaleInvoice = async (saleId: string) => {
+  const saleInvoice = await SaleInvoiceDB.findOne({
+    where: { id: saleId },
+  });
+
+  if (!saleInvoice) {
+    throw new Error ("Sale No Found.");
+  }
+
+  const rectifyPdfUrl = saleInvoice.getDataValue('rectifyPdfUrl');
+
+  if (rectifyPdfUrl) {
+    await deleteInvoice(rectifyPdfUrl);
+  }
+
+  await saleInvoice.destroy();
+};
 
 async function deleteSaleInvoice(saleInvoiceId: string) {
   const invoice = await SaleInvoiceDB.findOne({
@@ -235,4 +264,5 @@ export {
   rectifyingSaleInvoice,
   deleteSaleInvoice,
   deleteSaleItem,
+  deleteRectifyingSaleInvoice,
 };

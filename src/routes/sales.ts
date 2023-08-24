@@ -7,6 +7,8 @@ import {
   updateSaleItem,
   deleteSaleInvoice,
   deleteSaleItem,
+  rectifyingSaleInvoice,
+  deleteRectifyingSaleInvoice,
 } from "./controllers/sales";
 
 const route = Router();
@@ -75,24 +77,24 @@ route.delete("/item/:id", async (req: Request, res: Response) => {
   }
 });
 
-// Rectify invoice
-route.patch("/rectify", async (req: Request, res: Response) => {
-  try {
-    // Codigo
+route.patch('/rectify', async (req, res) => {
+  const { saleId } = req.body;
 
-    res.status(200).json({ msg: ""/* Url de la factura rectificativa */ });
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
+  const pdfUrl = await rectifyingSaleInvoice(saleId);
+
+  if (pdfUrl === null) {
+    return res.status(404).json({ error: 'SaleInvoice not found' });
   }
+  return res.json({ rectifyPdfUrl: pdfUrl });
 });
 
-route.delete("/rectify", async (req: Request, res: Response) => {
+route.delete('/rectify/:saleId', async (req, res) => {
+  const { saleId } = req.params;
   try {
-    // Codigo
-
-    res.status(200).json({ msg: "Invoice delete successfully"});
+    await deleteRectifyingSaleInvoice(saleId);
+    return res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 });
 
