@@ -1,13 +1,20 @@
-import { Model } from "sequelize";
-import { SaleDetail, SaleInvoice, TipoCliente } from "../../../interfaces/Sales";
+import { Model, Op } from "sequelize";
 import { createRectifyInvoicePDF } from "../../../services/pdf/createRectifyInvoicePDF";
 import { createRectifyTicketPDF } from "../../../services/pdf/createRectifyTicketPDF";
 import { deleteInvoice } from "../upload";
+import { Stock } from "../../../interfaces/Stock";
+import {
+  SaleDetail,
+  PriceDetail,
+  SaleInvoice,
+  TipoCliente,
+} from "../../../interfaces/Sales";
 import {
   Product,
+  PriceDetails as PriceDetailDB,
   SaleDetail as SaleDetailDB,
   SaleInvoice as SaleInvoiceDB,
-  Stock,
+  Stock as StockDB,
 } from "../../../db";
 import createInvoicePDF from "../../../services/pdf/createInvoicePDF";
 import crearTicketPDF from "../../../services/pdf/createTicketPDF";
@@ -18,6 +25,7 @@ async function setSale(sale: SaleInvoice) {
     fecha,
     tipoImpositivo,
     total,
+    numero,
     generada,
     tipo,
     SaleDetails,
@@ -31,27 +39,37 @@ async function setSale(sale: SaleInvoice) {
   if (!generada === undefined) throw new Error("missing parameter 'generada'");
   if (!tipo === undefined) throw new Error("missing parameter 'tipo'");
   if (!SaleDetails) throw new Error("missing parameter 'SaleDetails'");
-  if (!PriceDetails) throw new Error("missing parameter 'PriceDetails'")
+  if (!PriceDetails) throw new Error("missing parameter 'PriceDetails'");
 
   // Generate pdf
   let pdfUrl: string = "";
   if (generada && tipo === TipoCliente.PARTICULAR) {
     pdfUrl = crearTicketPDF(sale);
-  }else if (generada && tipo === TipoCliente.EMPRESA) {
+  } else if (generada && tipo === TipoCliente.EMPRESA) {
     pdfUrl = createInvoicePDF(sale);
   }
 
   // Create new invoice
-  const newSaleInvoice: any = await SaleInvoiceDB.create({
+  let currentSaleInvoice: any = {
     fecha: new Date(fecha),
     tipoImpositivo,
     total,
+    tipo,
     generada,
     pdfUrl,
-  });
+  };
 
-  let newSaleDetail: any = [];
-  let newPriceDetails: any = [];
+  if (numero) {
+    currentSaleInvoice.numero = numero;
+  } else {
+    const newNumero = `${tipo}${Math.floor(Math.random() * 1000000)}`;
+    currentSaleInvoice.numero = newNumero;
+  }
+
+  let newSaleInvoice: any = await SaleInvoiceDB.create(currentSaleInvoice);
+
+  let newSaleDetail: Model<SaleDetail>[] = [];
+  let newPriceDetails: Model<PriceDetail>[] = [];
 
   try {
     for (let i = 0; i < (SaleDetails as SaleDetail[]).length; i++) {
@@ -64,7 +82,7 @@ async function setSale(sale: SaleInvoice) {
       const currentSaleDetail = await SaleDetailDB.create(newDetail);
 
       // Get current stock
-      const currentStock: any = await Stock.findOne({
+      const currentStock: any = await StockDB.findOne({
         where: { id: newDetail.StockId },
       });
 
@@ -77,23 +95,41 @@ async function setSale(sale: SaleInvoice) {
         });
 
         // Update the product and stock
-        newDetail.cantidad  // Cantidad a vender
-        currentStock.dataValues.cantidad // Cantidad de stock actual
-        currentProduct.dataValues.cantidad // Cantidad total de stock en un producto
+        newDetail.cantidad; // Cantidad a vender
+        currentStock.dataValues.cantidad; // Cantidad de stock actual
+        currentProduct.dataValues.cantidad; // Cantidad total de stock en un producto
 
         // Si hay suficiente cantidad en stock actualzar, si no devolver error
-        if(newDetail.cantidad){
-          // Actulizar stock
-          // Actulizar cantidad total en products
-        }else{
-          throw new Error();
+        if (newDetail.cantidad <= currentStock.dataValues.cantidad) {
+          const newStockQuantity =
+            currentStock.dataValues.cantidad - newDetail.cantidad;
+          const newProductQuantity =
+            currentProduct.dataValues.cantidad - newDetail.cantidad;
+
+          console.log(
+            "Stock",
+            newStockQuantity,
+            currentStock.dataValues.cantidad,
+            newDetail.cantidad
+          );
+          console.log(
+            "Product",
+            newProductQuantity,
+            currentProduct.dataValues.cantidad,
+            newDetail.cantidad
+          );
+
+          await currentStock.update({ cantidad: newStockQuantity });
+          await currentProduct.update({ cantidad: newProductQuantity });
+        } else {
+          throw new Error("Insufficient stock");
         }
 
         // If product exist
         if (currentProduct) {
           await currentStock.setSaleDetails(currentSaleDetail);
           await currentProduct.setSaleDetails(currentSaleDetail);
-          await newSaleDetail.push(currentSaleDetail);
+          newSaleDetail.push(currentSaleDetail);
         } else throw new Error("product not found");
       }
     }
@@ -102,48 +138,57 @@ async function setSale(sale: SaleInvoice) {
     for (let i = 0; i < PriceDetails.length; i++) {
       const priceDetail = PriceDetails[i];
       let newPriceDetail = {};
-      
+
       // Verificar si metodoDePago es "CONTRATO COMPRAVENTA", se verifica que exista nroOperacion
-      if(priceDetail.metodoDePago){
-        // Si no existe devovler error
-        if(priceDetail.nroOperacion){
-          
-        }else{
-          // throw new Error();
+      if (priceDetail.metodoDePago === "CONTRATO COMPRAVENTA") {
+        if (priceDetail.nroOperacion) {
+          newPriceDetail = {
+            ...priceDetail,
+          };
+        } else {
+          throw new Error("Missing 'nroOperacion' for CONTRATO COMPRAVENTA");
         }
-
-      }else{
-        // Si no es ese metodo de pago no lo incluyas
-
+      } else {
+        newPriceDetail = {
+          monto: priceDetail.monto,
+        };
+        continue;
       }
 
       // Conectar el PriceDetail con el Saleinvoice
-      newSaleInvoice.setPriceDetails(newPriceDetail);
+      const createdPriceDetail = await PriceDetailDB.create(newPriceDetail);
+      newPriceDetails.push(createdPriceDetail);
+      await newSaleInvoice.addPriceDetails(createdPriceDetail);
     }
   } catch (err: any) {
-    if (newSaleDetail) {
-      await SaleDetailDB.destroy({
-        where: { id: newSaleDetail.map((detail: any) => detail.dataValues.id) },
-      });
+    // Delete created SaleDetails
+    for (const data of newSaleDetail) {
+      await data.destroy();
     }
+
+    // Delete created PriceDetails
+    for (const data of newPriceDetails) {
+      await data.destroy();
+    }
+
+    // Delete created SaleInvocie
     await newSaleInvoice.destroy();
+
     throw new Error(err);
   }
 
   // Add sale details to invoice
-  await newSaleInvoice.setSaleDetails(newSaleDetail);
+  for (const detail of newSaleDetail) {
+    await newSaleInvoice.addSaleDetails(detail);
+  }
 
   return {
     ...newSaleInvoice.dataValues,
-    SaleDetails: {
-      ...newSaleDetail.map((detail: Model) => detail.dataValues),
-    },
+    SaleDetails: newSaleDetail.map((detail) => detail.dataValues),
   };
 }
 
 async function getSales(from: string, to: string) {
-  console.log(from, to);
-  console.log(new Date(from), new Date(to));
   const sales = await SaleInvoiceDB.findAll({
     /*     where: {
       fecha: {
@@ -204,28 +249,21 @@ async function updateSaleItem(sale: SaleDetail) {
 }
 
 const rectifyingSaleInvoice = async (saleId: string) => {
-  const saleInvoice = await SaleInvoiceDB.findOne( {
-    where: {id: saleId},
-    include: [
-      { model: SaleDetailDB },
-    ]
+  const saleInvoice = await SaleInvoiceDB.findOne({
+    where: { id: saleId },
+    include: [{ model: SaleDetailDB }],
   });
 
   if (!saleInvoice) {
     return null;
   }
 
-  let pdfUrl = ""
-  if (saleInvoice.dataValues.tipo === 1)
-  {
-  pdfUrl = await createRectifyTicketPDF(saleInvoice.dataValues);
-  }
-  if (saleInvoice.dataValues.tipo === 2)
-  {
-  pdfUrl = await createRectifyInvoicePDF(saleInvoice.dataValues);
-  }
-  if (!pdfUrl) 
-  throw new Error ("type value invalid.")
+  let pdfUrl = "";
+  if (saleInvoice.dataValues.tipo === 1) {
+    pdfUrl = createRectifyTicketPDF(saleInvoice.dataValues);
+  } else if (saleInvoice.dataValues.tipo === 2) {
+    pdfUrl = createRectifyInvoicePDF(saleInvoice.dataValues);
+  } else if (!pdfUrl) throw new Error("type value invalid.");
 
   await saleInvoice.update({ rectifyPdfUrl: pdfUrl });
 
@@ -238,10 +276,10 @@ const deleteRectifyingSaleInvoice = async (saleId: string) => {
   });
 
   if (!saleInvoice) {
-    throw new Error ("Sale No Found.");
+    throw new Error("Sale No Found.");
   }
 
-  const rectifyPdfUrl = saleInvoice.getDataValue('rectifyPdfUrl');
+  const rectifyPdfUrl = saleInvoice.getDataValue("rectifyPdfUrl");
 
   if (rectifyPdfUrl) {
     await deleteInvoice(rectifyPdfUrl);

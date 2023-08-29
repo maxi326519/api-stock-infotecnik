@@ -9,8 +9,9 @@ export const model = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       numero: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         unique: true,
+        allowNull: false,
       },
       fecha: {
         type: DataTypes.DATE,
@@ -30,7 +31,7 @@ export const model = (sequelize: any, DataTypes: any) => {
       },
       tipo: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       pdfUrl: {
         type: DataTypes.STRING,
