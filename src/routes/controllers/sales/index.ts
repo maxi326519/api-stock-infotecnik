@@ -1,5 +1,8 @@
 import { Model } from "sequelize";
 import { SaleDetail, SaleInvoice, TipoCliente } from "../../../interfaces/Sales";
+import { createRectifyInvoicePDF } from "../../../services/pdf/createRectifyInvoicePDF";
+import { createRectifyTicketPDF } from "../../../services/pdf/createRectifyTicketPDF";
+import { deleteInvoice } from "../upload";
 import {
   Product,
   SaleDetail as SaleDetailDB,
@@ -8,10 +11,6 @@ import {
 } from "../../../db";
 import createInvoicePDF from "../../../services/pdf/createInvoicePDF";
 import crearTicketPDF from "../../../services/pdf/createTicketPDF";
-import { createRectifyInvoicePDF } from "../../../services/pdf/createRectifyInvoicePDF";
-import { createRectifyTicketPDF } from "../../../services/pdf/createRectifyTicketPDF";
-import { error } from "console";
-import { deleteInvoice } from "../upload";
 
 async function setSale(sale: SaleInvoice) {
   // Destructuring
@@ -52,6 +51,7 @@ async function setSale(sale: SaleInvoice) {
   });
 
   let newSaleDetail: any = [];
+  let newPriceDetails: any = [];
 
   try {
     for (let i = 0; i < (SaleDetails as SaleDetail[]).length; i++) {
@@ -76,7 +76,18 @@ async function setSale(sale: SaleInvoice) {
           where: { id: currentStock.dataValues.ProductId },
         });
 
-        // Update the product
+        // Update the product and stock
+        newDetail.cantidad  // Cantidad a vender
+        currentStock.dataValues.cantidad // Cantidad de stock actual
+        currentProduct.dataValues.cantidad // Cantidad total de stock en un producto
+
+        // Si hay suficiente cantidad en stock actualzar, si no devolver error
+        if(newDetail.cantidad){
+          // Actulizar stock
+          // Actulizar cantidad total en products
+        }else{
+          throw new Error();
+        }
 
         // If product exist
         if (currentProduct) {
@@ -85,6 +96,29 @@ async function setSale(sale: SaleInvoice) {
           await newSaleDetail.push(currentSaleDetail);
         } else throw new Error("product not found");
       }
+    }
+
+    // Recorrer PriceDetails
+    for (let i = 0; i < PriceDetails.length; i++) {
+      const priceDetail = PriceDetails[i];
+      let newPriceDetail = {};
+      
+      // Verificar si metodoDePago es "CONTRATO COMPRAVENTA", se verifica que exista nroOperacion
+      if(priceDetail.metodoDePago){
+        // Si no existe devovler error
+        if(priceDetail.nroOperacion){
+          
+        }else{
+          // throw new Error();
+        }
+
+      }else{
+        // Si no es ese metodo de pago no lo incluyas
+
+      }
+
+      // Conectar el PriceDetail con el Saleinvoice
+      newSaleInvoice.setPriceDetails(newPriceDetail);
     }
   } catch (err: any) {
     if (newSaleDetail) {
